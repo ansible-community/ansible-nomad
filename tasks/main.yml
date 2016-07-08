@@ -1,0 +1,69 @@
+---
+# File: tasks/main.yml - Main tasks for nomad
+
+- name: Create cluster groupings
+  group_by: key={{ nomad_node_role }}
+
+- group_by: key=os_{{ ansible_os_family }}
+
+- name: "Add nomad user"
+  user: name=nomad comment="nomad user" uid=1043 group=bin
+
+- name: "Distribution specific variables"
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: "CentOS tasks"
+  include: CentOS.yml
+  when: ansible_distribution  == "CentOS"
+
+- name: "Debian tasks"
+  include: Debian.yml
+  when: ansible_distribution  == "Debian"
+
+- name: "Red Hat tasks"
+  include: RedHat.yml
+  when: ansible_distribution  == "RedHat"
+
+- name: "Ubuntu tasks"
+  include: Ubuntu.yml
+  when: ansible_distribution  == "Ubuntu"
+
+- name: nomad directories
+  file: "dest=/opt/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/var/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/var/log/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/var/run/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/etc/nomad.d/bootstrap state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/etc/nomad.d/server state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- file: "dest=/etc/nomad.d/client state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+
+- name: Initial nomad bootstrap configuration
+  template: src=server_bootstrap.hcl.j2 dest={{ nomad_config_path }}/bootstrap/server_bootstrap.hcl
+
+- name: Initial nomad server configuration
+  template: src=server.hcl.j2 dest={{ nomad_config_path }}/server.hcl
+
+- name: Initial nomad client configuration
+  template: src=client.hcl.j2 dest={{ nomad_config_path }}/client.hcl
+
+- name: SYSV init script
+  template: src=nomad_sysvinit.j2 dest=/etc/init.d/nomad owner=root group=root mode=755
+  when: not ansible_distribution == "Debian"
+
+- name: Debian init script
+  template: src=nomad_debian.init.j2 dest=/etc/init.d/nomad owner=root group=root mode=755
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version|int <= 7
+
+- name: systemd script
+  template: src=nomad_systemd.service.j2 dest=/lib/systemd/system/nomad.service owner=root group=root mode=644
+  when: ansible_distribution_major_version|int >= 7

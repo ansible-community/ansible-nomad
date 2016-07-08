@@ -1,0 +1,27 @@
+{% set comma = joiner(",") %}
+{% set lbracket = "[" %}
+{% set rbracket = "]" %}
+{% set quote = '"' %}
+
+bind_addr = "{{ nomad_bind_address }}"
+
+advertise {
+  # Explicit IP / cannot advertise 0.0.0.0 to other cluster nodes
+  rpc = "{{ nomad_bind_address }}:4647"
+}
+
+# Increase log verbosity
+log_level = "DEBUG"
+
+# Setup data dir
+data_dir = "{{ nomad_data_path }}"
+
+# Enable the server
+server {
+    enabled = true
+    start_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] != hostvars[host]['ansible_eth1']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}{{ quote }}{% endif %}
+{% endfor %}{{ rbracket }}
+    retry_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] != hostvars[host]['ansible_eth1']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}{{ quote }}{% endif %}
+{% endfor %}{{ rbracket }}
+    retry_interval = "15s"
+}

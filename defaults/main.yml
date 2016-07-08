@@ -1,0 +1,18 @@
+---
+# File: defaults/main.yml - Main default variables for nomad
+
+nomad_version: "0.4.0"
+nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip"
+nomad_zip_sha256: "c0479dcc03d35c1b0f6e7be256732431384bec16901a124dd97b2a60d465fb91"
+nomad_bin_path: "/usr/local/bin"
+nomad_config_path: "/etc/nomad.d"
+nomad_data_path: "/var/nomad"
+nomad_log_path: "/var/log/nomad"
+nomad_user: "nomad"
+nomad_group: "bin"
+nomad_datacenter: "dc1"
+nomad_domain: "local"
+nomad_log_level: "INFO"
+nomad_syslog_enable: "true"
+nomad_iface: "eth1"
+nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"

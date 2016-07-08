@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# chkconfig:   2345 95 95
+# description: distributed, highly available, datacenter-aware scheduler
+# processname: nomad
+# pidfile: /var/run/nomad/pidfile
+
+. /etc/init.d/functions
+
+nomad=/usr/local/bin/nomad
+CONFIG=/etc/nomad.d/{{ nomad_node_role }}
+PID_FILE=/var/run/nomad/nomad.pid
+LOG_FILE=/var/log/nomad/nomad.log
+
+[ -e /etc/sysconfig/nomad ] && . /etc/sysconfig/nomad
+
+export GOMAXPROCS=$(nproc)
+
+mkrundir() {
+        [ ! -d /var/run/nomad ] && mkdir -p /var/run/nomad
+        chown {{ nomad_user }} /var/run/nomad
+}
+
+KILLPROC_OPT="-p ${PID_FILE}"
+mkpidfile() {
+        mkrundir
+        [ ! -f $PID_FILE ] && pidofproc $nomad > $PID_FILE
+        chown {{ nomad_user }} /var/run/nomad
+        if [ $? -ne 0 ] ; then
+            rm $PID_FILE
+            KILLPROC_OPT=""
+        fi
+}
+
+start() {
+        echo -n "Starting nomad: "
+        mkrundir
+        [ -f $PID_FILE ] && rm $PID_FILE
+        daemon --user={{ nomad_user }} \
+            --pidfile="$PID_FILE" \
+            "$nomad" agent -pid-file "${PID_FILE}" -config-dir "$CONFIG" "$LOG_FILE" &
+        retcode=$?
+        touch /var/lock/subsys/nomad
+        return $retcode
+}
+
+stop() {
+        echo -n "Shutting down nomad: "
+        if ("${nomad}" info 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
+            "$nomad" leave
+        fi
+
+        mkpidfile
+        killproc $KILLPROC_OPT $nomad -9
+
+        retcode=$?
+        rm -f /var/lock/subsys/nomad $PID_FILE
+        return $retcode
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        "$nomad" info
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    reload)
+        mkpidfile
+        killproc $KILLPROC_OPT $nomad -HUP
+        ;;
+    condrestart)
+        [ -f /var/lock/subsys/nomad ] && restart || :
+        ;;
+    *)
+        echo "Usage: nomad {start|stop|status|reload|restart}"
+        exit 1
+        ;;
+esac
+exit $?

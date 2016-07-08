@@ -1,0 +1,11 @@
+---
+# File: vars/CentOS.yml - additional variables for nomad (on CentOS)
+
+nomad_centos_pkg: "{{ nomad_version }}_linux_amd64.zip"
+nomad_centos_url: "{{ nomad_zip_url }}"
+nomad_centos_sha256: "{{ nomad_zip_sha256 }}"
+
+nomad_centos_os_packages:
+  - libselinux-python
+  - git
+  - unzip

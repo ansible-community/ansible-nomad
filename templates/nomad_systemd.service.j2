@@ -1,0 +1,28 @@
+### BEGIN INIT INFO
+# Provides:          nomad
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: distributed scheduler
+# Description:       distributed, highly available, datacenter-aware scheduler
+### END INIT INFO
+
+[Unit]
+Description=nomad agent
+Wants=basic.target
+After=basic.target network.target
+
+[Service]
+User={{ nomad_user }}
+Group={{ nomad_group }}
+
+ExecStart=/usr/local/bin/nomad agent \
+    -config=/etc/nomad.d/{{ nomad_node_role }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+# Increase log verbosity
+log_level = "DEBUG"
+
+# Setup data dir
+data_dir = "{{ nomad_data_path }}"
+
+# Enable the client
+client {
+    enabled = true
+    servers = ["nomad.service.consul:4647"]
+}

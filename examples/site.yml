@@ -1,0 +1,13 @@
+---
+# File: site.yml - Example nomad site playbook
+
+- name: Installing Nomad
+  hosts: cluster_nodes
+  become: yes
+  become_user: root
+  roles:
+    - { role: brianshumate.nomad }
+
+#  tasks:
+#    - name: Start nomad
+#      service: name=nomad state=started enabled=yes

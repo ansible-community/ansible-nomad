@@ -1,0 +1,11 @@
+---
+# File: vars/RedHat.yml - additional variables for nomad (on Red Hat)
+
+nomad_redhat_pkg: "{{ nomad_version }}_linux_amd64.zip"
+nomad_redhat_url: "{{ nomad_zip_url }}"
+nomad_redhat_sha256: "{{ nomad_zip_sha256 }}"
+
+nomad_redhat_os_packages:
+  - libselinux-python
+  - git
+  - unzip

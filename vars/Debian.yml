@@ -1,0 +1,10 @@
+---
+# File: vars/Debian.yml - additional variables for nomad (on Debian)
+
+nomad_debian_pkg: "{{ nomad_version }}_linux_amd64.zip"
+nomad_debian_url: "{{ nomad_zip_url }}"
+nomad_debian_sha256: "{{ nomad_zip_sha256 }}"
+
+nomad_debian_os_packages:
+  - git
+  - unzip
