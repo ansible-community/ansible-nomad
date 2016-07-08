@@ -14,8 +14,9 @@ Wants=basic.target
 After=basic.target network.target
 
 [Service]
-User={{ nomad_user }}
-Group={{ nomad_group }}
+# FIXME: this does not work atm
+# User={{ nomad_user }}
+# Group={{ nomad_group }}
 
 ExecStart=/usr/local/bin/nomad agent \
     -config=/etc/nomad.d/{{ nomad_node_role }}

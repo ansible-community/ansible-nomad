@@ -51,10 +51,10 @@
   template: src=server_bootstrap.hcl.j2 dest={{ nomad_config_path }}/bootstrap/server_bootstrap.hcl
 
 - name: Initial nomad server configuration
-  template: src=server.hcl.j2 dest={{ nomad_config_path }}/server.hcl
+  template: src=server.hcl.j2 dest={{ nomad_config_path }}/server/server.hcl
 
 - name: Initial nomad client configuration
-  template: src=client.hcl.j2 dest={{ nomad_config_path }}/client.hcl
+  template: src=client.hcl.j2 dest={{ nomad_config_path }}/client/client.hcl
 
 - name: SYSV init script
   template: src=nomad_sysvinit.j2 dest=/etc/init.d/nomad owner=root group=root mode=755

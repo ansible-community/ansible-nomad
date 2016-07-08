@@ -10,3 +10,9 @@
 
 - Remove unused variables
 - Update documentation
+
+## v1.0.2
+
+- Enable and start nomad service
+- Fixup initial configuration paths
+- Update documentation

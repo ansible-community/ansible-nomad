@@ -16,7 +16,7 @@ In some situations deploying a small cluster on your local development
 machine can be handy. This document describes such a scenario using the
 following technologies:
 
-* [nomad](https://nomad.io)
+* [Nomad](https://nomadproject.io)
 * [VirtualBox](https://www.virtualbox.org/)
 * [Vagrant](http://www.vagrantup.com/) with Ansible provisioner and
   supporting plugin

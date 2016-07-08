@@ -8,6 +8,6 @@
   roles:
     - { role: brianshumate.nomad }
 
-#  tasks:
-#    - name: Start nomad
-#      service: name=nomad state=started enabled=yes
+  tasks:
+    - name: Start nomad
+      service: name=nomad state=started enabled=yes
