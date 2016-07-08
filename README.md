@@ -34,9 +34,6 @@ The role specifies variables in `defaults/main.yml` and `vars/*.yml`.
 | `nomad_domain` | `local` | nomad domain name |
 | `nomad_log_level` | `INFO` | nomad logging level |
 | `nomad_syslog_enable` | true | nomad logs to syslog |
-| `nomad_ui_url` | `https://dl.bintray.com/mitchellh/nomad/0.5.2_web_ui.zip` | nomad UI download URL |
-| `nomad_ui_pkg` | `0.5.2_web_ui.zip` | Conul UI package file name |
-| `nomad_ui_sha256` | SHA256 SUM | nomad UI download SHA256 summary |
 | `nomad_iface` | `eth1` | nomad network interface |
 | `nomad_bind_address` | dynamic from hosts inventory | The interface address to bind to
 

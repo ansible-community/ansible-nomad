@@ -5,3 +5,8 @@
 - Installs example init, systemd, and upstart scripts
 - Correct versions
 - Update Galaxy meta
+
+## v1.0.1
+
+- Remove unused variables
+- Update documentation

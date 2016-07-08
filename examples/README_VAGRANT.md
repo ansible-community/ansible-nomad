@@ -70,17 +70,6 @@ steps to get up and running:
  * 10.1.42.230 nomad3.local nomad3
 3. cd `$PATH_TO_ROLES/brianshumate.conusul/examples`
 4. `vagrant up`
-5. Access the cluster web UI at http://nomad1.local:8500/ui/
-6. You can also `ssh` into a node and verify the cluster members:
-
-       ```
-	   vagrant ssh nomad1
-	   nomad members
-	   Node     Address           Status  Type    Build  Protocol  DC
-	   nomad1  10.1.42.210:8301  alive   server  0.6.4  2         online
-	   nomad2  10.1.42.220:8301  alive   server  0.6.4  2         online
-	   nomad3  10.1.42.230:8301  alive   server  0.6.4  2         online
-       ```
 
 By default, this project will install Debian based cluster nodes. If you
 prefer, it can also install CentOS 7 based nodes by changing the command
@@ -94,7 +83,7 @@ BOX_NAME="chef/centos-7.0" vagrant up
 
 0. This project functions with the following software versions:
   * nomad version 0.4.0
-  * Ansible version 2.0.0.2
+  * Ansible version 2.1.0.0
   * VirtualBox version 5.0.24
   * Vagrant version 1.8.1
   * Vagrant Hosts version 2.8.0
@@ -108,7 +97,7 @@ BOX_NAME="chef/centos-7.0" vagrant up
 
 ## References
 
-1. https://www.nomad.io/
+1. https://www.nomadproject.io/
 2. http://www.ansible.com/
 3. http://www.vagrantup.com/
 4. https://www.virtualbox.org/
