@@ -24,3 +24,8 @@
 - Update initial configuration
 - Update documentation
 - Update start scripts
+
+## v1.1.1
+
+- Switch to galaxy_tags
+- Enable CI
