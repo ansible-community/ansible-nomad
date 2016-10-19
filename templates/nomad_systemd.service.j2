@@ -18,7 +18,7 @@ After=basic.target network.target
 # User={{ nomad_user }}
 # Group={{ nomad_group }}
 
-ExecStart=/usr/local/bin/nomad agent \
+ExecStart=/usr/local/bin/nomad agent -server \
     -config=/etc/nomad.d/{{ nomad_node_role }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process

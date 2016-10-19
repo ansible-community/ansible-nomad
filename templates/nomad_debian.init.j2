@@ -14,7 +14,7 @@ DESC="nomad service discovery framework"
 NAME=nomad
 DAEMON=/usr/local/bin/$NAME
 PIDFILE=/var/run/$NAME/$NAME.pid
-DAEMON_ARGS="agent -config-dir /etc/nomad.d/{{ nomad_node_role }} ${nomad_FLAGS} >> /var/log/nomad/nomad.log 2>&1"
+DAEMON_ARGS="agent -server -config-dir /etc/nomad.d/{{ nomad_node_role }} ${nomad_FLAGS} >> /var/log/nomad/nomad.log 2>&1"
 USER={{ nomad_user }}
 SCRIPTNAME=/etc/init.d/$NAME
 

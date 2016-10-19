@@ -7,10 +7,7 @@
 - group_by: key=os_{{ ansible_os_family }}
 
 - name: "Add nomad user"
-  user: name=nomad comment="nomad user" uid=1043 group=bin
-
-- name: "Distribution specific variables"
-  include_vars: "{{ ansible_distribution }}.yml"
+  user: name=nomad comment="nomad user" uid=1047 group=bin
 
 - name: "CentOS tasks"
   include: CentOS.yml
@@ -29,23 +26,35 @@
   when: ansible_distribution  == "Ubuntu"
 
 - name: nomad directories
-  file: "dest=/opt/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+  file: "dest={{ item }} state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+  with_items:
+    - /opt/nomad
+    - /var/nomad
+    - /var/run/nomad
+    - /etc/nomad.d
+    - /etc/nomad.d/bootstrap
+    - /etc/nomad.d/server
+    - /etc/nomad.d/client
 
-- file: "dest=/var/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/var/log/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/var/run/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/etc/nomad.d/bootstrap state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/etc/nomad.d/server state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
-- file: "dest=/etc/nomad.d/client state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#- name: nomad directories
+#  file: "dest=/var/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- name: nomad directories
+#  file: "dest=/var/log/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- name: nomad directories
+#  file: "dest=/var/run/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- name: nomad directories
+#  file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- file: "dest=/etc/nomad.d/bootstrap state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- file: "dest=/etc/nomad.d/server state=directory owner={{ nomad_user }} group={{ nomad_group}}"
+#
+#- file: "dest=/etc/nomad.d/client state=directory owner={{ nomad_user }} group={{ nomad_group}}"
 
 - name: Initial nomad bootstrap configuration
   template: src=server_bootstrap.hcl.j2 dest={{ nomad_config_path }}/bootstrap/server_bootstrap.hcl
@@ -67,3 +76,6 @@
 - name: systemd script
   template: src=nomad_systemd.service.j2 dest=/lib/systemd/system/nomad.service owner=root group=root mode=644
   when: ansible_distribution_major_version|int >= 7
+
+- name: Start nomad
+  service: name=nomad state=started

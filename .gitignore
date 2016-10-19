@@ -4,3 +4,5 @@
 *.retry
 examples/hashistack
 examples/hosts
+files/*.zip
+files/nomad

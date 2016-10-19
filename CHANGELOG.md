@@ -16,3 +16,11 @@
 - Enable and start nomad service
 - Fixup initial configuration paths
 - Update documentation
+
+## v1.1.0
+
+- Prepare role for Galaxy
+- Add optional Docker installation support
+- Update initial configuration
+- Update documentation
+- Update start scripts

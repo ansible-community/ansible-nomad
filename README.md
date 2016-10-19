@@ -1,5 +1,7 @@
 # Nomad
 
+![](https://travis-ci.org/brianshumate/ansible-nomad.svg?branch=master)
+
 This Ansible role performs a basic [Nomad](https://nomadproject.io/) installation, including filesystem structure, and example configuration.
 
 It will also bootstrap a minimal cluster of 3 server nodes and do this
@@ -12,12 +14,12 @@ This role requires a Debian or RHEL family of Linux host; the role is tested
 with the following specific software versions:
 
 * Ansible: 2.1.0.0
-* nomad: 0.4.0
+* nomad: 0.4.1
 * Debian: 8
 
 ## Role Variables
 
-The role specifies variables in `defaults/main.yml` and `vars/*.yml`.
+The role specifies variables in `defaults/main.yml`:
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
@@ -30,12 +32,13 @@ The role specifies variables in `defaults/main.yml` and `vars/*.yml`.
 | `nomad_log_path` | `/var/log/nomad` | nomad log path |
 | `nomad_user` | `nomad` | nomad OS user |
 | `nomad_group` | `bin` | nomad OS group |
+| `nomad_region` | `global` | The default region |
 | `nomad_datacenter` | boone | nomad datacenter label |
-| `nomad_domain` | `local` | nomad domain name |
-| `nomad_log_level` | `INFO` | nomad logging level |
+| `nomad_log_level` | `INFO` | Logging level |
 | `nomad_syslog_enable` | true | nomad logs to syslog |
 | `nomad_iface` | `eth1` | nomad network interface |
 | `nomad_bind_address` | dynamic from hosts inventory | The interface address to bind to
+| `nomad_enable_docker` | `false` | Install Docker subsystem on nodes? |
 
 ### OS Distribution Variables
 

@@ -3,7 +3,7 @@
 # File: examples/bin/preinstall - convenience script to add nomad
 # VM node host information to /etc/hosts for Vagrant
 
-nomad1="10\.1\.42\.210"
+nomad1="10\.1\.42\.70"
 
 # Log stuff
 function logmsg {
@@ -44,9 +44,9 @@ function add_hosts {
   else
     sudocheck
     sudo sh -c "echo '# Nomad Vagrant virtual machine hosts
-10.1.42.210 nomad1.local nomad1
-10.1.42.220 nomad2.local nomad2
-10.1.42.230 nomad3.local nomad3
+10.1.42.70 nomad1.local nomad1
+10.1.42.71 nomad2.local nomad2
+10.1.42.72 nomad3.local nomad3
 ' >> /etc/hosts"
     logmsg success "Nomad node host information added to /etc/hosts"
   fi

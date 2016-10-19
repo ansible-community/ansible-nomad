@@ -1,22 +1,49 @@
 ---
 # File: tasks/CentOS.yml - CentOS tasks for nomad
 
-- name: "Distribution specific variables"
-  include_vars: "{{ ansible_distribution }}.yml"
-
 - name: OS Packages
   yum: "name={{ item }} state=present"
-  with_items: nomad_centos_os_packages
+  with_items: "{{ nomad_centos_os_packages }}"
   tags: installation
 
-- name: Download nomad
-  get_url: "url={{ nomad_zip_url }} dest=/tmp/{{ nomad_centos_pkg }} sha256sum={{ nomad_centos_sha256 }} timeout=74"
+- name: Download Nomad
+  become: no
+  connection: local
+  get_url: "url={{ nomad_zip_url }} dest={{ role_path }}/files/{{ nomad_centos_pkg }} sha256sum={{ nomad_zip_sha256 }} timeout=74"
+  run_once: true
   tags: installation
 
-- name: Install nomad
-  unarchive: "copy=no src=/tmp/{{ nomad_centos_pkg }} dest=/usr/local/bin/ owner={{ nomad_user }} group={{ nomad_group }} mode=0755"
+- name: Unarchive Nomad
+  become: no
+  connection: local
+  unarchive: src={{ role_path }}/files/{{ nomad_centos_pkg }} dest={{ role_path }}/files/
+  run_once: true
+  tags: installation
+
+- name: Install Nomad
+  copy: "src={{ role_path }}/files/nomad dest=/usr/local/bin/ owner={{ nomad_user }} group={{ nomad_group }} mode=0755"
   tags: installation
 
 - name: Cleanup
-  file:  path="/tmp/{{ nomad_centos_pkg }}" state=absent
+  become: no
+  connection: local
+  file: "dest={{ role_path }}/files/nomad* state=absent"
+  run_once: true
   tags: installation
+
+## Docker Subsystem
+
+- name: Add Docker repo
+  copy: src=../files/docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0644
+  when: nomad_enable_docker == "true"
+  tags: docker
+
+- name: Install Docker
+  yum: name=docker-engine state=latest
+  when: nomad_enable_docker == "true"
+  tags: docker
+
+- name: Start Docker
+  service: name=docker enabled=yes state=started
+  when: nomad_enable_docker == "true"
+  tags: docker

@@ -3,11 +3,15 @@
 {% set rbracket = "]" %}
 {% set quote = '"' %}
 
-bind_addr = "{{ nomad_bind_address }}"
+region = "{{ nomad_region }}"
+datacenter = "{{ nomad_datacenter }}"
+
+bind_addr = "0.0.0.0"
 
 advertise {
-  # Explicit IP / cannot advertise 0.0.0.0 to other cluster nodes
-  rpc = "{{ nomad_bind_address }}:4647"
+    http = "{{ nomad_bind_address }}:4646"
+    rpc = "{{ nomad_bind_address }}:4647"
+    serf = "{{ nomad_bind_address }}:4648"
 }
 
 # Increase log verbosity

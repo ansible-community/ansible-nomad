@@ -38,7 +38,7 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user={{ nomad_user }} \
             --pidfile="$PID_FILE" \
-            "$nomad" agent -pid-file "${PID_FILE}" -config-dir "$CONFIG" "$LOG_FILE" &
+            "$nomad" agent -server -pid-file "${PID_FILE}" -config-dir "$CONFIG" "$LOG_FILE" &
         retcode=$?
         touch /var/lock/subsys/nomad
         return $retcode

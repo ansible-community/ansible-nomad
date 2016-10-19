@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Configure 3 nomad nodes
   config.vm.define :nomad1 do |nomad1_config|
     nomad1_config.vm.box = BOX_NAME
-    nomad1_config.vm.network :private_network, ip: "10.1.42.210"
+    nomad1_config.vm.network :private_network, ip: "10.1.42.70"
     nomad1_config.vm.hostname = "nomad1.local"
     nomad1_config.ssh.forward_agent = true
     nomad1_config.vm.provider "virtualbox" do |v|
@@ -29,14 +29,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
     nomad1_config.vm.provision :hosts do |provisioner|
-        provisioner.add_host '10.1.42.210', ['nomad1.local']
-        provisioner.add_host '10.1.42.220', ['nomad2.local']
-        provisioner.add_host '10.1.42.230', ['nomad3.local']
+        provisioner.add_host '10.1.42.70', ['nomad1.local']
+        provisioner.add_host '10.1.42.71', ['nomad2.local']
+        provisioner.add_host '10.1.42.72', ['nomad3.local']
     end
   end
   config.vm.define :nomad2 do |nomad2_config|
     nomad2_config.vm.box = BOX_NAME
-    nomad2_config.vm.network :private_network, ip: "10.1.42.220"
+    nomad2_config.vm.network :private_network, ip: "10.1.42.71"
     nomad2_config.vm.hostname = "nomad2.local"
     nomad2_config.ssh.forward_agent = true
     nomad2_config.vm.provider "virtualbox" do |v|
@@ -48,14 +48,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
     nomad2_config.vm.provision :hosts do |provisioner|
-        provisioner.add_host '10.1.42.210', ['nomad1.local']
-        provisioner.add_host '10.1.42.220', ['nomad2.local']
-        provisioner.add_host '10.1.42.230', ['nomad3.local']
+        provisioner.add_host '10.1.42.70', ['nomad1.local']
+        provisioner.add_host '10.1.42.71', ['nomad2.local']
+        provisioner.add_host '10.1.42.72', ['nomad3.local']
     end
   end
   config.vm.define :nomad3 do |nomad3_config|
     nomad3_config.vm.box = BOX_NAME
-    nomad3_config.vm.network :private_network, ip: "10.1.42.230"
+    nomad3_config.vm.network :private_network, ip: "10.1.42.72"
     nomad3_config.vm.hostname = "nomad3.local"
     nomad3_config.ssh.forward_agent = true
     nomad3_config.vm.provider "virtualbox" do |v|
@@ -67,9 +67,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
     nomad3_config.vm.provision :hosts do |provisioner|
-        provisioner.add_host '10.1.42.210', ['nomad1.local']
-        provisioner.add_host '10.1.42.220', ['nomad2.local']
-        provisioner.add_host '10.1.42.230', ['nomad3.local']
+        provisioner.add_host '10.1.42.70', ['nomad1.local']
+        provisioner.add_host '10.1.42.71', ['nomad2.local']
+        provisioner.add_host '10.1.42.72', ['nomad3.local']
     end
     nomad3_config.vm.provision :ansible do |ansible|
       ansible.inventory_path = CLUSTER_HOSTS
