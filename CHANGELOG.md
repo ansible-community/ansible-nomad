@@ -29,3 +29,7 @@
 
 - Switch to galaxy_tags
 - Enable CI
+
+## v1.1.2
+
+- Tests run best when they exist!
