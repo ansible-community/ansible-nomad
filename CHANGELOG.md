@@ -33,3 +33,7 @@
 ## v1.1.2
 
 - Tests run best when they exist!
+
+## v1.1.3
+
+- Fix package name vars
