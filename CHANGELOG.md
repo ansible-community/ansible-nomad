@@ -42,3 +42,7 @@
 
 - Update supported versions
 - Fix up unarchive task quoting
+
+## v1.1.5
+
+- Keyserver quoting

@@ -49,7 +49,7 @@
   tags: docker
 
 - name: Signing key
-  apt_key: keyserver='p80.pool.sks-keyservers.net' id=58118E89F3A912897C070ADBF76221572C52609D
+  apt_key: "keyserver=p80.pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D"
   when: nomad_enable_docker == "true"
   tags: docker
 
