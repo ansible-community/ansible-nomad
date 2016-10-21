@@ -37,3 +37,8 @@
 ## v1.1.3
 
 - Fix package name vars
+
+## v1.1.4
+
+- Update supported versions
+- Fix up unarchive task quoting

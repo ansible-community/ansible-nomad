@@ -13,7 +13,7 @@ in a development environment based on Vagrant and VirtualBox. See
 This role requires a Debian or RHEL family of Linux host; the role is tested
 with the following specific software versions:
 
-* Ansible: 2.1.0.0
+* Ansible: 2.1.2.0
 * nomad: 0.4.1
 * Debian: 8
 

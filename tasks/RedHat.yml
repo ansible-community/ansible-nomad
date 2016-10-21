@@ -11,14 +11,14 @@
 - name: Download Nomad
   become: no
   connection: local
-  get_url: "url={{ nomad_zip_url }} dest={{ role_path }}/files/{{ nomad_rhel_pkg }} sha256sum={{ nomad_zip_sha256 }} timeout=74"
+  get_url: "url={{ nomad_zip_url }} dest={{ role_path }}/files/{{ nomad_redhat_pkg }} sha256sum={{ nomad_zip_sha256 }} timeout=74"
   run_once: true
   tags: installation
 
 - name: Unarchive Nomad
   become: no
   connection: local
-  unarchive: src={{ role_path }}/files/{{ nomad_rhel_pkg }} dest={{ role_path }}/files/
+  unarchive: "src={{ role_path }}/files/{{ nomad_redhat_pkg }} dest={{ role_path }}/files/ creates={{ role_path }}/files/consul"
   run_once: true
   tags: installation
 
