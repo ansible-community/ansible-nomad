@@ -17,6 +17,9 @@ nomad_syslog_enable: "true"
 nomad_iface: "eth1"
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"
 nomad_enable_docker: "false"
+nomad_apt_key_url: "hkp://p80.pool.sks-keyservers.net:80"
+nomad_apt_key_sig: 58118E89F3A912897C070ADBF76221572C52609D
+nomad_apt_repo: deb https://apt.dockerproject.org/repo {{ ansible_lsb.id|lower }}-{{ ansible_lsb.codename|lower }} main
 
 ## Package vars
 
@@ -26,6 +29,7 @@ nomad_centos_sha256: "{{ nomad_zip_sha256 }}"
 
 nomad_centos_os_packages:
   - libselinux-python
+  - curl
   - git
   - unzip
 
@@ -34,6 +38,7 @@ nomad_debian_url: "{{ nomad_zip_url }}"
 nomad_debian_sha256: "{{ nomad_zip_sha256 }}"
 nomad_docker_debian_repo: "deb https://apt.dockerproject.org/repo debian-jessie main"
 nomad_debian_os_packages:
+  - curl
   - git
   - unzip
 
@@ -43,6 +48,7 @@ nomad_redhat_sha256: "{{ nomad_zip_sha256 }}"
 
 nomad_redhat_os_packages:
   - libselinux-python
+  - curl
   - git
   - unzip
 
@@ -52,4 +58,5 @@ nomad_ubuntu_sha256: "{{ nomad_zip_sha256 }}"
 nomad_docker_ubuntu_repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
 nomad_ubuntu_os_packages:
   - git
+  - curl
   - unzip

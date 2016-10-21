@@ -46,3 +46,8 @@
 ## v1.1.5
 
 - Keyserver quoting
+
+## v1.1.6
+
+- Update OS packages
+- Update signing key tasks
