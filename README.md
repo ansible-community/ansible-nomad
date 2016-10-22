@@ -46,7 +46,7 @@ The role defines all variables in `defaults/main.yml`:
 
 ### OS Distribution Variables
 
-The nomad binary works on most Linux platforms and is not distribution
+The `nomad` binary works on most Linux platforms and is not distribution
 specific. However, some distributions require installation of specific OS
 packages with different naming, so this role was built with support for
 popular Linux distributions and defines these variables to deal with the
