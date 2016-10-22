@@ -28,9 +28,9 @@ nomad_centos_url: "{{ nomad_zip_url }}"
 nomad_centos_sha256: "{{ nomad_zip_sha256 }}"
 
 nomad_centos_os_packages:
-  - libselinux-python
   - curl
   - git
+  - libselinux-python
   - unzip
 
 nomad_debian_pkg: "nomad_{{ nomad_version }}_linux_amd64.zip"
@@ -47,9 +47,9 @@ nomad_redhat_url: "{{ nomad_zip_url }}"
 nomad_redhat_sha256: "{{ nomad_zip_sha256 }}"
 
 nomad_redhat_os_packages:
-  - libselinux-python
   - curl
   - git
+  - libselinux-python
   - unzip
 
 nomad_ubuntu_pkg: "nomad_{{ nomad_version }}_linux_amd64.zip"

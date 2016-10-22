@@ -48,7 +48,8 @@ ansible-galaxy install brianshumate.nomad
 
 You'll want to make sure you have write access to `/etc/ansible/roles/` since
 that is where the role will be installed by default, or define your own
-Ansible role path by creating a `$HOME/.ansible.cfg` file with these contents:
+Ansible role path by creating a `$HOME/.ansible.cfg` or even `./anisible.cfg`
+file with these contents:
 
 ```
 [defaults]
@@ -65,13 +66,13 @@ steps to get up and running:
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Vagrant](http://downloads.vagrantup.com/), [vagrant-hosts](https://github.com/adrienthebo/vagrant-hosts), and [Ansible](http://www.ansibleworks.com/docs/intro_installation.html#latest-releases-via-pip).
 2. Edit `/etc/hosts` or use the included `bin/preinstall` script to add
    the following entries to your development system's `/etc/hosts` file:
- * 10.1.42.210 nomad1.local nomad1
- * 10.1.42.220 nomad2.local nomad2
- * 10.1.42.230 nomad3.local nomad3
+ * 10.1.42.70 nomad1.local nomad1
+ * 10.1.42.71 nomad2.local nomad2
+ * 10.1.42.72 nomad3.local nomad3
 3. cd `$PATH_TO_ROLES/brianshumate.conusul/examples`
 4. `vagrant up`
 
-By default, this project will install Debian based cluster nodes. If you
+By default, this project will install Debian 8 based cluster nodes. If you
 prefer, it can also install CentOS 7 based nodes by changing the command
 in step 4 to the following:
 
@@ -87,7 +88,7 @@ BOX_NAME="chef/centos-7.0" vagrant up
   * VirtualBox version 5.0.28
   * Vagrant version 1.8.6
   * Vagrant Hosts version 2.8.0
-1. This project uses Debian Jessie by default, but you can choose other OS
+1. This project uses Debian 8 (Jessie) by default, but you can choose other OS
    with the *BOX_NAME* environment variable
 2. The `bin/preinstall` shell script performs the following actions for you:
  * Adds each node's host information to the host machine's `/etc/hosts`

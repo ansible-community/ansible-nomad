@@ -51,3 +51,9 @@
 
 - Update OS packages
 - Update signing key tasks
+
+## v1.1.7
+
+- Update default variables
+- Update supported versions
+- Update documentation — now w/ more header meta (h/t @dochang)
