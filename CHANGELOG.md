@@ -66,3 +66,8 @@
 
 - Remove deprecated tasks
 - Add conditionals to tasks
+
+## v1.2.0
+
+- Dropping native Docker subsystem support in favor of external role
+- Attempting to run nomad as nomad user

@@ -35,24 +35,24 @@
 
 - name: Update package cache
   apt: update_cache=yes
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: Apt transport package
   apt: name='apt-transport-https' state=present
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: CA certs package
   apt: name='ca-certificates' state=present
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: HTTPS APT transport for Docker repository
   apt:
     name: apt-transport-https
     state: present
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: Add Docker signing key
@@ -61,7 +61,7 @@
     keyserver: "{{ nomad_apt_key_url }}"
     state: present
   register: add_repository_key
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: Add Docker repo and update apt cache
@@ -70,15 +70,15 @@
     mode: '644'
     update_cache: yes
     state: present
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: Install Docker
   apt: name='docker-engine' state=present update_cache=yes
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker
 
 - name: Start Docker
   service: name=docker enabled=yes state=started
-  when: nomad_enable_docker == "true"
+  when: nomad_enable_docker == "native"
   tags: docker

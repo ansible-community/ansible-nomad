@@ -19,6 +19,10 @@
 - name: "Add nomad user"
   user: name=nomad comment="nomad user" uid=1047 group=bin
 
+- name: "Add nomad user to docker group"
+  user: name=nomad groups=docker append=yes
+  when: nomad_enable_docker == "true"
+
 - name: "CentOS tasks"
   include: CentOS.yml
   when: ansible_distribution  == "CentOS"
