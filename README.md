@@ -30,10 +30,10 @@ The role defines all variables in `defaults/main.yml`:
 | `nomad_version` | `0.4.1` | nomad version to install |
 | `nomad_zip_url` | `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip` | nomad download URL |
 | `nomad_zip_sha256` | SHA256 SUM | nomad download SHA256 summary |
-| `nomad_bin_path` | `/usr/local/bin` | nomad binary installation path |
-| `nomad_config_path` | `/etc/nomad.d` | nomad configuration file path |
-| `nomad_data_path` | `/var/nomad` | nomad data path |
-| `nomad_log_path` | `/var/log/nomad` | nomad log path |
+| `nomad_bin_dir` | `/usr/local/bin` | nomad binary installation path |
+| `nomad_config_dir` | `/etc/nomad.d` | nomad configuration file path |
+| `nomad_data_dir` | `/var/nomad` | nomad data path |
+| `nomad_log_dir` | `/var/log/nomad` | nomad log path |
 | `nomad_user` | `nomad` | nomad OS user |
 | `nomad_group` | `bin` | nomad OS group |
 | `nomad_region` | `global` | The default region |
@@ -41,7 +41,8 @@ The role defines all variables in `defaults/main.yml`:
 | `nomad_log_level` | `INFO` | Logging level |
 | `nomad_syslog_enable` | true | nomad logs to syslog |
 | `nomad_iface` | `eth1` | nomad network interface |
-| `nomad_bind_address` | dynamic from hosts inventory | The interface address to bind to
+| `nomad_advertise_address` | dynamic from hosts inventory | The interface address to advertise to other nodes |
+| `nomad_bind_address` | "0.0.0.0" | Default bind address |
 | `nomad_enable_docker` | `false` | Install Docker subsystem on nodes? |
 
 ### OS Distribution Variables

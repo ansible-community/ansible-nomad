@@ -71,3 +71,8 @@
 
 - Dropping native Docker subsystem support in favor of external role
 - Attempting to run nomad as nomad user
+
+## v1.2.1
+
+- Renamed vars to be more in line with Nomad terminology
+- Switched to merged config style with base, bootstrap, server, client

@@ -3,23 +3,6 @@
 {% set rbracket = "]" %}
 {% set quote = '"' %}
 
-region = "{{ nomad_region }}"
-datacenter = "{{ nomad_datacenter }}"
-
-bind_addr = "0.0.0.0"
-
-advertise {
-    http = "{{ nomad_bind_address }}:4646"
-    rpc = "{{ nomad_bind_address }}:4647"
-    serf = "{{ nomad_bind_address }}:4648"
-}
-
-# Increase log verbosity
-log_level = "DEBUG"
-
-# Setup data dir
-data_dir = "{{ nomad_data_path }}"
-
 # Enable the server
 server {
     enabled = true
@@ -29,3 +12,6 @@ server {
 {% endfor %}{{ rbracket }}
     retry_interval = "15s"
 }
+
+# Increase log verbosity
+log_level = "DEBUG"

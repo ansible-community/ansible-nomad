@@ -46,18 +46,18 @@
     - /var/nomad
     - /var/run/nomad
     - /etc/nomad.d
-    - /etc/nomad.d/bootstrap
-    - /etc/nomad.d/server
-    - /etc/nomad.d/client
 
-- name: Initial nomad bootstrap configuration
-  template: src=server_bootstrap.hcl.j2 dest={{ nomad_config_path }}/bootstrap/server_bootstrap.hcl
+- name: Nomad base configuration
+  template: src=base.hcl.j2 dest={{ nomad_config_dir }}/base.hcl
 
-- name: Initial nomad server configuration
-  template: src=server.hcl.j2 dest={{ nomad_config_path }}/server/server.hcl
+- name: Nomad bootstrap server configuration
+  template: src=bootstrap.hcl.j2 dest={{ nomad_config_dir }}/bootstrap.hcl
 
-- name: Initial nomad client configuration
-  template: src=client.hcl.j2 dest={{ nomad_config_path }}/client/client.hcl
+- name: Nomad server configuration
+  template: src=server.hcl.j2 dest={{ nomad_config_dir }}/server.hcl
+
+- name: Nomad client configuration
+  template: src=client.hcl.j2 dest={{ nomad_config_dir }}/client.hcl
 
 - name: SYSV init script
   template: src=nomad_sysvinit.j2 dest=/etc/init.d/nomad owner=root group=root mode=755

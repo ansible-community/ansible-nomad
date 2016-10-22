@@ -8,7 +8,7 @@
 . /etc/init.d/functions
 
 nomad=/usr/local/bin/nomad
-CONFIG=/etc/nomad.d/{{ nomad_node_role }}
+CONFIG_PATH={{ nomad_config_dir }}
 PID_FILE=/var/run/nomad/nomad.pid
 LOG_FILE=/var/log/nomad/nomad.log
 
@@ -38,7 +38,7 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user={{ nomad_user }} \
             --pidfile="$PID_FILE" \
-            "$nomad" agent -server -pid-file "${PID_FILE}" -config-dir "$CONFIG" "$LOG_FILE" &
+            "$nomad" agent -server -pid-file "${PID_FILE}" -config "${CONFIG_PATH}"/base.hcl -config "${CONFIG_PATH}"/{{ nomad_node_role }}.hcl "${LOG_FILE}" &
         retcode=$?
         touch /var/lock/subsys/nomad
         return $retcode

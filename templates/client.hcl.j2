@@ -1,14 +1,11 @@
-# Increase log verbosity
-log_level = "DEBUG"
-
-region = "{{ nomad_region }}"
-datacenter = "{{ nomad_datacenter }}"
-
-# Setup data dir
-data_dir = "{{ nomad_data_path }}"
+# Nomad client configuration
+# Based on: https://www.nomadproject.io/docs/cluster/bootstrapping.html
 
 # Enable the client
 client {
     enabled = true
     servers = ["nomad.service.consul:4647"]
 }
+
+# Increase log verbosity
+log_level = "DEBUG"

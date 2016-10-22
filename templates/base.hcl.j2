@@ -1,0 +1,33 @@
+# Base Nomad configuration, based on:
+# https://www.nomadproject.io/docs/cluster/bootstrapping.html
+
+# Name the region, if omitted, the default "global" region will be used.
+region = "{{ nomad_region }}"
+
+# Persist data to a location that will survive a machine reboot.
+data_dir = "{{ nomad_data_dir }}"
+
+# Bind to all addresses so that the Nomad agent is available
+# both on loopback and externally.
+bind_addr = "{{ nomad_bind_address }}"
+
+# Advertise an accessible IP address so the server is reachable by
+# other servers and clients. The IPs can be materialized by Terraform
+# or be replaced by an init script.
+
+advertise {
+    http = "{{ nomad_advertise_address }}:4646"
+    rpc = "{{ nomad_advertise_address }}:4647"
+    serf = "{{ nomad_advertise_address }}:4648"
+}
+
+# Ship metrics to monitor the health of the cluster and to see
+# task resource usage.
+
+# telemetry {
+#     statsite_address = "${var.statsite}"
+#     disable_hostname = true
+# }
+
+# Enable debug endpoints.
+enable_debug = true
