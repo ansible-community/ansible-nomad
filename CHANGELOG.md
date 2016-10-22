@@ -57,3 +57,7 @@
 - Update default variables
 - Update supported versions
 - Update documentation — now w/ more header meta (h/t @dochang)
+
+## v1.1.8
+
+- Update doc meta
