@@ -1,7 +1,7 @@
 ---
 # File: tasks/Red Hat.yml - Red Hat tasks for nomad
 
-# Download and install SELinux Python module (required by Ansible)  
+# Download and install SELinux Python module (required by Ansible)
 
 - name: OS Packages
   yum: "name={{ item }} state=present"

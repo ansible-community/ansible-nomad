@@ -61,7 +61,7 @@
     keyserver: "{{ nomad_apt_key_url }}"
     state: present
   register: add_repository_key
-  ignore_errors: true
+  when: nomad_enable_docker == "true"
   tags: docker
 
 - name: Add Docker repo and update apt cache

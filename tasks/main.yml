@@ -46,26 +46,6 @@
     - /etc/nomad.d/server
     - /etc/nomad.d/client
 
-#- name: nomad directories
-#  file: "dest=/var/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- name: nomad directories
-#  file: "dest=/var/log/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- name: nomad directories
-#  file: "dest=/var/run/nomad state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- name: nomad directories
-#  file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- file: "dest=/etc/nomad.d state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- file: "dest=/etc/nomad.d/bootstrap state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- file: "dest=/etc/nomad.d/server state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-#
-#- file: "dest=/etc/nomad.d/client state=directory owner={{ nomad_user }} group={{ nomad_group}}"
-
 - name: Initial nomad bootstrap configuration
   template: src=server_bootstrap.hcl.j2 dest={{ nomad_config_path }}/bootstrap/server_bootstrap.hcl
 

@@ -61,3 +61,8 @@
 ## v1.1.8
 
 - Update doc meta
+
+## v1.1.9
+
+- Remove deprecated tasks
+- Add conditionals to tasks
