@@ -84,3 +84,6 @@
   Vagrant provisioner when environment variable `NOMAD_DOCKER_ENABLE="true"`
   is set
 - Update start scripts to be smarter about node role
+- Add cgroups packages on Debian/Ubuntu
+- Run Nomad as root for now
+

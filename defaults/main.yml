@@ -9,7 +9,7 @@ nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
 nomad_log_dir: "/var/log/nomad"
-nomad_user: "nomad"
+nomad_user: "root"
 nomad_group: "bin"
 nomad_region: "global"
 nomad_datacenter: "dc1"
@@ -40,8 +40,10 @@ nomad_debian_url: "{{ nomad_zip_url }}"
 nomad_debian_sha256: "{{ nomad_zip_sha256 }}"
 nomad_docker_debian_repo: "deb https://apt.dockerproject.org/repo debian-jessie main"
 nomad_debian_os_packages:
+  - cgroup-bin
   - curl
   - git
+  - libcgroup1
   - unzip
 
 nomad_redhat_pkg: "nomad_{{ nomad_version }}_linux_amd64.zip"
@@ -59,6 +61,9 @@ nomad_ubuntu_url: "{{ nomad_zip_url }}"
 nomad_ubuntu_sha256: "{{ nomad_zip_sha256 }}"
 nomad_docker_ubuntu_repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
 nomad_ubuntu_os_packages:
-  - git
+  - cgroup-bin
   - curl
+  - git
+  - libcgroup1
   - unzip
+
