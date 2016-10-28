@@ -76,3 +76,11 @@
 
 - Renamed vars to be more in line with Nomad terminology
 - Switched to merged config style with base, bootstrap, server, client
+
+## v1.3.0
+
+- Remove Docker majority of bits except for supporting packages, etc.
+- Docker will only be installed for Vagrant based clusters via the
+  Vagrant provisioner when environment variable `NOMAD_DOCKER_ENABLE="true"`
+  is set
+- Update start scripts to be smarter about node role

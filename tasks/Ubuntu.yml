@@ -31,7 +31,7 @@
   run_once: true
   tags: installation
 
-## Docker Subsystem
+## Docker items
 
 # Fix for https://github.com/docker/docker/issues/23347
 - name: Install dmsetup for Ubuntu 16.04
@@ -41,60 +41,10 @@
     update_cache: yes
     cache_valid_time: 600
   register: dmsetup_result
-  when: ansible_distribution_version|version_compare(16.04, '=') and nomad_enable_docker == "native"
+  when: ansible_distribution_version|version_compare(16.04, '=') and nomad_docker_enable == "true"
   tags: docker
 
 - name: Run dmsetup for Ubuntu 16.04
   command: dmsetup mknodes
   when: dmsetup_result and 
   tags: docker 
-- name: Update package cache
-  apt: update_cache=yes
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Apt transport package
-  apt: name='apt-transport-https' state=present
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: CA certs package
-  apt: name='ca-certificates' state=present
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: HTTPS APT transport for Docker repository
-  apt:
-    name: apt-transport-https
-    state: present
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Add Docker signing key
-  apt_key:
-    id: "{{ nomad_apt_key_sig }}"
-    keyserver: "{{ nomad_apt_key_url }}"
-    state: present
-  register: add_repository_key
-  ignore_errors: true
-  tags: docker
-
-- name: Add Docker repo and update apt cache
-  apt_repository:
-    repo: "{{ nomad_apt_repo }}"
-    mode: '644'
-    update_cache: yes
-    state: present
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Install Docker
-  apt: name='docker-engine' state=present update_cache=yes
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Start Docker
-  service: name=docker enabled=yes state=started
-  when: nomad_enable_docker == "native"
-  tags: docker
-

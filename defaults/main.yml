@@ -2,7 +2,7 @@
 # File: defaults/main.yml - Main default variables for nomad
 
 nomad_version: "0.4.1"
-nomad_server_count: "3"
+nomad_server_count: "2"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip"
 nomad_zip_sha256: "0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67"
 nomad_bin_dir: "/usr/local/bin"
@@ -18,7 +18,7 @@ nomad_syslog_enable: "true"
 nomad_iface: "eth1"
 nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"
 nomad_bind_address: "0.0.0.0"
-nomad_enable_docker: "false"
+nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_apt_key_url: "hkp://p80.pool.sks-keyservers.net:80"
 nomad_apt_key_sig: 58118E89F3A912897C070ADBF76221572C52609D
 nomad_apt_repo: deb https://apt.dockerproject.org/repo {{ ansible_lsb.id|lower }}-{{ ansible_lsb.codename|lower }} main

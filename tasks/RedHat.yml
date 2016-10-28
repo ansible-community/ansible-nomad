@@ -32,20 +32,3 @@
   file: "dest={{ role_path }}/files/nomad* state=absent"
   run_once: true
   tags: installation
-
-## Docker Subsystem
-
-- name: Add Docker repo
-  copy: src=../files/docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0644
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Install Docker
-  yum: name=docker-engine state=latest
-  when: nomad_enable_docker == "native"
-  tags: docker
-
-- name: Start Docker
-  service: name=docker enabled=yes state=started
-  when: nomad_enable_docker == "native"
-  tags: docker

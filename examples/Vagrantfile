@@ -28,6 +28,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
+    if ENV['NOMAD_DOCKER_ENABLE'] == "true"
+      nomad1_config.vm.provision "docker"
+    end
     nomad1_config.vm.provision :hosts do |provisioner|
         provisioner.add_host '10.1.42.70', ['nomad1.local']
         provisioner.add_host '10.1.42.71', ['nomad2.local']
@@ -47,6 +50,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     end
+    if ENV['NOMAD_DOCKER_ENABLE'] == "true"
+      nomad2_config.vm.provision "docker"
+    end
     nomad2_config.vm.provision :hosts do |provisioner|
         provisioner.add_host '10.1.42.70', ['nomad1.local']
         provisioner.add_host '10.1.42.71', ['nomad2.local']
@@ -65,6 +71,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.customize ["modifyvm", :id, "--cpus", "2"]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    end
+    if ENV['NOMAD_DOCKER_ENABLE'] == "true"
+      nomad3_config.vm.provision "docker"
     end
     nomad3_config.vm.provision :hosts do |provisioner|
         provisioner.add_host '10.1.42.70', ['nomad1.local']
