@@ -1,7 +1,10 @@
 ---
 # File: tasks/Red Hat.yml - Red Hat tasks for nomad
 
-# Download and install SELinux Python module (required by Ansible)
+# Supposedly SELinux disrupts LXC (shrug)
+- name: Disable SELinux
+  lineinfile: dest=/etc/selinux/config regexp='^SELINUX=enforcing' line='SELINUX=disabled'
+  when: nomad_enable_docker == "true"
 
 - name: OS Packages
   yum: "name={{ item }} state=present"

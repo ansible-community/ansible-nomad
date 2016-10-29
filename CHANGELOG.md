@@ -92,3 +92,7 @@
 - Update/validate CentOS 7 box
 - Update documentation
 - Update failure cases for CentOS
+
+## v1.3.2
+
+- Disable SELinux when Docker is used
