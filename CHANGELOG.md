@@ -87,3 +87,8 @@
 - Add cgroups packages on Debian/Ubuntu
 - Run Nomad as root for now
 
+## v1.3.1
+
+- Update/validate CentOS 7 box
+- Update documentation
+- Update failure cases for CentOS
