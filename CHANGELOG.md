@@ -96,3 +96,8 @@
 ## v1.3.2
 
 - Disable SELinux when Docker is used
+
+## v1.3.3
+
+- Correct var
+- More SELinux config

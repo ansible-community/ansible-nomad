@@ -1,10 +1,14 @@
 ---
 # File: tasks/Red Hat.yml - Red Hat tasks for nomad
 
+- name: Stop SELinux enforcing
+  shell: "setenforce 0"
+  when: nomad_docker_enable == "true"
+
 # Supposedly SELinux disrupts LXC (shrug)
 - name: Disable SELinux
-  lineinfile: dest=/etc/selinux/config regexp='^SELINUX=enforcing' line='SELINUX=disabled'
-  when: nomad_enable_docker == "true"
+  replace: dest=/etc/selinux/config regexp='^SELINUX=enforcing' replace='SELINUX=disabled'
+  when: nomad_docker_enable == "true"
 
 - name: OS Packages
   yum: "name={{ item }} state=present"
