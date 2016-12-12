@@ -1,0 +1,12 @@
+---
+# File: tasks/selinux.yml - SELinux tasks for Nomad
+
+# SELinux disrupts LXC (shrug)
+
+- name: Stop SELinux enforcing
+  shell: "setenforce 0"
+  when: nomad_docker_enable == "true"
+
+- name: Disable SELinux
+  replace: dest=/etc/selinux/config regexp='^SELINUX=enforcing' replace='SELINUX=disabled'
+  when: nomad_docker_enable == "true"

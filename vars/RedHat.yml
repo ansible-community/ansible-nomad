@@ -1,0 +1,8 @@
+---
+# File: vars/RedHat.yml - Red Hat OS variables for Nomad
+
+nomad_os_packages:
+  - curl
+  - git
+  - libselinux-python
+  - unzip

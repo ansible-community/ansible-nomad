@@ -1,0 +1,9 @@
+---
+# File: vars/Debian.yml - Debian OS variables for Nomad
+
+nomad_os_packages:
+  - cgroup-bin
+  - curl
+  - git
+  - libcgroup1
+  - unzip

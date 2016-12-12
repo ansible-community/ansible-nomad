@@ -101,3 +101,12 @@
 
 - Correct var
 - More SELinux config
+
+## v1.4.0
+
+- Nomad 0.5.0
+- Automatic SHA determination
+- Streamline and split out install, Docker, and SELinux tasks
+- Remove deprecated task files
+- Establish OS vars
+- Update documentation
