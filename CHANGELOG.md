@@ -110,3 +110,9 @@
 - Remove deprecated task files
 - Establish OS vars
 - Update documentation
+
+## v1.4.1
+
+- Nomad 0.5.1
+- Add NOMAD_VERSION environment variable
+- Fix typo in default variables
