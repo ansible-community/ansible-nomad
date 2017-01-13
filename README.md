@@ -17,8 +17,8 @@ in a development environment based on Vagrant and VirtualBox. See
 This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
-* Ansible: 2.1.2.0
-* nomad: 0.4.1
+* Ansible: 2.2.2.0
+* nomad: 0.5.2
 * Debian: 8
 
 ## Role Variables
@@ -27,7 +27,7 @@ The role defines all variables in `defaults/main.yml`:
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `nomad_version` | `0.4.1` | nomad version to install |
+| `nomad_version` | `0.5.2` | nomad version to install |
 | `nomad_zip_url` | `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip` | nomad download URL |
 | `nomad_zip_sha256` | SHA256 SUM | nomad download SHA256 summary |
 | `nomad_bin_dir` | `/usr/local/bin` | nomad binary installation path |

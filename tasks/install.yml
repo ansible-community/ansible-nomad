@@ -6,12 +6,20 @@
   with_items: "{{ nomad_os_packages }}"
   tags: installation
 
-- name: Get nomad package checksum file
+- name: Check Nomad package checksum file
+  become: no
+  connection: local
+  stat: "path={{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
+  run_once: true
+  register: nomad_checksum
+
+- name: Get Nomad package checksum file
   become: no
   connection: local
   get_url: "url={{ nomad_checksum_file_url }} dest={{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   run_once: true
   tags: installation
+  when: nomad_checksum.stat.exists == False
 
 - name: Get nomad package checksum
   become: no
@@ -21,12 +29,20 @@
   register: nomad_sha256
   tags: installation
 
+- name: Check Nomad package file
+  become: no
+  connection: local
+  stat: "path={{ role_path }}/files/{{ nomad_pkg }}"
+  run_once: true
+  register: nomad_package
+
 - name: Download nomad
   become: no
   connection: local
   get_url: "url={{ nomad_zip_url }} dest={{ role_path }}/files/{{ nomad_pkg }} checksum=sha256:{{ nomad_sha256.stdout.split(' ')|first }} timeout=42"
   run_once: true
   tags: installation
+  when: consul_package.stat.exists == False
 
 - name: Unarchive nomad
   become: no
@@ -42,6 +58,6 @@
 - name: Cleanup
   become: no
   connection: local
-  file: "dest={{ role_path }}/files/nomad* state=absent"
+  file: "dest={{ role_path }}/files/nomad state=absent"
   run_once: true
   tags: installation

@@ -116,3 +116,8 @@
 - Nomad 0.5.1
 - Add NOMAD_VERSION environment variable
 - Fix typo in default variables
+
+## v1.4.2
+
+- Checks for existing packages and summary files
+- Nomad 0.5.2
