@@ -121,3 +121,7 @@
 
 - Checks for existing packages and summary files
 - Nomad 0.5.2
+
+## v1.4.3
+
+- Nomad 0.5.3

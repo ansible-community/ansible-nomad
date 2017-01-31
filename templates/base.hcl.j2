@@ -21,13 +21,12 @@ advertise {
     serf = "{{ nomad_advertise_address }}:4648"
 }
 
-# Ship metrics to monitor the health of the cluster and to see
-# task resource usage.
+# Send Nomad telemetry to statsite
 
 # telemetry {
 #     statsite_address = "${var.statsite}"
 #     disable_hostname = true
 # }
 
-# Enable debug endpoints.
+# Enable debug endpoints
 enable_debug = true
