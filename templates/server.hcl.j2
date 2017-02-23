@@ -6,9 +6,9 @@
 # Enable the server
 server {
     enabled = true
-    start_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] != hostvars[host]['ansible_eth1']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}{{ quote }}{% endif %}
+    start_join= {{ lbracket }}{% for host in groups[nomad_group_name] %}{% if hostvars[inventory_hostname]['ansible_'+nomad_iface]['ipv4']['address'] != hostvars[host]['ansible_'+nomad_iface]['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_'+nomad_iface]['ipv4']['address'] }}{{ quote }}{% endif %}
 {% endfor %}{{ rbracket }}
-    retry_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] != hostvars[host]['ansible_eth1']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}{{ quote }}{% endif %}
+    retry_join= {{ lbracket }}{% for host in groups[nomad_group_name] %}{% if hostvars[inventory_hostname]['ansible_'+nomad_iface]['ipv4']['address'] != hostvars[host]['ansible_'+nomad_iface]['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_'+nomad_iface]['ipv4']['address'] }}{{ quote }}{% endif %}
 {% endfor %}{{ rbracket }}
     retry_interval = "15s"
 }
