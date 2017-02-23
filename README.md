@@ -18,7 +18,7 @@ This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
 * Ansible: 2.2.1.0
-* nomad: 0.5.3
+* nomad: 0.5.4
 * Debian: 8
 
 ## Role Variables
