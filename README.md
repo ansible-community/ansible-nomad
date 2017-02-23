@@ -104,3 +104,11 @@ BSD
 ## Author Information
 
 [Brian Shumate](http://brianshumate.com)
+
+## Contributors
+
+Special thanks to the folks listed in [CONTRIBUTORS.md](https://github.com/brianshumate/ansible-nomad/blob/master/CONTRIBUTORS.md) for their
+contributions to this project.
+
+Contributions are welcome, provided that you can agree to the terms outlined
+in [CONTRIBUTING.md](https://github.com/brianshumate/ansible-nomad/blob/master/CONTRIBUTING.md)
