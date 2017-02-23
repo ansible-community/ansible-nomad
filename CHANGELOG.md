@@ -137,3 +137,7 @@
 
 - Switch init scripts to send SIGTERM to address #2
 - Add leave_on_terminate and set to True by default
+
+## v1.4.6
+
+- Better conditionals for init scripts fixes #5
