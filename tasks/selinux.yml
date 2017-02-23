@@ -8,5 +8,8 @@
   when: nomad_docker_enable == "true"
 
 - name: Disable SELinux
-  replace: dest=/etc/selinux/config regexp='^SELINUX=enforcing' replace='SELINUX=disabled'
+  replace:
+    dest: /etc/selinux/config
+    regexp: '^SELINUX=enforcing'
+    replace: 'SELINUX=disabled'
   when: nomad_docker_enable == "true"

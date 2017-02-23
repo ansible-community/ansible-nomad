@@ -2,26 +2,31 @@
 # File: tasks/install.yml - package installation tasks for Nomad
 
 - name: OS packages
-  package: "name={{ item }} state=present"
+  package:
+    name: "{{ item }}"
+    state: present
   with_items: "{{ nomad_os_packages }}"
   tags: installation
 
 - name: Check Nomad package checksum file
   become: no
   connection: local
-  stat: "path={{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
+  stat:
+    path: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   run_once: true
   register: nomad_checksum
 
 - name: Get Nomad package checksum file
   become: no
   connection: local
-  get_url: "url={{ nomad_checksum_file_url }} dest={{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
+  get_url:
+    url: "{{ nomad_checksum_file_url }}"
+    dest: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   run_once: true
   tags: installation
   when: nomad_checksum.stat.exists == False
 
-- name: Get nomad package checksum
+- name: Get Nomad package checksum
   become: no
   connection: local
   shell: "grep {{ nomad_pkg }} {{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
@@ -32,32 +37,49 @@
 - name: Check Nomad package file
   become: no
   connection: local
-  stat: "path={{ role_path }}/files/{{ nomad_pkg }}"
+  stat:
+    path: "{{ role_path }}/files/{{ nomad_pkg }}"
   run_once: true
   register: nomad_package
 
-- name: Download nomad
+- name: Download Nomad
   become: no
   connection: local
-  get_url: "url={{ nomad_zip_url }} dest={{ role_path }}/files/{{ nomad_pkg }} checksum=sha256:{{ nomad_sha256.stdout.split(' ')|first }} timeout=42"
+  get_url:
+    url: "{{ nomad_zip_url }}"
+    dest: "{{ role_path }}/files/{{ nomad_pkg }}"
+    checksum:
+      sha256: "{{ nomad_sha256.stdout.split(' ')|first }}"
+    timeout: 42
   run_once: true
   tags: installation
   when: nomad_package.stat.exists == False
 
-- name: Unarchive nomad
+- name: Unarchive Nomad
   become: no
   connection: local
-  unarchive: "src={{ role_path }}/files/{{ nomad_pkg }} dest={{ role_path }}/files/ creates={{ role_path }}/files/nomad"
+  unarchive:
+    src: "{{ role_path }}/files/{{ nomad_pkg }}"
+    dest: "{{ role_path }}/files/"
+    creates: "{{ role_path }}/files/nomad"
   run_once: true
   tags: installation
 
-- name: Install nomad
-  copy: "src={{ role_path }}/files/nomad dest=/usr/local/bin/ owner={{ nomad_user }} group={{ nomad_group }} mode=0755"
+- name: Install Nomad
+  copy:
+    src: "{{ role_path }}/files/nomad"
+    dest: /usr/local/bin/
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0755
   tags: installation
 
 - name: Cleanup
   become: no
   connection: local
-  file: "dest={{ role_path }}/files/nomad state=absent"
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_fileglob: "{{ role_path }}/files/nomad"
   run_once: true
   tags: installation
