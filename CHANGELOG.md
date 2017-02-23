@@ -129,3 +129,6 @@
 ## v1.4.4
 
 - Nomad 0.5.4
+- Fixed typo in install tasks fixes #6 (thanks @asemt)
+- Added nomad_group_name and use nomad_iface (thanks @dggreenbaum)
+- Updated documentation
