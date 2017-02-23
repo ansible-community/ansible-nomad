@@ -51,7 +51,7 @@ stop() {
         fi
 
         mkpidfile
-        killproc $KILLPROC_OPT $nomad -9
+        killproc $KILLPROC_OPT $nomad -SIGTERM
 
         retcode=$?
         rm -f /var/lock/subsys/nomad $PID_FILE
