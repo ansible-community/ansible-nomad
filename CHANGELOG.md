@@ -141,3 +141,9 @@
 ## v1.4.6
 
 - Better conditionals for init scripts fixes #5
+- Change to compact YAML
+- Misc task updates
+
+## v1.5.0
+
+- Version fix
