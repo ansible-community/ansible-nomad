@@ -132,3 +132,8 @@
 - Fixed typo in install tasks fixes #6 (thanks @asemt)
 - Added nomad_group_name and use nomad_iface (thanks @dggreenbaum)
 - Updated documentation
+
+## v1.4.5
+
+- Switch init scripts to send SIGTERM to address #2
+- Add leave_on_terminate and set to True by default
