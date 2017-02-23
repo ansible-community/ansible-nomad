@@ -66,15 +66,15 @@
 
 - name: SYSV init script
   template: src=nomad_sysvinit.j2 dest=/etc/init.d/nomad owner=root group=root mode=755
-  when: not ansible_distribution == "Debian"
+  when: not ansible_service_mgr == "systemd" and not ansible_os_family == "Debian"
 
 - name: Debian init script
   template: src=nomad_debian.init.j2 dest=/etc/init.d/nomad owner=root group=root mode=755
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version|int <= 7
+  when: not ansible_service_mgr == "systemd" and ansible_os_family == "Debian"
 
 - name: systemd script
   template: src=nomad_systemd.service.j2 dest=/lib/systemd/system/nomad.service owner=root group=root mode=644
-  when: ansible_distribution_major_version|int >= 7
+  when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad
   service: name=nomad state=started
