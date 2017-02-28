@@ -147,3 +147,9 @@
 ## v1.5.0
 
 - Version fix
+
+## v1.5.1
+
+- Enable the service when starting
+- Prefer compact YAML in tasks
+- Task cleanup
