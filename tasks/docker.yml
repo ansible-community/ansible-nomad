@@ -16,5 +16,5 @@
 
 - name: Run dmsetup for Ubuntu 16.04
   command: dmsetup mknodes
-  when: dmsetup_result 
-  tags: docker 
+  when: dmsetup_result
+  tags: docker
