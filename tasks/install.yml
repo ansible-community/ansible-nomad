@@ -48,12 +48,15 @@
   get_url:
     url: "{{ nomad_zip_url }}"
     dest: "{{ role_path }}/files/{{ nomad_pkg }}"
-    checksum:
-      sha256: "{{ nomad_sha256.stdout.split(' ')|first }}"
+    checksum: "sha256:{{ nomad_sha256.stdout.split(' ')|first }}"
     timeout: 42
   run_once: true
   tags: installation
   when: nomad_package.stat.exists == False
+
+- name: Debug Print Package Name
+  debug:
+    msg: "nomad package {{nomad_pkg}}"
 
 - name: Unarchive Nomad
   become: no

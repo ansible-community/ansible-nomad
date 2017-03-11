@@ -2,10 +2,14 @@
 # Based on: https://www.nomadproject.io/docs/cluster/bootstrapping.html
 
 # Enable the client
+
 client {
     enabled = true
+{% if nomad_use_consul == False %}
+    #use dns discovery to find nomad service directly instead of native consul
     servers = ["nomad.service.consul:4647"]
-}
+{% endif %}
 
+}
 # Increase log verbosity
-log_level = "DEBUG"
+log_level = "{{nomad_log_level}}"
