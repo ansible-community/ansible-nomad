@@ -1,0 +1,20 @@
+---
+# override vars for my stuff
+
+architecture:
+  x86_64: amd64
+  armv7l: arm
+nomad_architecture: "{{ architecture[ansible_architecture] }}"
+nomad_zip_sha256_sums:
+  amd64: "0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67"
+  arm: "6f74092e232702bf921e52ed1e2e7e76aeb24ae119802b024b865f81bccca29b"
+nomad_zip_sha256: "{{ nomad_zip_sha256_sums[nomad_architecture] }}"
+nomad_iface: "eth0"
+nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+cluster_nodes:
+  - nomad1
+  - nomad2
+  - nomad3
+nomad_enable_docker: False
+nomad_advertise_address: 192.168.3.129
+
