@@ -28,8 +28,9 @@ The role defines all variables in `defaults/main.yml`:
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
 | `nomad_version` | `0.5.2` | nomad version to install |
-| `nomad_zip_url` | `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip` | nomad download URL |
-| `nomad_zip_sha256` | SHA256 SUM | nomad download SHA256 summary |
+| `nomad_architecture_map`|  | dict translating ansible_architecture to hashi architecture naming convention |
+| `nomad_architecture`| `amd64`,`arm`,`arm64` | determined by `{{ nomad_architecture_map[ansible_architecture] }}` |
+| `nomad_zip_url` | `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip` | nomad download URL |
 | `nomad_bin_dir` | `/usr/local/bin` | nomad binary installation path |
 | `nomad_config_dir` | `/etc/nomad.d` | nomad configuration file path |
 | `nomad_data_dir` | `/var/nomad` | nomad data path |
@@ -44,6 +45,7 @@ The role defines all variables in `defaults/main.yml`:
 | `nomad_advertise_address` | dynamic from hosts inventory | The interface address to advertise to other nodes |
 | `nomad_bind_address` | "0.0.0.0" | Default bind address |
 | `nomad_enable_docker` | `false` | Install Docker subsystem on nodes? |
+| 'nomad_use_consul' | `False` | bootstrap nomad via native consul zero-conf suppport.. assumes consul default ports etc|
 
 ### OS Distribution Variables
 
