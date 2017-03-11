@@ -54,10 +54,6 @@
   tags: installation
   when: nomad_package.stat.exists == False
 
-- name: Debug Print Package Name
-  debug:
-    msg: "nomad package {{nomad_pkg}}"
-
 - name: Unarchive Nomad
   become: no
   connection: local
