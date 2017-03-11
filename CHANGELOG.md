@@ -153,3 +153,7 @@
 - Enable the service when starting
 - Prefer compact YAML in tasks
 - Task cleanup
+
+## v1.5.2
+
+- Initial ARM support (thanks @lanefu)
