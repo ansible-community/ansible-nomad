@@ -157,3 +157,8 @@
 ## v1.5.2
 
 - Initial ARM support (thanks @lanefu)
+
+## v1.5.3
+
+- Nomad version 0.5.5
+- Updated documentation
