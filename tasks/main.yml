@@ -30,10 +30,10 @@
 
 - name: Add Nomad user
   user:
-    name: nomad
+    name: "{{ nomad_user }}"
     comment: "Nomad user"
-    uid: 1047
-    group: bin
+    group: "{{ nomad_group }}"
+    system: yes
 
 - name: Add Nomad user to docker group
   user:
