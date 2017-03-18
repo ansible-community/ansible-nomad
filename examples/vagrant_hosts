@@ -5,7 +5,7 @@
 #     the 'nodeN' pattern for additional nodes past 'nomad3'
 #     Do not modify the labels (text appearing between []), however
 
-[cluster_nodes]
+[nomad_cluster_nodes]
 nomad1.local nomad_node_role=bootstrap ansible_ssh_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/nomad1/virtualbox/private_key
 nomad2.local nomad_node_role=server ansible_ssh_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/nomad2/virtualbox/private_key
 nomad3.local nomad_node_role=client ansible_ssh_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/nomad3/virtualbox/private_key

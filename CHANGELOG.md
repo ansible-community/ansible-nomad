@@ -166,3 +166,7 @@
 ## v1.5.4
 
 - Make nomad user account dynamic and also a system account
+
+## v1.5.5
+
+- Fix cluster_nodes references
