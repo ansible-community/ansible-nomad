@@ -170,3 +170,7 @@
 ## v1.5.5
 
 - Fix cluster_nodes references
+
+## v1.5.6
+
+- Add iface env var
