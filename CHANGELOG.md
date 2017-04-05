@@ -174,3 +174,8 @@
 ## v1.5.6
 
 - Add iface env var
+
+## v1.5.7
+
+- Nomad version 0.5.6
+- Update documentation
