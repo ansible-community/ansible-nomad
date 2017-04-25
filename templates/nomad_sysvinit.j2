@@ -3,59 +3,62 @@
 # chkconfig:   2345 95 95
 # description: distributed, highly available, datacenter-aware scheduler
 # processname: nomad
-# pidfile: /var/run/nomad/pidfile
+# pidfile: {{ nomad_run_dir }}/pidfile
+# shellcheck disable=SC2015
+# shellcheck disable=SC1091
 
 . /etc/init.d/functions
 
-nomad=/usr/local/bin/nomad
-CONFIG_PATH={{ nomad_config_dir }}
-PID_FILE=/var/run/nomad/nomad.pid
-LOG_FILE=/var/log/nomad/nomad.log
+nomad="{{nomad_bin_dir}}/nomad"
+CONFIG_PATH="{{ nomad_config_dir }}"
+PID_FILE="{{ nomad_run_dir }}/nomad.pid"
+LOG_FILE="{{ nomad_log_dir }}/nomad.log"
 
 [ -e /etc/sysconfig/nomad ] && . /etc/sysconfig/nomad
 
-export GOMAXPROCS=$(nproc)
+
+GOMAXPROCS=$(nproc)
+export GOMAXPROCS
 
 mkrundir() {
-        [ ! -d /var/run/nomad ] && mkdir -p /var/run/nomad
-        chown {{ nomad_user }} /var/run/nomad
+  [ ! -d "{{ nomad_run_dir }}" ] && mkdir -p "{{ nomad_run_dir }}"
+      chown "{{ nomad_user }}" "{{ nomad_run_dir }}"
 }
 
 KILLPROC_OPT="-p ${PID_FILE}"
 mkpidfile() {
-        mkrundir
-        [ ! -f $PID_FILE ] && pidofproc $nomad > $PID_FILE
-        chown {{ nomad_user }} /var/run/nomad
-        if [ $? -ne 0 ] ; then
-            rm $PID_FILE
-            KILLPROC_OPT=""
-        fi
+  mkrundir
+    [ ! -f "$PID_FILE" ] && pidofproc "$nomad" > "$PID_FILE"
+      if ! chown "{{ nomad_user }}" "{{ nomad_run_dir }}"; then
+        rm "$PID_FILE"
+        KILLPROC_OPT=""
+      fi
 }
 
 start() {
-        echo -n "Starting nomad: "
-        mkrundir
-        [ -f $PID_FILE ] && rm $PID_FILE
-        daemon --user={{ nomad_user }} \
-            --pidfile="$PID_FILE" \
-            "$nomad" agent -server -pid-file "${PID_FILE}" -config "${CONFIG_PATH}"/base.hcl -config "${CONFIG_PATH}"/{{ nomad_node_role }}.hcl "${LOG_FILE}" &
-        retcode=$?
-        touch /var/lock/subsys/nomad
-        return $retcode
+  echo -n "Starting nomad: "
+  mkrundir
+  [ -f "$PID_FILE" ] && rm "$PID_FILE"
+  daemon --user="{{ nomad_user }}" \
+      --pidfile="$PID_FILE" \
+      "$nomad" agent -server -pid-file "${PID_FILE}" -config "${CONFIG_PATH}"/base.hcl -config "${CONFIG_PATH}/{{ nomad_node_role }}.hcl" "${LOG_FILE}" &
+  retcode=$?
+  touch "{{ nomad_lockfile }}"
+  return $retcode
 }
 
 stop() {
-        echo -n "Shutting down nomad: "
-        if ("${nomad}" info 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
-            "$nomad" leave
-        fi
+  echo -n "Shutting down nomad: "
+  if ("${nomad}" info 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
+      "$nomad" leave
+  fi
 
-        mkpidfile
-        killproc $KILLPROC_OPT $nomad -SIGTERM
+  mkpidfile
+  killproc $KILLPROC_OPT $nomad -SIGTERM
 
-        retcode=$?
-        rm -f /var/lock/subsys/nomad $PID_FILE
-        return $retcode
+  retcode=$?
+  rm -f "{{ nomad_lockfile }}" "$PID_FILE"
+  return $retcode
 }
 
 case "$1" in
@@ -77,7 +80,7 @@ case "$1" in
         killproc $KILLPROC_OPT $nomad -HUP
         ;;
     condrestart)
-        [ -f /var/lock/subsys/nomad ] && restart || :
+        [ -f "{{ nomad_lockfile }}" ] && restart || :
         ;;
     *)
         echo "Usage: nomad {start|stop|status|reload|restart}"

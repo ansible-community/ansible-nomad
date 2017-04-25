@@ -59,10 +59,9 @@
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group}}"
   with_items:
-    - /opt/nomad
-    - /var/nomad
-    - /var/run/nomad
-    - /etc/nomad.d
+    - {{ nomad_data_dir }}
+    - {{ nomad_config_dir }}
+    - {{ nomad_log_dir }}
 
 - name: Base configuration
   template:

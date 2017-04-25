@@ -17,11 +17,11 @@ After=basic.target network.target
 User={{ nomad_user }}
 Group={{ nomad_group }}
 {% if nomad_node_role == "server" %}
-ExecStart=/usr/local/bin/nomad agent -server \
+ExecStart={{ nomad_bin_dir }}/nomad agent -server \
     -config={{ nomad_config_dir }}/base.hcl \
     -config={{ nomad_config_dir }}/{{ nomad_node_role }}.hcl
 {% else %}
-ExecStart=/usr/local/bin/nomad agent \
+ExecStart={{ nomad_bin_dir }}/nomad agent \
     -config={{ nomad_config_dir }}/base.hcl \
     -config={{ nomad_config_dir }}/{{ nomad_node_role }}.hcl
 {% endif %}

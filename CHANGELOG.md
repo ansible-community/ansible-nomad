@@ -179,3 +179,15 @@
 
 - Nomad version 0.5.6
 - Update documentation
+
+## v1.6.0
+
+- Use all directory variables in all templates
+  - Addresses #8
+  - Addresses #9
+- New variables:
+  - `nomad_lockfile`
+  - `nomad_run_dir`
+- Updated init script templates
+- Updated systemd unit template
+- Convert to local action plays
