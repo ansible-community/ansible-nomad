@@ -68,11 +68,6 @@
     src: base.hcl.j2
     dest: "{{ nomad_config_dir }}/base.hcl"
 
-- name: Bootstrap server configuration
-  template:
-    src: bootstrap.hcl.j2
-    dest: "{{ nomad_config_dir }}/bootstrap.hcl"
-
 - name: Server configuration
   template:
     src: server.hcl.j2

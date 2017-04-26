@@ -203,3 +203,7 @@
 - Use node role in startup scripts
 - Update startup scripts
 - Update install playbook
+
+## v1.6.3
+
+- Remove bootstrap task
