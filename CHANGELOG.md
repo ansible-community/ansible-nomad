@@ -191,3 +191,7 @@
 - Updated init script templates
 - Updated systemd unit template
 - Convert to local action plays
+
+## v1.6.0
+
+- Fix install task issue
