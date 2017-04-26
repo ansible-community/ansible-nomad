@@ -195,3 +195,11 @@
 ## v1.6.0
 
 - Fix install task issue
+
+## v1.6.1
+
+- Move bootstrap into server config
+- Remove bootstrap node role
+- Use node role in startup scripts
+- Update startup scripts
+- Update install playbook

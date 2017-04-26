@@ -6,6 +6,7 @@
 # Enable the server
 server {
     enabled = true
+    bootstrap_expect = {{ nomad_server_count }}
 {% if nomad_use_consul == False %}
     start_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_default_ipv4']['address'] != hostvars[host]['ansible_default_ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{{ quote }}{% endif %}
 {% endfor %}{{ rbracket }}

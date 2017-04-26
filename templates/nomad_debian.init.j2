@@ -18,7 +18,7 @@ DESC="Nomad service discovery framework"
 NAME="nomad"
 DAEMON="{{ nomad_bin_dir }}/${NAME}"
 PIDFILE="{{ nomad_run_dir }}/${NAME}.pid"
-DAEMON_ARGS="agent -server -config {{ nomad_config_dir }}/base.hcl -config {{ nomad_config_dir }}/{{ nomad_node_role }}.hcl >> {{ nomad_log_dir }}/$NAME.log 2>&1"
+DAEMON_ARGS="agent -{{ nomad_node_role }} -config {{ nomad_config_dir }}/base.hcl -config {{ nomad_config_dir }}/{{ nomad_node_role }}.hcl >> {{ nomad_log_dir }}/$NAME.log 2>&1"
 USER="{{ nomad_user }}"
 SCRIPTNAME="/etc/init.d/${NAME}"
 

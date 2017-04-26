@@ -1,9 +1,0 @@
-# Enable the bootstrap server
-
-server {
-    enabled = true
-    bootstrap_expect = {{ nomad_server_count }}
-}
-
-# Increase log verbosity
-log_level = "DEBUG"

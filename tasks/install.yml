@@ -50,7 +50,7 @@
 - name: Install Nomad
   copy:
     src: "{{ role_path }}/files/nomad"
-    dest: /usr/local/bin/
+    dest: "{{ nomad_bin_dir }}"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
     mode: 0755
