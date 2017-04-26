@@ -15,7 +15,7 @@
   register: nomad_checksum
 
 - name: Get Nomad package checksum file
-  local_action: get_url url="{{ nomad_checksum_file_url }}" dest="{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS" 
+  local_action: get_url url="{{ nomad_checksum_file_url }}" dest="{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   become: no
   run_once: true
   tags: installation

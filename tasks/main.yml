@@ -59,9 +59,9 @@
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group}}"
   with_items:
-    - {{ nomad_data_dir }}
-    - {{ nomad_config_dir }}
-    - {{ nomad_log_dir }}
+    - "{{ nomad_data_dir }}"
+    - "{{ nomad_config_dir }}"
+    - "{{ nomad_log_dir }}"
 
 - name: Base configuration
   template:
