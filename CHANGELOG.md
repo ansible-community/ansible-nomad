@@ -192,11 +192,11 @@
 - Updated systemd unit template
 - Convert to local action plays
 
-## v1.6.0
+## v1.6.1
 
 - Fix install task issue
 
-## v1.6.1
+## v1.6.2
 
 - Move bootstrap into server config
 - Remove bootstrap node role
