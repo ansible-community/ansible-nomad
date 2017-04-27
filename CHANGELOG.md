@@ -207,3 +207,7 @@
 ## v1.6.3
 
 - Remove bootstrap task
+
+## v1.6.4 (UNRELEASED)
+
+- Fix log portion of start line in init script - fixes #13
