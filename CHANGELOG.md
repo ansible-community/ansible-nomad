@@ -208,6 +208,8 @@
 
 - Remove bootstrap task
 
-## v1.6.4 (UNRELEASED)
+## v1.6.4
 
 - Fix log portion of start line in init script - fixes #13
+- Fix bad nomad_docker_enable variable refs
+- Update CONTRIBUTING

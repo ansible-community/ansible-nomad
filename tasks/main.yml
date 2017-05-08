@@ -40,7 +40,7 @@
     name: nomad
     groups: docker
     append: yes
-  when: nomad_enable_docker == "true"
+  when: nomad_docker_enable == "true"
 
 - name: Include OS variables
   include_vars: "{{ ansible_os_family }}.yml"

@@ -44,7 +44,7 @@ The role defines all variables in `defaults/main.yml`:
 | `nomad_iface` | `eth1` | nomad network interface |
 | `nomad_advertise_address` | dynamic from hosts inventory | The interface address to advertise to other nodes |
 | `nomad_bind_address` | "0.0.0.0" | Default bind address |
-| `nomad_enable_docker` | `false` | Install Docker subsystem on nodes? |
+| `nomad_docker_enable` | `false` | Install Docker subsystem on nodes? |
 | 'nomad_use_consul' | `False` | bootstrap nomad via native consul zero-conf suppport.. assumes consul default ports etc|
 
 ### OS Distribution Variables
