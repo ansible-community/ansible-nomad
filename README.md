@@ -47,6 +47,27 @@ The role defines all variables in `defaults/main.yml`:
 | `nomad_enable_docker` | `false` | Install Docker subsystem on nodes? |
 | 'nomad_use_consul' | `False` | bootstrap nomad via native consul zero-conf suppport.. assumes consul default ports etc|
 
+#### Custom Configuration Section
+
+As Nomad loads the configuration from files and directories in lexical order,
+typically merging on top of previously parsed configuration files, you may set
+custom configurations via `nomad_config_custom`, which will be expanded into a file named `custom.json` within your `nomad_config_dir` which will
+be loaded after all other configuration by default.
+
+An example usage for enabling `vault`:
+
+```yaml
+  vars:
+    nomad_config_custom:
+      vault:
+        enabled          : true
+        ca_path          : "/etc/certs/ca"
+        cert_file        : "/var/certs/vault.crt"
+        key_file         : "/var/certs/vault.key"
+        address          : "https://vault.service.consul:8200"
+        create_from_role : "nomad-cluster"
+```
+
 ### OS Distribution Variables
 
 The `nomad` binary works on most Linux platforms and is not distribution

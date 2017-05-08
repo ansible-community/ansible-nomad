@@ -78,6 +78,13 @@
     src: client.hcl.j2
     dest: "{{ nomad_config_dir }}/client.hcl"
 
+- name: Custom configuration
+  template:
+    src: custom.hcl.j2
+    dest: "{{ nomad_config_dir }}/custom.hcl"
+  when:
+    - nomad_config_custom is defined
+
 - name: SYSV init script
   template:
     src: nomad_sysvinit.j2
