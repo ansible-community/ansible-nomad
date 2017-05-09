@@ -1,5 +1,5 @@
 ---
-# File: tasks/main.yml - Main tasks for Nomad
+# File: main.yml - Main tasks for Nomad
 
 - name: Check distribution compatibility
   fail:

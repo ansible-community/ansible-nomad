@@ -1,5 +1,5 @@
 ---
-# File: tasks/install.yml - package installation tasks for Nomad
+# File: install.yml - package installation tasks for Nomad
 
 - name: OS packages
   package:

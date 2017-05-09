@@ -17,35 +17,113 @@ in a development environment based on Vagrant and VirtualBox. See
 This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
-* Ansible: 2.2.1.0
+* Ansible: 2.3.0.0
 * nomad: 0.5.6
+* CentOS: 7
 * Debian: 8
+* RHEL: 7
+* Ubuntu: 16.04
 
 ## Role Variables
 
-The role defines all variables in `defaults/main.yml`:
+The role defines most of its variables in `defaults/main.yml`:
 
-| Name           | Default Value | Description                        |
-| -------------- | ------------- | -----------------------------------|
-| `nomad_version` | `0.5.2` | nomad version to install |
-| `nomad_architecture_map`|  | dict translating ansible_architecture to hashi architecture naming convention |
-| `nomad_architecture`| `amd64`,`arm`,`arm64` | determined by `{{ nomad_architecture_map[ansible_architecture] }}` |
-| `nomad_zip_url` | `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip` | nomad download URL |
-| `nomad_bin_dir` | `/usr/local/bin` | nomad binary installation path |
-| `nomad_config_dir` | `/etc/nomad.d` | nomad configuration file path |
-| `nomad_data_dir` | `/var/nomad` | nomad data path |
-| `nomad_log_dir` | `/var/log/nomad` | nomad log path |
-| `nomad_user` | `nomad` | nomad OS user |
-| `nomad_group` | `bin` | nomad OS group |
-| `nomad_region` | `global` | The default region |
-| `nomad_datacenter` | boone | nomad datacenter label |
-| `nomad_log_level` | `INFO` | Logging level |
-| `nomad_syslog_enable` | true | nomad logs to syslog |
-| `nomad_iface` | `eth1` | nomad network interface |
-| `nomad_advertise_address` | dynamic from hosts inventory | The interface address to advertise to other nodes |
-| `nomad_bind_address` | "0.0.0.0" | Default bind address |
-| `nomad_docker_enable` | `false` | Install Docker subsystem on nodes? |
-| 'nomad_use_consul' | `False` | bootstrap nomad via native consul zero-conf suppport.. assumes consul default ports etc|
+### `nomad_version`
+
+- Nomad version to install
+- Default value: **0.5.6**
+
+### `nomad_architecture_map`
+
+- This variable does not need to be changed in most cases
+- Default value: Dictionary translating ansible_architecture to HashiCorp
+  architecture naming convention
+
+### `nomad_architecture`
+
+- Host architecture
+- Default value: determined by `{{ nomad_architecture_map[ansible_architecture] }}`
+
+### `nomad_zip_url`
+
+- Nomad download URL
+- Default value: `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip`
+
+### `nomad_bin_dir`
+
+- Nomad binary installation path
+- Default value: `/usr/local/bin`
+
+### `nomad_config_dir`
+
+- Nomad configuration file path
+- Default value: `/etc/nomad.d`
+
+### `nomad_data_dir`
+
+- Nomad data path
+- Default value: `/var/nomad`
+
+### `nomad_log_dir`
+
+- Nomad log path
+- Default value: `/var/log/nomad`
+
+### `nomad_user`
+
+- Nomad OS username
+- Default value: **nomad**
+
+### `nomad_group`
+
+- Nomad OS group
+- Default value: **bin**
+
+### `nomad_region`
+
+- Default region
+- Default value: **global**
+
+### `nomad_datacenter`
+
+- Nomad datacenter label
+- Default value: **dc1**
+
+### `nomad_log_level`
+
+- Logging level
+- Default value: **INFO**
+
+### `nomad_syslog_enable`
+
+- Log to syslog
+- Default value: **true**
+
+### `nomad_iface`
+
+- Nomad network interface
+- Default value: **eth1**
+
+### `nomad_advertise_address`
+
+- Network interface address to advertise to other nodes
+- Default value: dynamic from hosts inventory
+
+### `nomad_bind_address`
+
+- Bind interface address
+- Default value: **0.0.0.0**
+
+### `nomad_docker_enable`
+
+- Install Docker subsystem on nodes?
+- Default value: **false**
+
+### 'nomad_use_consul'
+
+- Bootstrap nomad via native consul zero-configuration support
+  assumes consul default ports etc.
+- Default value: **False**
 
 #### Custom Configuration Section
 
@@ -74,26 +152,87 @@ The `nomad` binary works on most Linux platforms and is not distribution
 specific. However, some distributions require installation of specific OS
 packages with different naming, so this role was built with support for
 popular Linux distributions and defines these variables to deal with the
-differences acros distros:
+differences across distributions:
 
-| Name           | Default Value | Description                        |
-| -------------- | ------------- | -----------------------------------|
-| `nomad_centos_pkg` | `{{ nomad_version }}_linux_amd64.zip` | nomad package filename |
-| `nomad_centos_url` | `{{ nomad_zip_url }}` | nomad package download URL |
-| `nomad_centos_sha256` | SHA256 SUM | nomad download SHA256 summary |
-| `nomad_centos_os_packages` | list | List of OS packages to install |
-| `nomad_debian_pkg` | `{{ nomad_version }}_linux_amd64.zip` | nomad package filename |
-| `nomad_debian_url` | `{{ nomad_zip_url }}` | nomad package download URL |
-| `nomad_debian_sha256` | SHA256 SUM | nomad download SHA256 summary |
-| `nomad_debian_os_packages` | list | List of OS packages to install |
-| `nomad_redhat_pkg` | `{{ nomad_version }}_linux_amd64.zip` | nomad package filename |
-| `nomad_redhat_url` | `{{ nomad_zip_url }}` | nomad package download URL |
-| `nomad_redhat_sha256` | SHA256 SUM | nomad download SHA256 summary |
-| `nomad_redhat_os_packages` | list | List of OS packages to install |
-| `nomad_ubuntu_pkg` | `{{ nomad_version }}_linux_amd64.zip` | nomad package filename |
-| `nomad_ubuntu_url` | `{{ nomad_zip_url }}` | nomad package download URL |
-| `nomad_ubuntu_sha256` | SHA256 SUM | nomad download SHA256 summary |
-| `nomad_ubuntu_os_packages` | list | List of OS packages to install |
+### `nomad_centos_pkg`
+
+- Nomad package filename
+- Default value: `{{ nomad_version }}_linux_amd64.zip`
+
+### `nomad_centos_url`
+
+- Nomad package download URL
+- Default value: `{{ nomad_zip_url }}`
+
+### `nomad_centos_sha256`
+
+- Nomad download SHA256 summary
+- Default value: **SHA256 SUM**
+
+### `nomad_centos_os_packages`
+
+- List of OS packages to install
+- Default value: **list**
+
+### `nomad_debian_pkg`
+
+- Nomad package filename
+- Default value: `{{ nomad_version }}_linux_amd64.zip`
+
+### `nomad_debian_url`
+
+- Nomad package download URL
+- Default value: `{{ nomad_zip_url }}`
+
+### `nomad_debian_sha256`
+
+- Nomad download SHA256 summary
+- Default value: **SHA256 SUM**
+
+### `nomad_debian_os_packages`
+
+- List of OS packages to install
+- Default value: **list**
+
+### `nomad_redhat_pkg`
+
+- Nomad package filename
+- Default value: `{{ nomad_version }}_linux_amd64.zip`
+
+### `nomad_redhat_url`
+
+- Nomad package download URL
+- Default value: `{{ nomad_zip_url }}`
+
+### `nomad_redhat_sha256`
+
+- Nomad download SHA256 summary
+- Default value: **SHA256 SUM**
+
+### `nomad_redhat_os_packages`
+
+- List of OS packages to install
+- Default value: **list**
+
+### `nomad_ubuntu_pkg`
+
+- Nomad package filename
+- Default value: `{{ nomad_version }}_linux_amd64.zip`
+
+### `nomad_ubuntu_url`
+
+- Nomad package download URL
+- Default value: `{{ nomad_zip_url }}`
+
+### `nomad_ubuntu_sha256`
+
+- Nomad download SHA256 summary
+- Default value: *8SHA256 SUM**
+
+### `nomad_ubuntu_os_packages`
+
+- List of OS packages to install
+- Default value: **list**
 
 ## Dependencies
 

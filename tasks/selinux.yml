@@ -1,5 +1,5 @@
 ---
-# File: tasks/selinux.yml - SELinux tasks for Nomad
+# File: selinux.yml - SELinux tasks for Nomad
 
 # SELinux disrupts LXC (shrug)
 

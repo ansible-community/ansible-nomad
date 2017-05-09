@@ -1,5 +1,5 @@
 ---
-# File: tasks/docker.yml - Docker tasks for nomad
+# File: docker.yml - Docker tasks for nomad
 
 ## Docker items
 

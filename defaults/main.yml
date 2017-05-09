@@ -1,6 +1,5 @@
 ---
-# File: defaults/main.yml - Main default variables for nomad
-
+# File: main.yml - Main default variables for nomad
 
 ## match cpu arch to hashi naming convention
 nomad_architecture_map:

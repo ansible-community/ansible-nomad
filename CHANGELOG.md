@@ -213,3 +213,11 @@
 - Fix log portion of start line in init script - fixes #13
 - Fix bad nomad_docker_enable variable refs
 - Update CONTRIBUTING
+
+## v1.6.5
+
+- Add custom configuration option (thanks @awheeler)
+- Update documentation
+- Update task meta
+- Update role meta
+- Update CONTRIBUTORS

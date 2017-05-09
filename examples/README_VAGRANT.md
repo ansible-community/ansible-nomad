@@ -84,9 +84,9 @@ BOX_NAME="centos/7" vagrant up
 
 0. This project functions with the following software versions:
   * nomad version 0.5.6
-  * Ansible version 2.2.1.0
-  * VirtualBox version 5.1.14
-  * Vagrant version 1.9.1
+  * Ansible version 2.3.0.0
+  * VirtualBox version 5.1.22
+  * Vagrant version 1.9.4
   * Vagrant Hosts version 2.8.0
 1. This project uses Debian 8 (Jessie) by default, but you can choose other OS
    with the *BOX_NAME* environment variable
