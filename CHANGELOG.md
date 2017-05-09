@@ -217,6 +217,7 @@
 ## v1.6.5
 
 - Add custom configuration option (thanks @awheeler)
+- Fixed systemd service file when nomad_custom_config used (thanks @awheeler)
 - Update documentation
 - Update task meta
 - Update role meta
