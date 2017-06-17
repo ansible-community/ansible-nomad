@@ -1,42 +1,56 @@
 ---
 # File: main.yml - Main default variables for nomad
 
-## match cpu arch to hashi naming convention
+## Core
+
+### Package
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.6', true) }}"
 nomad_architecture_map:
+  amd64: amd64
   x86_64: amd64
   armv7l: arm
   aarch64: arm64
+  32-bit: "386"
+  64-bit: amd64
 nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
-
-## role defaults
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.6', true) }}"
-nomad_server_count: "2"
-nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
-nomad_group_name: "cluster_nodes"
+nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+
+### Paths
 nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_log_dir: "/var/log/nomad"
 nomad_run_dir: "/var/run/nomad"
+
+### System user and group
+nomad_manage_user: yes
 nomad_user: "root"
+nomad_manage_group: no
 nomad_group: "bin"
-nomad_region: "global"
+
+### Nomad settings
 nomad_datacenter: "dc1"
+nomad_region: "global"
 nomad_log_level: "INFO"
 nomad_syslog_enable: "true"
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default('eth1', true) }}"
-vault_address: "0.0.0.0"
+
+### Addresses
 nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_'+nomad_iface]['ipv4']['address'] }}"
 nomad_bind_address: "0.0.0.0"
-nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
-nomad_apt_key_url: "hkp://p80.pool.sks-keyservers.net:80"
-nomad_apt_key_sig: 58118E89F3A912897C070ADBF76221572C52609D
-nomad_apt_repo: deb https://apt.dockerproject.org/repo {{ ansible_lsb.id|lower }}-{{ ansible_lsb.codename|lower }} main
+
+### Servers
+nomad_group_name: "cluster_nodes"
+nomad_server_count: "2"
+
+### Consul
 nomad_use_consul: False
 
-## Distribution
+### Vault
+nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 
-### Nomad
-nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
+### Docker
+nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
