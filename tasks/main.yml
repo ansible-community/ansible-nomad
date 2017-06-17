@@ -4,29 +4,15 @@
 - name: Include checks/asserts
   include: asserts.yml
 
-- name: Create cluster groupings
-  group_by:
-    key: "{{ nomad_node_role }}"
-
-- group_by:
-    key: "os_{{ ansible_os_family }}"
-
-- name: Add Nomad user
-  user:
-    name: "{{ nomad_user }}"
-    comment: "Nomad user"
-    group: "{{ nomad_group }}"
-    system: yes
-
-- name: Add Nomad user to docker group
-  user:
-    name: nomad
-    groups: docker
-    append: yes
-  when: nomad_docker_enable == "true"
-
 - name: Include OS variables
   include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Include user and group settings
+  include: user_group.yml
+
+- name: Include Docker tasks
+  include: docker.yml
+  when: nomad_docker_enable | bool
 
 - name: Install OS packages
   include: install.yml
