@@ -20,7 +20,7 @@ ports {
 data_dir = "{{ nomad_data_dir }}"
 
 log_level = "{{ nomad_log_level }}"
-enable_syslog = {{ nomad_syslog_ enable | bool | lower }}
+enable_syslog = {{ nomad_syslog_enable | bool | lower }}
 
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}

@@ -15,4 +15,4 @@
     group: "{{ nomad_group }}"
     system: yes
   when:
-    - ansible_manage_user | bool
+    - nomad_manage_user | bool

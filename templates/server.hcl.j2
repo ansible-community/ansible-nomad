@@ -1,30 +1,30 @@
 server {
-    enabled = {{ nomad_node_server | bool | lower }}
+    enabled = {{ _nomad_node_server | bool | lower }}
 
-    bootstrap_expect = {{ _nomad_servers | count }}
+    bootstrap_expect = {{ nomad_servers | count }}
 
     {% if nomad_retry_join | bool -%}
         retry_join = [
-            {% for server in _nomad_servers -%}
-            {% set comma = joiner(",") %}
-                {{ comma }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+            {%- set comma = joiner(",") -%}
+            {% for server in nomad_servers -%}
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
             {%- endfor -%} ]
         retry_max = {{ nomad_retry_max }}
         retry_interval = "{{ nomad_retry_interval }}"
-    {% else %}
+    {% else -%}
         start_join = [
-            {% for server in _nomad_servers -%}
-            {% set comma = joiner(",") %}
-                {{ comma }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+            {%- set comma = joiner(",") -%}
+            {% for server in nomad_servers -%}
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
             {%- endfor -%} ]
     {%- endif %}
 
     rejoin_after_leave = {{ nomad_rejoin_after_leave | bool | lower }}
 
     enabled_schedulers = [
+            {%- set comma = joiner(",") -%}
             {% for scheduler in nomad_enabled_schedulers -%}
-            {% set comma = joiner(",") %}
-                {{ comma }}"{{ scheduler }}"
+                {{ comma() }}"{{ scheduler }}"
             {%- endfor -%} ]
     num_schedulers = {{ nomad_num_schedulers }}
 

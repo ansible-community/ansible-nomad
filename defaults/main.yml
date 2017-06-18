@@ -56,7 +56,7 @@ nomad_enabled_schedulers:
 nomad_node_gc_threshold: "24h"
 nomad_job_gc_threshold: "4h"
 nomad_eval_gc_threshold: "1h"
-nomad_num_schedulers: {{ ansible_processor_vcpus }}
+nomad_num_schedulers: "{{ ansible_processor_vcpus }}"
 nomad_encrypt: ""
 
 #### Client settings
@@ -70,9 +70,9 @@ nomad_gc_disk_usage_threshold: 80
 nomad_gc_inode_usage_threshold: 70
 nomad_gc_parallel_destroys: 2
 nomad_reserved:
-  cpu: {{ nomad_reserved_cpu | default('0', true) }}
-  memory: {{ nomad_reserved_memory | default('0', true) }}
-  disk: {{ nomad_reserved_disk | default('0', true) }}
+  cpu: "{{ nomad_reserved_cpu | default('0', true) }}"
+  memory: "{{ nomad_reserved_memory | default('0', true) }}"
+  disk: "{{ nomad_reserved_disk | default('0', true) }}"
   ports: "{{ nomad_reserved_ports | default('22,8500-8600', true) }}"
 
 ### Addresses
@@ -106,3 +106,4 @@ nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 
 ### Docker
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
+nomad_docker_dmsetup: yes

@@ -41,7 +41,7 @@ start() {
   [ -f "$PID_FILE" ] && rm "$PID_FILE"
   daemon --user="{{ nomad_user }}" \
       --pidfile="$PID_FILE" \
-      "$nomad" agent -"{{ nomad_node_role }}" -config "${CONFIG_PATH}"/base.hcl -config "${CONFIG_PATH}/{{ nomad_node_role }}.hcl" {% if nomad_config_custom is defined %}-config "{{ nomad_config_dir }}/custom.hcl"{% endif %} &>> "${LOG_FILE}" \&
+      "$nomad" agent -config "${CONFIG_PATH}" &>> "${LOG_FILE}" \&
   retcode=$?
   touch "{{ nomad_lockfile }}"
   return $retcode
