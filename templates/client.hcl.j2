@@ -26,4 +26,10 @@ client {
         disk = {{ nomad_reserved['disk'] }}
         reserved_ports = "{{ nomad_reserved['ports'] }}"
     }
+
+    options = {
+    {% for key, value in nomad_options.iteritems() %}
+    "{{ key }}" = "{{ value }}"
+    {% endfor -%}
+    }
 }
