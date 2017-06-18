@@ -2,6 +2,7 @@
 # File: main.yml - Main default variables for nomad
 
 ## Core
+nomad_debug: no
 
 ### Package
 nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.6', true) }}"
@@ -35,16 +36,67 @@ nomad_group: "bin"
 nomad_datacenter: "dc1"
 nomad_region: "global"
 nomad_log_level: "INFO"
-nomad_syslog_enable: "true"
-nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default('eth1', true) }}"
+nomad_syslog_enable: yes
+nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_node_name: "{{ inventory_hostname_short }}"
+nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
+nomad_leave_on_terminate: yes
+nomad_leave_on_interrupt: no
+nomad_disable_update_check: no
+
+#### Server settings
+nomad_retry_max: 0
+nomad_retry_join: no
+nomad_retry_interval: "30s"
+nomad_rejoin_after_leave: no
+nomad_enabled_schedulers:
+  - service
+  - batch
+  - system
+nomad_node_gc_threshold: "24h"
+nomad_job_gc_threshold: "4h"
+nomad_eval_gc_threshold: "1h"
+nomad_num_schedulers: {{ ansible_processor_vcpus }}
+nomad_encrypt: ""
+
+#### Client settings
+nomad_node_class: ""
+nomad_no_host_uuid: no
+nomad_max_kill_timeout: "30s"
+nomad_network_speed: 0
+nomad_cpu_total_compute: 0
+nomad_gc_interval: "1m"
+nomad_gc_disk_usage_threshold: 80
+nomad_gc_inode_usage_threshold: 70
+nomad_gc_parallel_destroys: 2
+nomad_reserved:
+  cpu: {{ nomad_reserved_cpu | default('0', true) }}
+  memory: {{ nomad_reserved_memory | default('0', true) }}
+  disk: {{ nomad_reserved_disk | default('0', true) }}
+  ports: "{{ nomad_reserved_ports | default('22,8500-8600', true) }}"
 
 ### Addresses
-nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_'+nomad_iface]['ipv4']['address'] }}"
-nomad_bind_address: "0.0.0.0"
+nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
+nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
+
+### Ports
+nomad_ports:
+  http: "{{ nomad_ports_http | default('4646', true) }}"
+  rpc: "{{ nomad_ports_rpc | default('4647', true) }}"
+  serf: "{{ nomad_ports_serf | default('4648', true) }}"
 
 ### Servers
 nomad_group_name: "cluster_nodes"
-nomad_server_count: "2"
+nomad_servers: "\
+  {% set _nomad_servers = [] %}\
+  {% for host in groups[nomad_group_name] %}\
+    {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
+    {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
+      {% if _nomad_servers.append(host) %}{% endif %}\
+    {% endif %}\
+  {% endfor %}\
+  {{ _nomad_servers }}"
+nomad_gather_server_facts: no
 
 ### Consul
 nomad_use_consul: False

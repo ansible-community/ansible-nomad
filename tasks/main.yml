@@ -7,6 +7,22 @@
 - name: Include OS variables
   include_vars: "{{ ansible_os_family }}.yml"
 
+# Gathers facts (bind address) from servers not currently targeted.
+# 'delegate_facts' is currently rather buggy in Ansible so this might not
+# always work. Hence 'nomad_gather_server_facts' defaults to 'no'.
+- name: Gather facts from other servers
+  setup:
+  delegate_to: "{{ item }}"
+  delegate_facts: True
+  with_items: "{{ nomad_servers | difference(play_hosts) }}"
+  ignore_errors: yes
+  when: nomad_gather_server_facts | bool
+
+- name: Expose bind_address and node_role as facts
+  set_fact:
+    nomad_bind_address: "{{ nomad_bind_address }}"
+    nomad_node_role: "{{ nomad_node_role }}"
+
 - name: Include user and group settings
   include: user_group.yml
 

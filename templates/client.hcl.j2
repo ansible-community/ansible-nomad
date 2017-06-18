@@ -1,15 +1,29 @@
-# Nomad client configuration
-# Based on: https://www.nomadproject.io/docs/cluster/bootstrapping.html
-
-# Enable the client
-
 client {
-    enabled = true
-{% if nomad_use_consul == False %}
-    #use dns discovery to find nomad service directly instead of native consul
-    servers = ["nomad.service.consul:4647"]
-{% endif %}
+    enabled = {{ nomad_node_client | bool | lower }}
 
+    node_class = "{{ nomad_node_class }}"
+    no_host_uuid = {{ nomad_no_host_uuid | bool | lower }}
+
+    servers = [
+        {% for server in _nomad_servers -%}
+        {% set comma = joiner(",") %}
+            {{ comma }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+        {%- endfor -%} ]
+
+    max_kill_timeout = "{{ nomad_max_kill_timeout }}"
+
+    network_speed = {{ nomad_network_speed }}
+    cpu_total_compute = {{ nomad_cpu_total_compute }}
+
+    gc_interval = "{{ nomad_gc_interval }}"
+    gc_disk_usage_threshold = {{ nomad_gc_disk_usage_threshold }}
+    gc_inode_usage_threshold = {{ nomad_gc_inode_usage_threshold }}
+    gc_parallel_destroys = {{ nomad_gc_parallel_destroys }}
+
+    reserved {
+        cpu = {{ nomad_reserved['cpu'] }}
+        memory = {{ nomad_reserved['memory'] }}
+        disk = {{ nomad_reserved['disk'] }}
+        ports = {{ nomad_reserved['ports'] }}
+    }
 }
-# Increase log verbosity
-log_level = "{{nomad_log_level}}"

@@ -1,38 +1,26 @@
-# Base Nomad configuration, based on:
-# https://www.nomadproject.io/docs/cluster/bootstrapping.html
-
-# Name the region, if omitted, the default "global" region will be used.
+name = "{{ nomad_node_name }}"
 region = "{{ nomad_region }}"
-
-# Name the datacenter, if omitted, the default "dc1" datacenter will be used.
 datacenter = "{{ nomad_datacenter }}"
 
-# Persist data to a location that will survive a machine reboot.
-data_dir = "{{ nomad_data_dir }}"
+enable_debug = {{ nomad_debug | bool | lower }}
+disable_update_check = {{ nomad_disable_update_check | bool | lower }}
 
-# Bind to all addresses so that the Nomad agent is available
-# both on loopback and externally.
 bind_addr = "{{ nomad_bind_address }}"
-
-# Advertise an accessible IP address so the server is reachable by
-# other servers and clients. The IPs can be materialized by Terraform
-# or be replaced by an init script.
-
 advertise {
-    http = "{{ nomad_advertise_address }}:4646"
-    rpc = "{{ nomad_advertise_address }}:4647"
-    serf = "{{ nomad_advertise_address }}:4648"
+    http = "{{ nomad_advertise_address }}"
+    rpc = "{{ nomad_advertise_address }}"
+    serf = "{{ nomad_advertise_address }}"
+}
+ports {
+    http = {{ nomad_ports['http'] }}
+    rpc = {{ nomad_ports['rpc'] }}
+    serf = {{ nomad_ports['serf'] }}
 }
 
-# Send Nomad telemetry to statsite
+data_dir = "{{ nomad_data_dir }}"
 
-# telemetry {
-#     statsite_address = "${var.statsite}"
-#     disable_hostname = true
-# }
+log_level = "{{ nomad_log_level }}"
+enable_syslog = {{ nomad_syslog_ enable | bool | lower }}
 
-# Enable debug endpoints
-enable_debug = true
-
-# Graceful leave on SIGTERM
-leave_on_terminate = true
+leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
+leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
