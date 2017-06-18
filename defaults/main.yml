@@ -75,6 +75,7 @@ nomad_reserved:
   disk: "{{ nomad_reserved_disk | default('0', true) }}"
   ports: "{{ nomad_reserved_ports | default('22,8500-8600', true) }}"
 nomad_options: {}
+nomad_meta: {}
 
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
