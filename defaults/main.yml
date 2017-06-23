@@ -1,42 +1,111 @@
 ---
 # File: main.yml - Main default variables for nomad
 
-## match cpu arch to hashi naming convention
+## Core
+nomad_debug: no
+
+### Package
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.6', true) }}"
 nomad_architecture_map:
+  amd64: amd64
   x86_64: amd64
   armv7l: arm
   aarch64: arm64
+  32-bit: "386"
+  64-bit: amd64
 nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
-
-## role defaults
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.6', true) }}"
-nomad_server_count: "2"
-nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
-nomad_group_name: "cluster_nodes"
+nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+
+### Paths
 nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_log_dir: "/var/log/nomad"
 nomad_run_dir: "/var/run/nomad"
+
+### System user and group
+nomad_manage_user: yes
 nomad_user: "root"
+nomad_manage_group: no
 nomad_group: "bin"
-nomad_region: "global"
+
+### Nomad settings
 nomad_datacenter: "dc1"
+nomad_region: "global"
 nomad_log_level: "INFO"
-nomad_syslog_enable: "true"
-nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default('eth1', true) }}"
-vault_address: "0.0.0.0"
-nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_'+nomad_iface]['ipv4']['address'] }}"
-nomad_bind_address: "0.0.0.0"
-nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
-nomad_apt_key_url: "hkp://p80.pool.sks-keyservers.net:80"
-nomad_apt_key_sig: 58118E89F3A912897C070ADBF76221572C52609D
-nomad_apt_repo: deb https://apt.dockerproject.org/repo {{ ansible_lsb.id|lower }}-{{ ansible_lsb.codename|lower }} main
+nomad_syslog_enable: yes
+nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_node_name: "{{ inventory_hostname_short }}"
+nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
+nomad_leave_on_terminate: yes
+nomad_leave_on_interrupt: no
+nomad_disable_update_check: no
+
+#### Server settings
+nomad_retry_max: 0
+nomad_retry_join: no
+nomad_retry_interval: "30s"
+nomad_rejoin_after_leave: no
+nomad_enabled_schedulers:
+  - service
+  - batch
+  - system
+nomad_num_schedulers: "{{ ansible_processor_vcpus }}"
+nomad_node_gc_threshold: "24h"
+nomad_job_gc_threshold: "4h"
+nomad_eval_gc_threshold: "1h"
+nomad_encrypt: ""
+
+#### Client settings
+nomad_node_class: ""
+nomad_no_host_uuid: no
+nomad_max_kill_timeout: "30s"
+nomad_network_speed: 0
+nomad_cpu_total_compute: 0
+nomad_gc_interval: "1m"
+nomad_gc_disk_usage_threshold: 80
+nomad_gc_inode_usage_threshold: 70
+nomad_gc_parallel_destroys: 2
+nomad_reserved:
+  cpu: "{{ nomad_reserved_cpu | default('0', true) }}"
+  memory: "{{ nomad_reserved_memory | default('0', true) }}"
+  disk: "{{ nomad_reserved_disk | default('0', true) }}"
+  ports: "{{ nomad_reserved_ports | default('22', true) }}"
+nomad_options: {}
+nomad_meta: {}
+
+### Addresses
+nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
+nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
+
+### Ports
+nomad_ports:
+  http: "{{ nomad_ports_http | default('4646', true) }}"
+  rpc: "{{ nomad_ports_rpc | default('4647', true) }}"
+  serf: "{{ nomad_ports_serf | default('4648', true) }}"
+
+### Servers
+nomad_group_name: "cluster_nodes"
+nomad_servers: "\
+  {% set _nomad_servers = [] %}\
+  {% for host in groups[nomad_group_name] %}\
+    {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
+    {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
+      {% if _nomad_servers.append(host) %}{% endif %}\
+    {% endif %}\
+  {% endfor %}\
+  {{ _nomad_servers }}"
+nomad_gather_server_facts: no
+
+### Consul
 nomad_use_consul: False
 
-## Distribution
+### Vault
+nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 
-### Nomad
-nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
+### Docker
+nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
+nomad_docker_dmsetup: yes

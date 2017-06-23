@@ -1,19 +1,36 @@
-{% set comma = joiner(",") %}
-{% set lbracket = "[" %}
-{% set rbracket = "]" %}
-{% set quote = '"' %}
-
-# Enable the server
 server {
-    enabled = true
-    bootstrap_expect = {{ nomad_server_count }}
-{% if nomad_use_consul == False %}
-    start_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_default_ipv4']['address'] != hostvars[host]['ansible_default_ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{{ quote }}{% endif %}
-{% endfor %}{{ rbracket }}
-    retry_join= {{ lbracket }}{% for host in groups['cluster_nodes'] %}{% if hostvars[inventory_hostname]['ansible_default_ipv4']['address'] != hostvars[host]['ansible_default_ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_default_ipv4']['address'] }}{{ quote }}{% endif %}
-{% endfor %}{{ rbracket }}
-    retry_interval = "15s"
-{% endif %}
+    enabled = {{ _nomad_node_server | bool | lower }}
+
+    bootstrap_expect = {{ nomad_servers | count }}
+
+    {% if nomad_retry_join | bool -%}
+        retry_join = [
+            {%- set comma = joiner(",") -%}
+            {% for server in nomad_servers -%}
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+            {%- endfor -%} ]
+        retry_max = {{ nomad_retry_max }}
+        retry_interval = "{{ nomad_retry_interval }}"
+    {% else -%}
+        start_join = [
+            {%- set comma = joiner(",") -%}
+            {% for server in nomad_servers -%}
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+            {%- endfor -%} ]
+    {%- endif %}
+
+    rejoin_after_leave = {{ nomad_rejoin_after_leave | bool | lower }}
+
+    enabled_schedulers = [
+            {%- set comma = joiner(",") -%}
+            {% for scheduler in nomad_enabled_schedulers -%}
+                {{ comma() }}"{{ scheduler }}"
+            {%- endfor -%} ]
+    num_schedulers = {{ nomad_num_schedulers }}
+
+    node_gc_threshold = "{{ nomad_node_gc_threshold }}"
+    eval_gc_threshold = "{{ nomad_eval_gc_threshold }}"
+    job_gc_threshold = "{{ nomad_job_gc_threshold }}"
+
+    encrypt = "{{ nomad_encrypt }}"
 }
-# Increase log verbosity
-log_level = "{{nomad_log_level}}"
