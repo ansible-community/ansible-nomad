@@ -222,3 +222,16 @@
 - Update task meta
 - Update role meta
 - Update CONTRIBUTORS
+
+## v1.7.0
+
+- Update README (thanks @groggemans)
+- Add meta parameters to client template (thanks @groggemans)
+- Add options parameters to client template (thanks @groggemans)
+- Update and fix CONTRIBUTORS file (thanks @groggemans)
+- Small syntax fixes and init script updates (thanks @groggemans)
+- Update and extend config templates (thanks @groggemans)
+- Main tasks cleanup (thanks @groggemans)
+- Initial reordering of role defaults (thanks @groggemans)
+- Move asserts and checks to there own file (thanks @groggemans)
+- CHANGELOG++
