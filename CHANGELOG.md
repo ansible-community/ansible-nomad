@@ -235,3 +235,7 @@
 - Initial reordering of role defaults (thanks @groggemans)
 - Move asserts and checks to there own file (thanks @groggemans)
 - CHANGELOG++
+
+## v1.7.1 (UNRELEASED)
+
+- Clean up docker tasks

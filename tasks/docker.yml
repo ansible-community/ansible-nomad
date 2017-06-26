@@ -14,12 +14,12 @@
   when:
     - ansible_os_family == "Debian"
     - ansible_distribution_version | version_compare(16.04, '=')
-    - "{{ nomad_docker_dmsetup | bool }}"
+    - nomad_docker_dmsetup | bool
 
 - name: Run dmsetup for Ubuntu 16.04
   command: dmsetup mknodes
   when:
-    - "{{ nomad_docker_dmsetup | bool }}"
+    - nomad_docker_dmsetup | bool
     - dmsetup_result
 
 - name: Add Nomad user to docker group
