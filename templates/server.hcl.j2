@@ -1,7 +1,9 @@
 server {
     enabled = {{ _nomad_node_server | bool | lower }}
 
-    bootstrap_expect = {{ nomad_servers | count }}
+    {% if _nomad_node_server | bool -%}
+        bootstrap_expect = {{ nomad_servers | count }}
+    {%- endif %}
 
     {% if nomad_retry_join | bool -%}
         retry_join = [
