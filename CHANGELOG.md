@@ -239,3 +239,4 @@
 ## v1.7.1 (UNRELEASED)
 
 - Clean up docker tasks
+- Fix debian init and client only config (thanks @groggemans)
