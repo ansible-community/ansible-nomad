@@ -240,3 +240,7 @@
 
 - Clean up docker tasks
 - Fix debian init and client only config (thanks @groggemans)
+
+## v1.7.2 (UNRELEASED)
+
+- Conditionally include options and meta to avoid error when emtpy
