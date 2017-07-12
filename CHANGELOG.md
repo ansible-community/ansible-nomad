@@ -236,7 +236,7 @@
 - Move asserts and checks to there own file (thanks @groggemans)
 - CHANGELOG++
 
-## v1.7.1 (UNRELEASED)
+## v1.7.1
 
 - Clean up docker tasks
 - Fix debian init and client only config (thanks @groggemans)
