@@ -241,6 +241,7 @@
 - Clean up docker tasks
 - Fix debian init and client only config (thanks @groggemans)
 
-## v1.7.2 (UNRELEASED)
+## v1.7.2
 
-- Conditionally include options and meta to avoid error when emtpy
+- Conditionally include options and meta to avoid error when empty
+- Rename `nomad_cluster_nodes` label to `nomad_instances`
