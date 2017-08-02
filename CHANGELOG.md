@@ -245,3 +245,7 @@
 
 - Conditionally include options and meta to avoid error when empty
 - Rename `nomad_cluster_nodes` label to `nomad_instances`
+
+## v1.7.3
+
+- Nomad version 0.6.0
