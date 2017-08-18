@@ -58,11 +58,15 @@
   template:
     src: server.hcl.j2
     dest: "{{ nomad_config_dir }}/server.hcl"
+  when:
+    - _nomad_node_server
 
 - name: Client configuration
   template:
     src: client.hcl.j2
     dest: "{{ nomad_config_dir }}/client.hcl"
+  when:
+    - _nomad_node_client
 
 - name: Custom configuration
   template:
