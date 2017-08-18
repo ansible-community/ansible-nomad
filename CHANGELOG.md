@@ -249,3 +249,7 @@
 ## v1.7.3
 
 - Nomad version 0.6.0
+
+## v1.7.4
+
+- Proper client/server template rendering (thanks @awheeler)
