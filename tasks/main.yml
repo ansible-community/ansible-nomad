@@ -59,14 +59,14 @@
     src: server.hcl.j2
     dest: "{{ nomad_config_dir }}/server.hcl"
   when:
-    - _nomad_node_server
+    - _nomad_node_server | bool
 
 - name: Client configuration
   template:
     src: client.hcl.j2
     dest: "{{ nomad_config_dir }}/client.hcl"
   when:
-    - _nomad_node_client
+    - _nomad_node_client | bool
 
 - name: Custom configuration
   template:
