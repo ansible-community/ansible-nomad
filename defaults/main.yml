@@ -90,14 +90,18 @@ nomad_ports:
 ### Servers
 nomad_group_name: "cluster_nodes"
 nomad_servers: "\
-  {% set _nomad_servers = [] %}\
-  {% for host in groups[nomad_group_name] %}\
-    {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
-    {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
-      {% if _nomad_servers.append(host) %}{% endif %}\
-    {% endif %}\
-  {% endfor %}\
-  {{ _nomad_servers }}"
+  {% if nomad_use_consul==false %}\
+    {% set _nomad_servers = [] %}\
+    {% for host in groups[nomad_group_name] %}\
+      {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
+      {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
+        {% if _nomad_servers.append(host) %}{% endif %}\
+      {% endif %}\
+    {% endfor %}\
+    {{ _nomad_servers }}\
+    {% else %}\
+    []\
+  {% endif %}"
 nomad_gather_server_facts: no
 
 ### Consul

@@ -5,6 +5,7 @@ server {
         bootstrap_expect = {{ nomad_servers | count }}
     {%- endif %}
 
+{% if nomad_use_consul == False %}
     {% if nomad_retry_join | bool -%}
         retry_join = [
             {%- set comma = joiner(",") -%}
@@ -20,6 +21,7 @@ server {
                 {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
             {%- endfor -%} ]
     {%- endif %}
+{% endif %}
 
     rejoin_after_leave = {{ nomad_rejoin_after_leave | bool | lower }}
 
