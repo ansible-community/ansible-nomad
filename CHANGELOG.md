@@ -253,3 +253,7 @@
 ## v1.7.4
 
 - Proper client/server template rendering (thanks @awheeler)
+
+## v1.7.5 (UNRELEASED)
+
+- Re-instate nomad_use_consul functionality (thanks @awheeler)
