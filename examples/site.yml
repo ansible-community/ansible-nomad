@@ -2,7 +2,7 @@
 # File: site.yml - Example nomad site playbook
 
 - name: Installing Nomad
-  hosts: cluster_nodes
+  hosts: nomad_instances
   become: yes
   become_user: root
   roles:

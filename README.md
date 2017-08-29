@@ -334,7 +334,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_group_name`
 
 - Ansible group that contains all cluster nodes
-- Default value: **cluster_nodes**
+- Default value: **nomad_instances**
 
 ### `nomad_servers`
 

@@ -88,7 +88,7 @@ nomad_ports:
   serf: "{{ nomad_ports_serf | default('4648', true) }}"
 
 ### Servers
-nomad_group_name: "cluster_nodes"
+nomad_group_name: "nomad_instances"
 nomad_servers: "\
   {% if nomad_use_consul==false %}\
     {% set _nomad_servers = [] %}\
