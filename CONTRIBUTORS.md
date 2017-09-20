@@ -7,4 +7,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@lanefu](https://github.com/lanefu)
 - [@awheeler](https://github.com/awheeler)
 - [@groggemans](https://github.com/groggemans)
-
+- [@kjagiello](https://github.com/kjagiello)
