@@ -258,3 +258,10 @@
 
 - Nomad v0.6.2
 - Re-instate nomad_use_consul functionality (thanks @awheeler)
+
+## v1.7.6
+
+- Nomad 0.6.3
+- Finish cluster_nodes -> nomad_instances renaming
+- Update CONTRIBUTORS
+- Typo fixes (thanks @kjagiello)

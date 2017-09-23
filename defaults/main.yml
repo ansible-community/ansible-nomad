@@ -5,7 +5,7 @@
 nomad_debug: no
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.6.2', true) }}"
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.6.3', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
