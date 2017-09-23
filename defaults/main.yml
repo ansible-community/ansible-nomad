@@ -76,6 +76,7 @@ nomad_reserved:
   ports: "{{ nomad_reserved_ports | default('22', true) }}"
 nomad_options: {}
 nomad_meta: {}
+nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
