@@ -56,7 +56,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_zip_url`
 
 - Nomad download URL
-- Default value: `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip`
+- Default value: `https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{ nomad_architecture }}.zip`
 
 ### `nomad_checksum_file_url`
 
@@ -136,12 +136,12 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_iface`
 
 - Nomad network interface
-- Default value: `{{ andible_default_ipv4.interface }}`
+- Default value: `{{ ansible_default_ipv4.interface }}`
 
 ### `nomad_node_name`
 
 - Nomad node name
-- Default value: `{{ inventoty_hostname_short }}`
+- Default value: `{{ inventory_hostname_short }}`
 
 ### `nomad_node_role`
 
@@ -154,9 +154,9 @@ The role defines most of its variables in `defaults/main.yml`:
 - Send leave on termination
 - Default value: **yes**
 
-### `nomad_leave_on_interupt`
+### `nomad_leave_on_interrupt`
 
-- Send leave on interupt
+- Send leave on interrupt
 - Default value: **no**
 
 ### `nomad_disable_update_check`
