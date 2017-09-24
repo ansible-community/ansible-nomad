@@ -362,6 +362,11 @@ in many Ansible versions, so this feature might not always work.
   assumes consul default ports etc.
 - Default value: **False**
 
+### `nomad_bootstrap_expect`
+
+- Specifies the number of server nodes to wait for before bootstrapping.
+- Default value: `{{ nomad_servers | count or 3 }}}
+
 ### `nomad_vault_address`
 
 - Vault address to use

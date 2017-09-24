@@ -2,7 +2,7 @@ server {
     enabled = {{ _nomad_node_server | bool | lower }}
 
     {% if _nomad_node_server | bool -%}
-        bootstrap_expect = {{ nomad_servers | count }}
+        bootstrap_expect = {{ nomad_bootstrap_expect }}
     {%- endif %}
 
 {% if nomad_use_consul == False %}
