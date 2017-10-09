@@ -46,18 +46,31 @@
     group: "{{ nomad_group}}"
   with_items:
     - "{{ nomad_data_dir }}"
-    - "{{ nomad_config_dir }}"
     - "{{ nomad_log_dir }}"
+
+- name: Create config directory
+  file:
+    dest: "{{ nomad_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 755
 
 - name: Base configuration
   template:
     src: base.hcl.j2
     dest: "{{ nomad_config_dir }}/base.hcl"
+    owner: root
+    group: root
+    mode: 644
 
 - name: Server configuration
   template:
     src: server.hcl.j2
     dest: "{{ nomad_config_dir }}/server.hcl"
+    owner: root
+    group: root
+    mode: 644
   when:
     - _nomad_node_server | bool
 
@@ -65,6 +78,9 @@
   template:
     src: client.hcl.j2
     dest: "{{ nomad_config_dir }}/client.hcl"
+    owner: root
+    group: root
+    mode: 644
   when:
     - _nomad_node_client | bool
 
@@ -72,6 +88,9 @@
   template:
     src: custom.hcl.j2
     dest: "{{ nomad_config_dir }}/custom.hcl"
+    owner: root
+    group: root
+    mode: 644
   when:
     - nomad_config_custom is defined
 
