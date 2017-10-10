@@ -54,7 +54,7 @@
     state: directory
     owner: root
     group: root
-    mode: 755
+    mode: 0755
 
 - name: Base configuration
   template:
@@ -62,7 +62,7 @@
     dest: "{{ nomad_config_dir }}/base.hcl"
     owner: root
     group: root
-    mode: 644
+    mode: 0644
 
 - name: Server configuration
   template:
@@ -70,7 +70,7 @@
     dest: "{{ nomad_config_dir }}/server.hcl"
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   when:
     - _nomad_node_server | bool
 
@@ -80,7 +80,7 @@
     dest: "{{ nomad_config_dir }}/client.hcl"
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   when:
     - _nomad_node_client | bool
 
@@ -90,7 +90,7 @@
     dest: "{{ nomad_config_dir }}/custom.hcl"
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   when:
     - nomad_config_custom is defined
 
@@ -118,7 +118,7 @@
     dest: /lib/systemd/system/nomad.service
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad
