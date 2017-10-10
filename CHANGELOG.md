@@ -265,3 +265,7 @@
 - Finish cluster_nodes -> nomad_instances renaming
 - Update CONTRIBUTORS
 - Typo fixes (thanks @kjagiello)
+
+## v1.7.7 (UNRELEASED)
+
+- Explicit owner and mode for config files (thanks @groggemans)
