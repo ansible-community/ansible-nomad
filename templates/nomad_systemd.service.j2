@@ -16,7 +16,11 @@ After=basic.target network.target
 [Service]
 User={{ nomad_user }}
 Group={{ nomad_group }}
-ExecStart={{ nomad_bin_dir }}/nomad agent -config={{ nomad_config_dir }}
+{% if _nomad_node_server | bool -%}
+ExecStart={{ nomad_bin_dir }}/nomad agent -server -config={{ nomad_config_dir }}
+{% else %}
+ExecStart={{ nomad_bin_dir }}/nomad agent  -config={{ nomad_config_dir }}
+{% endif %}
 
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
