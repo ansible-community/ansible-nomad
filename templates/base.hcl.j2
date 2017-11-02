@@ -24,3 +24,17 @@ enable_syslog = {{ nomad_syslog_enable | bool | lower }}
 
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
+
+
+{% if ( nomad_ca_file ) and
+      ( nomad_cert_file ) and
+      ( nomad_key_file )
+%}
+tls {
+    http = true
+    rpc = true
+    ca_file = "{{ nomad_ca_file }}"
+    cert_file = "{{ nomad_cert_file }}"
+    key_file = "{{ nomad_key_file }}"
+}
+{% endif %}
