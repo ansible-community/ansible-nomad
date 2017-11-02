@@ -1,2 +1,5 @@
 ---
 # File: main.yml handlers file for nomad
+
+- name: restart nomad
+  service: name=nomad state=restarted

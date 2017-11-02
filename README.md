@@ -382,6 +382,21 @@ in many Ansible versions, so this feature might not always work.
 - Run dmsetup on ubuntu (only if docker is enabled)
 - Default value: **yes**
 
+### `nomad_ca_file`
+
+- Use a ca for tls connection, nomad_cert_file and nomad_key_file are needed
+- Default value: **""**
+
+### `nomad_cert_file`
+
+- Use a certificate for tls connection, nomad_ca_file and nomad_key_file are needed
+- Default value: **""**
+
+### `nomad_key_file`
+
+- Use a key for tls connection, nomad_cert_file and nomad_key_file are needed
+- Default value: **""**
+
 #### Custom Configuration Section
 
 As Nomad loads the configuration from files and directories in lexical order,
@@ -406,7 +421,8 @@ An example usage for enabling `vault`:
 ## Dependencies
 
 Ansible requires GNU tar and this role performs some local use of the
-unarchive module, so ensure that your system has `gtar` installed.
+unarchive module, so ensure that your system has `gtar`/`unzip` installed.
+Jinja2 templates use ipaddr filter that need `netaddr` python library.
 
 ## Example Playbook
 
