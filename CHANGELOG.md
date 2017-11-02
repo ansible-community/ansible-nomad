@@ -266,6 +266,11 @@
 - Update CONTRIBUTORS
 - Typo fixes (thanks @kjagiello)
 
-## v1.7.7 (UNRELEASED)
+## v1.7.7
 
+- Nomad version 0.7.0
 - Explicit owner and mode for config files (thanks @groggemans)
+- Add initial TLS (thanks @jsecchiero)
+- Restart service when modified (thanks @jsecchiero)
+- Enable debian > 6.3 (thanks @jsecchiero)
+- Update documentation (thanks @jsecchiero)
