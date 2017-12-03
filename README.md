@@ -138,11 +138,6 @@ The role defines most of its variables in `defaults/main.yml`:
 - Nomad network interface
 - Default value: `{{ ansible_default_ipv4.interface }}`
 
-### `nomad_client_iface`
-
-- Nomad scheduler will choose from the IPs of this interface for allocating tasks
-- Default value: none
-
 ### `nomad_node_name`
 
 - Nomad node name
@@ -233,6 +228,11 @@ The role defines most of its variables in `defaults/main.yml`:
 
 - Max kill timeout
 - Default value: **30s**
+
+### `nomad_network_interface`
+
+- Nomad scheduler will choose from the IPs of this interface for allocating tasks
+- Default value: none
 
 ### `nomad_network_speed`
 
