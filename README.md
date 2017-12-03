@@ -229,6 +229,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Max kill timeout
 - Default value: **30s**
 
+### `nomad_network_interface`
+
+- Nomad scheduler will choose from the IPs of this interface for allocating tasks
+- Default value: none
+
 ### `nomad_network_speed`
 
 - Overide network link speed (0 = no overide)
