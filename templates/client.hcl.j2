@@ -38,7 +38,9 @@ client {
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }
+    {% endif %}
 
+    {% if nomad_meta -%}
     meta = {
     {% for key, value in nomad_meta.iteritems() %}
     "{{ key }}" = "{{ value }}"
