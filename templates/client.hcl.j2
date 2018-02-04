@@ -34,7 +34,7 @@ client {
 
     {% if nomad_options -%}
     options = {
-    {% for key, value in nomad_options.iteritems() %}
+    {% for key, value in nomad_options.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }
@@ -42,7 +42,7 @@ client {
 
     {% if nomad_meta -%}
     meta = {
-    {% for key, value in nomad_meta.iteritems() %}
+    {% for key, value in nomad_meta.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }
