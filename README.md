@@ -101,7 +101,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_user`
 
 - Nomad OS username
-- Default value: **nomad**
+- Default value: **root**
 
 ### `nomad_manage_group`
 
