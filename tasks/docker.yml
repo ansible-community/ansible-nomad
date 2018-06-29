@@ -13,7 +13,7 @@
   register: dmsetup_result
   when:
     - ansible_os_family == "Debian"
-    - ansible_distribution_version | version_compare(16.04, '=')
+    - ansible_distribution_version is version_compare(16.04, '=')
     - nomad_docker_dmsetup | bool
 
 - name: Run dmsetup for Ubuntu 16.04
