@@ -1,9 +1,16 @@
+## v1.7.9
+
+- Nomad v0.8.4
+- Explicit owner and mode for config files (thanks @groggemans)
+- Update Jinja2 tests (thanks @ccf)
+- Update documentation
+
 ## v1.7.8
 
-Nomad v0.8.3
-Add Vault and ACL support (thanks @groggemans)
-Handle installing different arch at the same time (thanks @lanefu)
-Update documentation
+- Nomad v0.8.3
+- Add Vault and ACL support (thanks @groggemans)
+- Handle installing different arch at the same time (thanks @lanefu)
+- Update documentation
 
 ## v1.7.7
 
