@@ -24,3 +24,39 @@ enable_syslog = {{ nomad_syslog_enable | bool | lower }}
 
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
+
+
+{% if ( nomad_ca_file ) and
+      ( nomad_cert_file ) and
+      ( nomad_key_file )
+%}
+tls {
+    http = true
+    rpc = true
+    ca_file = "{{ nomad_ca_file }}"
+    cert_file = "{{ nomad_cert_file }}"
+    key_file = "{{ nomad_key_file }}"
+}
+{% endif %}
+
+acl {
+    enabled = {{ nomad_acl_enabled | bool | lower }}
+    token_ttl = "{{ nomad_acl_token_ttl }}"
+    policy_ttl = "{{ nomad_acl_policy_ttl }}"
+    replication_token = "{{ nomad_acl_replication_token }}"
+}
+
+vault {
+    enabled = {{ nomad_vault_enabled | bool | lower }}
+    address = "{{ nomad_vault_address }}"
+    allow_unauthenticated = {{ nomad_vault_allow_unauthenticated | bool | lower }}
+    create_from_role = "{{ nomad_vault_create_from_role }}"
+    task_token_ttl = "{{ nomad_vault_task_token_ttl }}"
+    ca_file = "{{ nomad_vault_ca_file }}"
+    ca_path = "{{ nomad_vault_ca_path }}"
+    cert_file = "{{ nomad_vault_cert_file }}"
+    key_file = "{{ nomad_vault_key_file }}"
+    tls_server_name = "{{ nomad_vault_tls_server_name }}"
+    tls_skip_verify = {{ nomad_vault_tls_skip_verify | bool | lower }}
+    token = "{{ nomad_vault_token }}"
+}

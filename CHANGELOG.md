@@ -1,9 +1,25 @@
-## v1.7.7
+## v1.7.9
 
 - Nomad v0.8.4
 - Explicit owner and mode for config files (thanks @groggemans)
 - Update Jinja2 tests (thanks @ccf)
 - Update documentation
+
+## v1.7.8
+
+- Nomad v0.8.3
+- Add Vault and ACL support (thanks @groggemans)
+- Handle installing different arch at the same time (thanks @lanefu)
+- Update documentation
+
+## v1.7.7
+
+- Nomad version 0.7.0
+- Explicit owner and mode for config files (thanks @groggemans)
+- Add initial TLS (thanks @jsecchiero)
+- Restart service when modified (thanks @jsecchiero)
+- Enable debian > 6.3 (thanks @jsecchiero)
+- Update documentation (thanks @jsecchiero)
 
 ## v1.7.6
 

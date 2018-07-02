@@ -5,7 +5,11 @@
 nomad_debug: no
 
 ### Package
+<<<<<<< HEAD
 nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.8.4', true) }}"
+=======
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.8.3', true) }}"
+>>>>>>> 65baa73dc572362ecc7bc58c60999b24c72b9cfc
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
@@ -108,9 +112,32 @@ nomad_gather_server_facts: no
 ### Consul
 nomad_use_consul: False
 
+
+### ACLs
+nomad_acl_enabled: "{{ lookup('env', 'NOMAD_ACL_ENABLED') | default('no', true) }}"
+nomad_acl_token_ttl: "30s"
+nomad_acl_policy_ttl: "30s"
+nomad_acl_replication_token: ""
+
 ### Vault
+nomad_vault_enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default('no', true) }}"
 nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
+nomad_vault_allow_unauthenticated: yes
+nomad_vault_create_from_role: ""
+nomad_vault_task_token_ttl: ""
+nomad_vault_ca_file: ""
+nomad_vault_ca_path: ""
+nomad_vault_cert_file: ""
+nomad_vault_key_file: ""
+nomad_vault_tls_server_name: ""
+nomad_vault_tls_skip_verify: no
+nomad_vault_token: ""
 
 ### Docker
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_docker_dmsetup: yes
+
+### Tls
+nomad_ca_file: ""
+nomad_cert_file: ""
+nomad_key_file: ""

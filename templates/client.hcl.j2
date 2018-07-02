@@ -14,6 +14,9 @@ client {
 
     max_kill_timeout = "{{ nomad_max_kill_timeout }}"
 
+    {% if nomad_network_interface is defined -%}
+    network_interface = "{{ nomad_network_interface }}"
+    {% endif -%}
     network_speed = {{ nomad_network_speed }}
     cpu_total_compute = {{ nomad_cpu_total_compute }}
 
@@ -31,13 +34,15 @@ client {
 
     {% if nomad_options -%}
     options = {
-    {% for key, value in nomad_options.iteritems() %}
+    {% for key, value in nomad_options.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }
+    {% endif %}
 
+    {% if nomad_meta -%}
     meta = {
-    {% for key, value in nomad_meta.iteritems() %}
+    {% for key, value in nomad_meta.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }
