@@ -91,7 +91,7 @@ nomad_ports:
 ### Servers
 nomad_group_name: "nomad_instances"
 nomad_servers: "\
-  {% if nomad_use_consul==false %}\
+  {% if nomad_use_consul==False %}\
     {% set _nomad_servers = [] %}\
     {% for host in groups[nomad_group_name] %}\
       {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
@@ -107,6 +107,9 @@ nomad_gather_server_facts: no
 
 ### Consul
 nomad_use_consul: False
+nomad_consul_address: "localhost:8500"
+nomad_consul_servers_service_name: "nomad-servers"
+nomad_consul_clients_service_name: "nomad-clients"
 
 
 ### ACLs

@@ -5,6 +5,7 @@ datacenter = "{{ nomad_datacenter }}"
 enable_debug = {{ nomad_debug | bool | lower }}
 disable_update_check = {{ nomad_disable_update_check | bool | lower }}
 
+
 bind_addr = "{{ nomad_bind_address }}"
 advertise {
     http = "{{ nomad_advertise_address }}"
@@ -16,6 +17,23 @@ ports {
     rpc = {{ nomad_ports['rpc'] }}
     serf = {{ nomad_ports['serf'] }}
 }
+
+{% if nomad_use_consul == True %}
+consul {
+    # The address to the Consul agent.
+    address = "{{ nomad_consul_address }}"
+    # The service name to register the server and client with Consul.
+    server_service_name = "{{ nomad_consul_servers_service_name }}"
+    client_service_name = "{{ nomad_consul_clients_service_name }}"
+
+    # Enables automatically registering the services.
+    auto_advertise = true
+
+    # Enabling the server and client to bootstrap using Consul.
+    server_auto_join = true
+    client_auto_join = true
+}
+{% endif %}
 
 data_dir = "{{ nomad_data_dir }}"
 
