@@ -1,3 +1,8 @@
+## v1.8.0 (UNRELEASED)
+
+- Improve Consul bootstrapping (thanks @RodolpheFouquet)
+- Update CONTRIBUTORS
+
 ## v1.7.9
 
 - Nomad v0.8.4
