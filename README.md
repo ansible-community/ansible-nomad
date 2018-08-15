@@ -367,6 +367,21 @@ in many Ansible versions, so this feature might not always work.
   assumes consul default ports etc.
 - Default value: **False**
 
+### `nomad_consul_address`
+
+- The address of your consul API, use it in combination with nomad_use_consul=True
+- Default value: **localhost:8500**
+
+### `nomad_consul_servers_service_name`
+
+- The name of the consul service for your nomad servers
+- Default value: **nomad-servers**
+
+### `nomad_consul_clients_service_name`
+
+- The name of the consul service for your nomad clients
+- Default value: **nomad-clients**
+
 ### `nomad_bootstrap_expect`
 
 - Specifies the number of server nodes to wait for before bootstrapping.
