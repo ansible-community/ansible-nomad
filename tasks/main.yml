@@ -129,6 +129,10 @@
     mode: 0644
   when: ansible_service_mgr == "systemd"
 
+- name: reload systemd daemon
+  shell: systemctl daemon-reload
+  when: ansible_service_mgr == "systemd"
+
 - name: Start Nomad
   service:
     name: nomad
