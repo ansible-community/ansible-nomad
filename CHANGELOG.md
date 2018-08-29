@@ -1,6 +1,7 @@
 ## v1.8.0 (UNRELEASED)
 
 - Improve Consul bootstrapping (thanks @RodolpheFouquet)
+- Systemd daemon reload (thanks @mrvovanness)
 - Update CONTRIBUTORS
 
 ## v1.7.9
