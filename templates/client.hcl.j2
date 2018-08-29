@@ -29,7 +29,6 @@ client {
         cpu = {{ nomad_reserved['cpu'] }}
         memory = {{ nomad_reserved['memory'] }}
         disk = {{ nomad_reserved['disk'] }}
-        reserved_ports = "{{ nomad_reserved['ports'] }}"
     }
 
     {% if nomad_options -%}
