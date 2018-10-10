@@ -2,10 +2,10 @@
 # File: main.yml - Main default variables for nomad
 
 ## Core
-nomad_debug: no
+nomad_debug: false
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.8.4', true) }}"
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.8.6', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
@@ -27,28 +27,28 @@ nomad_log_dir: "/var/log/nomad"
 nomad_run_dir: "/var/run/nomad"
 
 ### System user and group
-nomad_manage_user: yes
+nomad_manage_user: true
 nomad_user: "root"
-nomad_manage_group: no
+nomad_manage_group: false
 nomad_group: "bin"
 
 ### Nomad settings
 nomad_datacenter: "dc1"
 nomad_region: "global"
 nomad_log_level: "INFO"
-nomad_syslog_enable: yes
+nomad_syslog_enable: true
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
-nomad_leave_on_terminate: yes
-nomad_leave_on_interrupt: no
-nomad_disable_update_check: no
+nomad_leave_on_terminate: true
+nomad_leave_on_interrupt: false
+nomad_disable_update_check: false
 
 #### Server settings
 nomad_retry_max: 0
-nomad_retry_join: no
+nomad_retry_join: false
 nomad_retry_interval: "30s"
-nomad_rejoin_after_leave: no
+nomad_rejoin_after_leave: false
 nomad_enabled_schedulers:
   - service
   - batch
@@ -61,7 +61,7 @@ nomad_encrypt: ""
 
 #### Client settings
 nomad_node_class: ""
-nomad_no_host_uuid: no
+nomad_no_host_uuid: false
 nomad_max_kill_timeout: "30s"
 nomad_network_speed: 0
 nomad_cpu_total_compute: 0
@@ -91,7 +91,7 @@ nomad_ports:
 ### Servers
 nomad_group_name: "nomad_instances"
 nomad_servers: "\
-  {% if nomad_use_consul==False %}\
+  {% if nomad_use_consul==false %}\
     {% set _nomad_servers = [] %}\
     {% for host in groups[nomad_group_name] %}\
       {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
@@ -103,10 +103,10 @@ nomad_servers: "\
     {% else %}\
     []\
   {% endif %}"
-nomad_gather_server_facts: no
+nomad_gather_server_facts: false
 
 ### Consul
-nomad_use_consul: False
+nomad_use_consul: false
 nomad_consul_address: "localhost:8500"
 nomad_consul_servers_service_name: "nomad-servers"
 nomad_consul_clients_service_name: "nomad-clients"
@@ -121,7 +121,7 @@ nomad_acl_replication_token: ""
 ### Vault
 nomad_vault_enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default('no', true) }}"
 nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
-nomad_vault_allow_unauthenticated: yes
+nomad_vault_allow_unauthenticated: true
 nomad_vault_create_from_role: ""
 nomad_vault_task_token_ttl: ""
 nomad_vault_ca_file: ""
@@ -129,12 +129,12 @@ nomad_vault_ca_path: ""
 nomad_vault_cert_file: ""
 nomad_vault_key_file: ""
 nomad_vault_tls_server_name: ""
-nomad_vault_tls_skip_verify: no
+nomad_vault_tls_skip_verify: false
 nomad_vault_token: ""
 
 ### Docker
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
-nomad_docker_dmsetup: yes
+nomad_docker_dmsetup: true
 
 ### Tls
 nomad_ca_file: ""

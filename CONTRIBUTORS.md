@@ -13,3 +13,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@ccf](https://github.com/ccf)
 - [@RodolpheFouquet](https://github.com/RodolpheFouquet)
 - [@mrvovanness](https://github.com/mrvovanness)
+- [@Tsuki]https://github.com/Tsuki

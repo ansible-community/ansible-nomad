@@ -13,9 +13,9 @@
 - name: Gather facts from other servers
   setup:
   delegate_to: "{{ item }}"
-  delegate_facts: True
+  delegate_facts: true
   with_items: "{{ nomad_servers | difference(play_hosts) }}"
-  ignore_errors: yes
+  ignore_errors: true
   when: nomad_gather_server_facts | bool
 
 - name: Expose bind_address, advertise_address and node_role as facts
@@ -136,5 +136,5 @@
 - name: Start Nomad
   service:
     name: nomad
-    enabled: yes
+    enabled: true
     state: started

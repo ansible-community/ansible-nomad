@@ -1,7 +1,10 @@
-## v1.8.0 (UNRELEASED)
+## v1.8.0
 
+- Nomad v0.8.6
+- Consistent boolean usage
 - Improve Consul bootstrapping (thanks @RodolpheFouquet)
 - Systemd daemon reload (thanks @mrvovanness)
+- Advertise ports (thanks @Tsuki)
 - Update CONTRIBUTORS
 
 ## v1.7.9
