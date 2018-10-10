@@ -8,9 +8,9 @@ disable_update_check = {{ nomad_disable_update_check | bool | lower }}
 
 bind_addr = "{{ nomad_bind_address }}"
 advertise {
-    http = "{{ nomad_advertise_address }}"
-    rpc = "{{ nomad_advertise_address }}"
-    serf = "{{ nomad_advertise_address }}"
+    http = "{{ nomad_advertise_address }}:{{ nomad_ports_http }}"
+    rpc = "{{ nomad_advertise_address }}:{{ nomad_ports_rpc }}"
+    serf = "{{ nomad_advertise_address }}:{{ nomad_ports_serf }}"
 }
 ports {
     http = {{ nomad_ports['http'] }}
