@@ -2,27 +2,31 @@
 galaxy_info:
   author: Brian Shumate
   description: Nomad cluster role
-  company:
+  company: Brian Shumate
   license: BSD
-  min_ansible_version: 2.5.0.0
+  min_ansible_version: 2.5
+
   platforms:
-  - name: EL
-    versions:
-    - 6
-    - 7
-  #- name: FreeBSD
-  #  versions:
-  #  - 11.0
-  - name: Ubuntu
-    versions:
-    - xenial
-  - name: Debian
-    versions:
-    - jessie
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - vivid
+        - xenial
+    - name: Debian
+      versions:
+        - jessie
+    - name: Windows
+      versions:
+        - 2012R2
+
   galaxy_tags:
-  - cloud
-  - clustering
-  - networking
-  - scheduling
-  - system
+    - clustering
+    - monitoring
+    - networking
+    - scheduling
+    - system
+
 dependencies: []
