@@ -18,7 +18,7 @@ ports {
     serf = {{ nomad_ports['serf'] }}
 }
 
-{% if nomad_use_consul == True %}
+{% if nomad_use_consul | bool == True %}
 consul {
     # The address to the Consul agent.
     address = "{{ nomad_consul_address }}"
