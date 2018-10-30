@@ -20,3 +20,8 @@
   fail:
     msg: "{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role"
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version is version_compare(13.04, '<')
+
+- name: Check nomad_group_name is included in groups
+  fail:
+    msg: "nomad_group_name must be included in groups."
+  when: nomad_group_name not in groups
