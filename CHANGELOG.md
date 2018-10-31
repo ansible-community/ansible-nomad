@@ -1,3 +1,8 @@
+## v1.8.1 (UNRELEASED)
+
+- Improve tasks and templates (thanks @blaet)
+- Update CONTRIBUTORS
+
 ## v1.8.0
 
 - Nomad v0.8.6
