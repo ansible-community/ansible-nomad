@@ -7,3 +7,4 @@ examples/hosts
 files/*.zip
 files/nomad
 nomad_*_SHA256SUMS
+*.swp

@@ -140,3 +140,5 @@ nomad_docker_dmsetup: true
 nomad_ca_file: ""
 nomad_cert_file: ""
 nomad_key_file: ""
+nomad_verify_server_hostname: true
+nomad_verify_https_client: true
