@@ -3,6 +3,7 @@
 - Nomad v0.8.7
 - Improve tasks and templates (thanks @blaet)
 - Correct init script (thanks @shoreflyer)
+- nomad_verify_server_hostname/nomad_verify_https_client (thanks @jsecchiero)
 - Update CONTRIBUTORS
 
 ## v1.8.0
