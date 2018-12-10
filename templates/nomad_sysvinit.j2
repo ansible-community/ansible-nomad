@@ -49,7 +49,7 @@ start() {
 
 stop() {
   echo -n "Shutting down nomad: "
-  if ("${nomad}" info 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
+  if ("${nomad}" agent-info -address=http://{{ nomad_advertise_address }}:{{ nomad_ports.http }} 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
       "$nomad" leave
   fi
 
@@ -69,10 +69,11 @@ case "$1" in
         stop
         ;;
     status)
-        "$nomad" status
+        "$nomad" status -address=http://{{ nomad_advertise_address }}:{{ nomad_ports.http }} 
         ;;
     restart)
         stop
+        sleep 3
         start
         ;;
     reload)
