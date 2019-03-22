@@ -382,6 +382,11 @@ in many Ansible versions, so this feature might not always work.
 - The name of the consul service for your nomad clients
 - Default value: **nomad-clients**
 
+### `nomad_consul_token`
+
+- Token to use for consul interaction
+- Default value: **""**
+
 ### `nomad_bootstrap_expect`
 
 - Specifies the number of server nodes to wait for before bootstrapping.
