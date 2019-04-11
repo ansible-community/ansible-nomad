@@ -22,6 +22,7 @@ ports {
 consul {
     # The address to the Consul agent.
     address = "{{ nomad_consul_address }}"
+    token = "{{ nomad_consul_token }}"
     # The service name to register the server and client with Consul.
     server_service_name = "{{ nomad_consul_servers_service_name }}"
     client_service_name = "{{ nomad_consul_clients_service_name }}"
