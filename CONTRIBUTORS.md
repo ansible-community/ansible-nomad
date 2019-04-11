@@ -16,3 +16,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@Tsuki](https://github.com/Tsuki)
 - [@blaet](https://github.com/blaet)
 - [@shoreflyer](https://github.com/shoreflyer)
+- [@bewiwi](https://github.com/bewiwi)

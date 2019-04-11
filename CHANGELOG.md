@@ -1,3 +1,9 @@
+## v1.8.2
+
+- Nomad v0.9.0
+- Add consul token support (thanks @bewiwi)
+- Update documentation
+
 ## v1.8.1
 
 - Nomad v0.8.7
