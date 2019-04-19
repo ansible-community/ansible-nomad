@@ -43,7 +43,7 @@
     dest: "{{ item }}"
     state: directory
     owner: "{{ nomad_user }}"
-    group: "{{ nomad_group}}"
+    group: "{{ nomad_group }}"
   with_items:
     - "{{ nomad_data_dir }}"
     - "{{ nomad_log_dir }}"
@@ -130,7 +130,8 @@
   when: ansible_service_mgr == "systemd"
 
 - name: reload systemd daemon
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: true
   when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad

@@ -17,7 +17,7 @@ in a development environment based on Vagrant and VirtualBox. See
 This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
-* Ansible: 2.6.4
+* Ansible: 2.7.10
 * nomad: 0.9.0
 * CentOS: 7
 * Debian: 8

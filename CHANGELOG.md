@@ -1,3 +1,8 @@
+## v1.8.3
+
+- Clean up task items for best practices
+- Update documentation
+
 ## v1.8.2
 
 - Nomad v0.9.0
