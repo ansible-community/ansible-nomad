@@ -1,0 +1,7 @@
+---
+# File: Archlinux.yml - Archlinux variables for Nomad
+
+nomad_os_packages:
+  - unzip
+
+nomad_syslog_enable: false
