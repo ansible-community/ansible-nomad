@@ -19,6 +19,7 @@ with the following specific software versions:
 
 * Ansible: 2.7.10
 * nomad: 0.9.0
+* Arch Linux
 * CentOS: 7
 * Debian: 8
 * RHEL: 7
