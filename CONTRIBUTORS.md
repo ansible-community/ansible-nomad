@@ -18,3 +18,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@shoreflyer](https://github.com/shoreflyer)
 - [@bewiwi](https://github.com/bewiwi)
 - [@bilke](https://github.com/bilke)
+- [@pxsloot](https://github.com/pxsloot)
