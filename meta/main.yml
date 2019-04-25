@@ -7,6 +7,9 @@ galaxy_info:
   min_ansible_version: 2.5
 
   platforms:
+    - name: Archlinux
+      versions:
+        - all
     - name: EL
       versions:
         - 6
