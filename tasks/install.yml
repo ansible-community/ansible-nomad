@@ -28,7 +28,9 @@
   delegate_to: 127.0.0.1
 
 - name: Get Nomad package checksum
-  shell: grep "{{ nomad_pkg }}" "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"  | awk '{print $1}'
+  shell: |
+    set -o pipefail
+    grep "{{ nomad_pkg }}" "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"  | awk '{print $1}'
   become: false
   register: nomad_sha256
   tags: installation
