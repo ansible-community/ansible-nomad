@@ -1,3 +1,8 @@
+## v1.8.4 (UNRELEASED)
+
+- Add ArchLinux support (thanks @bilke)
+- Update shell task with pipefail
+
 ## v1.8.3
 
 - Clean up task items for best practices
