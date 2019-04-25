@@ -31,6 +31,10 @@ client {
         disk = {{ nomad_reserved['disk'] }}
     }
 
+    {% if nomad_chroot_env != False -%}
+    chroot_env = {{ nomad_chroot_env | to_nice_json }}
+    {% endif %}
+
     {% if nomad_options -%}
     options = {
     {% for key, value in nomad_options.items() %}
