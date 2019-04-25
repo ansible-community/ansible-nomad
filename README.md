@@ -296,6 +296,12 @@ The role defines most of its variables in `defaults/main.yml`:
 - Key value dict
 - Default value: **{}**
 
+### `nomad_chroot_env`
+
+- chroot environment definition for the Exec and Java drivers
+- Key value dict
+- Default value: false
+
 ### `nomad_meta`
 
 - Meta data
