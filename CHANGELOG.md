@@ -1,5 +1,6 @@
-## v1.8.4 (UNRELEASED)
+## v1.8.4
 
+- Nomad v0.9.1
 - Add Arch Linux support (thanks @bilke)
 - chroot_env config for exec and Java drivers (thanks @pxsloot)
 - Update shell task with pipefail

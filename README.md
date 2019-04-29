@@ -14,11 +14,11 @@ in a development environment based on Vagrant and VirtualBox. See
 
 ## Requirements
 
-This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
+This role requires an Arch Linux, Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
 * Ansible: 2.7.10
-* nomad: 0.9.0
+* nomad: 0.9.1
 * Arch Linux
 * CentOS: 7
 * Debian: 8
@@ -36,7 +36,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.9.0**
+- Default value: **0.9.1**
 
 ### `nomad_architecture_map`
 

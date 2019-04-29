@@ -83,11 +83,11 @@ BOX_NAME="centos/7" vagrant up
 ## Notes
 
 1. This project functions with the following software versions:
-  * nomad version 0.9.0
+  * Nomad version 0.9.1
   * Ansible version 2.7.10
-  * VirtualBox version 5.2.12
-  * Vagrant version 2.1.2
-  * Vagrant Hosts version 2.8.1
+  * VirtualBox version 5.2.28
+  * Vagrant version 2.2.4
+  * Vagrant Hosts version 2.8.3
 2. This project uses Debian 8 (Jessie) by default, but you can choose other OS
    with the *BOX_NAME* environment variable
 3. The `bin/preinstall` shell script performs the following actions for you:
