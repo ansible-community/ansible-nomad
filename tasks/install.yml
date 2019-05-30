@@ -31,7 +31,8 @@
   shell: |
     set -o pipefail
     grep "{{ nomad_pkg }}" "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"  | awk '{print $1}'
-  executable: /bin/bash
+  args:
+    executable: /bin/bash
   become: false
   register: nomad_sha256
   tags: installation
