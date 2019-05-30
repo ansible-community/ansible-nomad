@@ -1,3 +1,7 @@
+## v1.8.6
+
+- Correct args for install task
+
 ## v1.8.5
 
 - Fix: install: set explicit bash shell to use pipefail
