@@ -1,3 +1,8 @@
+## v1.8.5
+
+- Fix: install: set explicit bash shell to use pipefail
+- Update documentation
+
 ## v1.8.4
 
 - Nomad v0.9.1
