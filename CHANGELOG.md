@@ -1,3 +1,10 @@
+## v1.8.7
+
+- Nomad v0.9.2
+- Use SELinux module in tasks/selinux
+- Remove invalid nomad_log_dir configuration (#39)
+- Update documentation
+
 ## v1.8.6
 
 - Correct args for install task

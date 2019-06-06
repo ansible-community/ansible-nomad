@@ -12,7 +12,6 @@
 nomad="{{nomad_bin_dir}}/nomad"
 CONFIG_PATH="{{ nomad_config_dir }}"
 PID_FILE="{{ nomad_run_dir }}/nomad.pid"
-LOG_FILE="{{ nomad_log_dir }}/nomad.log"
 
 [ -e /etc/sysconfig/nomad ] && . /etc/sysconfig/nomad
 
@@ -41,7 +40,7 @@ start() {
   [ -f "$PID_FILE" ] && rm "$PID_FILE"
   daemon --user="{{ nomad_user }}" \
       --pidfile="$PID_FILE" \
-      "$nomad" agent -config "${CONFIG_PATH}" &>> "${LOG_FILE}" \&
+      "$nomad" agent -config "${CONFIG_PATH}" \&
   retcode=$?
   touch "{{ nomad_lockfile }}"
   return $retcode

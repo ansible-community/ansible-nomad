@@ -3,13 +3,7 @@
 
 # SELinux disrupts LXC (shrug)
 
-- name: Stop SELinux enforcing
-  shell: "setenforce 0"
-  when: nomad_docker_enable == "true"
-
-- name: Disable SELinux
-  replace:
-    dest: /etc/selinux/config
-    regexp: '^SELINUX=enforcing'
-    replace: 'SELINUX=disabled'
+- name: Disable SELinux for Docker Driver
+  selinux:
+    state: disabled
   when: nomad_docker_enable == "true"

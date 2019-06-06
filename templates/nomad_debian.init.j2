@@ -18,7 +18,7 @@ DESC="Nomad, a distributed, highly available, datacenter-aware scheduler"
 NAME="nomad"
 DAEMON="{{ nomad_bin_dir }}/${NAME}"
 PIDFILE="{{ nomad_run_dir }}/${NAME}.pid"
-DAEMON_ARGS="agent -config {{ nomad_config_dir }} >> {{ nomad_log_dir }}/$NAME.log 2>&1"
+DAEMON_ARGS="agent -config {{ nomad_config_dir }}2>&1"
 USER="{{ nomad_user }}"
 SCRIPTNAME="/etc/init.d/${NAME}"
 
