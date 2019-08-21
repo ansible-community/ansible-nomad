@@ -1,3 +1,8 @@
+## v1.8.9
+
+- Nomad v0.9.5
+- Update documentation
+
 ## v1.8.8
 
 - Nomad v0.9.4
