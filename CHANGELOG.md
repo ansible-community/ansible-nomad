@@ -1,3 +1,9 @@
+## v1.9.0
+
+- Nomad v0.9.6
+- Fedora support (thanks @rbjorklin)
+- Update documentation
+
 ## v1.8.9
 
 - Nomad v0.9.5
