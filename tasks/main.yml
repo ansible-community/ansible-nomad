@@ -20,7 +20,7 @@
 
 - name: Expose bind_address, advertise_address and node_role as facts
   set_fact:
-    nomad_bind_address: "{{ nomad_bind_address }}"
+    #nomad_bind_address: "{{ nomad_bind_address }}"
     nomad_advertise_address: "{{ nomad_advertise_address }}"
     nomad_node_role: "{{ nomad_node_role }}"
 
@@ -45,8 +45,8 @@
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
   with_items:
-    - "{{ nomad_data_dir }}"
-    - "{{ nomad_plugin_dir }}"
+    - "{{ nomad_config.data_dir }}"
+    - "{{ nomad_config.plugin_dir }}"
 
 - name: Install Podman plugin
   include: install_podman.yml
@@ -60,51 +60,25 @@
     group: root
     mode: 0755
 
-- name: Base configuration
-  template:
-    src: base.hcl.j2
-    dest: "{{ nomad_config_dir }}/base.hcl"
+- name: Nomad configuration
+  copy:
+    content: "{{ nomad_config | to_nice_json }}"
+    dest: "{{ nomad_config_dir }}/config.json"
     owner: root
     group: root
     mode: 0644
   notify:
     - restart nomad
 
-- name: Server configuration
-  template:
-    src: server.hcl.j2
-    dest: "{{ nomad_config_dir }}/server.hcl"
-    owner: root
-    group: root
-    mode: 0644
-  when:
-    - _nomad_node_server | bool
-  notify:
-    - restart nomad
-
-- name: Client configuration
-  template:
-    src: client.hcl.j2
-    dest: "{{ nomad_config_dir }}/client.hcl"
-    owner: root
-    group: root
-    mode: 0644
-  when:
-    - _nomad_node_client | bool
-  notify:
-    - restart nomad
-
-- name: Custom configuration
-  template:
-    src: custom.json.j2
-    dest: "{{ nomad_config_dir }}/custom.json"
-    owner: root
-    group: root
-    mode: 0644
-  when:
-    - nomad_config_custom is defined
-  notify:
-    - restart nomad
+- name: Remove legacy configuration
+  file:
+    dest: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ nomad_config_dir }}/base.hcl"
+    - "{{ nomad_config_dir }}/client.hcl"
+    - "{{ nomad_config_dir }}/server.hcl"
+    - "{{ nomad_config_dir }}/custom.hcl"
 
 - name: Host volume
   include: host_volume.yml

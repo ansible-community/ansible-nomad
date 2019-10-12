@@ -1,6 +1,0 @@
-{# nomad_config_custom variables are free-style, passed through a hash -#}
-{% if nomad_config_custom -%}
-{{ nomad_config_custom | to_nice_json }}
-{% else %}
-{}
-{% endif %}

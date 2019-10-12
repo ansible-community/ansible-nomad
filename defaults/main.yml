@@ -1,4 +1,5 @@
 ---
+# vim: set softtabstop=2 tabstop=2 shiftwidth=2 expandtab autoindent smartindent syntax=yaml:
 # File: main.yml - Main default variables for nomad
 
 # assert supported os/versions
@@ -46,8 +47,6 @@ nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ n
 ### Paths
 nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
-nomad_data_dir: "/var/nomad"
-nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_run_dir: "/var/run/nomad"
 
@@ -57,11 +56,7 @@ nomad_user: "root"
 nomad_manage_group: false
 nomad_group: "bin"
 
-### Nomad settings
-nomad_datacenter: "dc1"
-nomad_region: "global"
-nomad_log_level: "INFO"
-nomad_syslog_enable: true
+## Globals
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
@@ -111,17 +106,12 @@ nomad_plugins: {}
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
 nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
-
-### Ports
-nomad_ports:
-  http: "{{ nomad_ports_http | default('4646', true) }}"
-  rpc: "{{ nomad_ports_rpc | default('4647', true) }}"
-  serf: "{{ nomad_ports_serf | default('4648', true) }}"
-
-### Servers
+nomad_use_consul: false
 nomad_group_name: "nomad_instances"
+nomad_gather_server_facts: false
+nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
 nomad_servers: "\
-  {% if nomad_use_consul==false %}\
+  {% if nomad_use_consul == false %}\
     {% set _nomad_servers = [] %}\
     {% for host in groups[nomad_group_name] %}\
       {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
@@ -133,52 +123,115 @@ nomad_servers: "\
     {% else %}\
     []\
   {% endif %}"
-nomad_gather_server_facts: false
-
-### Consul
-nomad_use_consul: false
-nomad_consul_address: "localhost:8500"
-nomad_consul_token: ""
-nomad_consul_servers_service_name: "nomad-servers"
-nomad_consul_clients_service_name: "nomad-clients"
-nomad_consul_tags: {}
-
-### ACLs
-nomad_acl_enabled: "{{ lookup('env', 'NOMAD_ACL_ENABLED') | default('no', true) }}"
-nomad_acl_token_ttl: "30s"
-nomad_acl_policy_ttl: "30s"
-nomad_acl_replication_token: ""
-
-### Vault
-nomad_vault_enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default('no', true) }}"
-nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
-nomad_vault_allow_unauthenticated: true
-nomad_vault_create_from_role: ""
-nomad_vault_task_token_ttl: ""
-nomad_vault_ca_file: ""
-nomad_vault_ca_path: ""
-nomad_vault_cert_file: ""
-nomad_vault_key_file: ""
-nomad_vault_tls_server_name: ""
-nomad_vault_tls_skip_verify: false
-nomad_vault_token: ""
-nomad_vault_namespace: ""
 
 ### Docker
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_docker_dmsetup: true
 
-### Tls
-nomad_tls_enable: false
-nomad_ca_file: ""
-nomad_cert_file: ""
-nomad_key_file: ""
-nomad_rpc_upgrade_mode: false
-nomad_verify_server_hostname: true
-nomad_verify_https_client: true
+nomad_config_defaults:
+  ### Nomad settings
+  name: "{{ inventory_hostname_short }}"
+  datacenter: "dc1"
+  region: "global"
+  bind_addr: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
+  data_dir: "/var/nomad"
+  log_level: "INFO"
+  enable_syslog: true
+  leave_on_terminate: true
+  leave_on_interrupt: false
+  disable_update_check: false
 
-### Autopilot
-nomad_autopilot_cleanup_dead_servers: true
-nomad_autopilot_last_contact_threshold: "200ms"
-nomad_autopilot_max_trailing_logs: 250
-nomad_autopilot_server_stabilization_time: "10s"
+  advertise:
+    http: "{{ nomad_advertise_address }}:{{ nomad_ports_http | default('4646', true) }}"
+    rpc: "{{ nomad_advertise_address }}:{{ nomad_ports_rpc | default('4647', true) }}"
+    serf: "{{ nomad_advertise_address }}:{{ nomad_ports_serf | default('4648', true) }}"
+
+  #### Server settings
+  server:
+    enabled: "{{ _nomad_node_server | bool }}"
+    server_join:
+      retry_max: 0
+      retry_join: "{{ nomad_servers }}"
+      retry_interval: "30s"
+
+    bootstrap_expect: "{{ nomad_servers | count or 3 }}"
+    rejoin_after_leave: false
+    enabled_schedulers:
+      - service
+      - batch
+      - system
+    num_schedulers: "{{ ansible_processor_vcpus }}"
+    node_gc_threshold: "24h"
+    job_gc_threshold: "4h"
+    eval_gc_threshold: "1h"
+    encrypt: ""
+
+  #### Client settings
+  client:
+    enabled: "{{ _nomad_node_client | bool }}"
+    node_class: ""
+    no_host_uuid: false
+    max_kill_timeout: "30s"
+    network_speed: 0
+    cpu_total_compute: 0
+    gc_interval: "1m"
+    gc_disk_usage_threshold: 80
+    gc_inode_usage_threshold: 70
+    gc_parallel_destroys: 2
+    reserved:
+      cpu: "{{ nomad_reserved_cpu | default('0', true) }}"
+      memory: "{{ nomad_reserved_memory | default('0', true) }}"
+      disk: "{{ nomad_reserved_disk | default('0', true) }}"
+      reserved_ports: "{{ nomad_reserved_ports | default('22', true) }}"
+
+  ### Ports
+  ports:
+    http: "{{ nomad_ports_http | default('4646', true) }}"
+    rpc: "{{ nomad_ports_rpc | default('4647', true) }}"
+    serf: "{{ nomad_ports_serf | default('4648', true) }}"
+
+  #### Consul
+  consul:
+    address: "localhost:8500"
+    token: ""
+    server_service_name: "nomad-servers"
+    client_service_name: "nomad-clients"
+    tags: {}
+
+    # Enables automatically registering the services.
+    auto_advertise: true
+
+    # Enabling the server and client to bootstrap using Consul.
+    server_auto_join: true
+    client_auto_join: true
+
+  ### ACLs
+  acl:
+    enabled: "{{ lookup('env', 'NOMAD_ACL_ENABLED') | default(false, true) }}"
+    token_ttl: "30s"
+    policy_ttl: "30s"
+    replication_token: ""
+
+  ### Vault
+  vault:
+    enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default(false, true) }}"
+    address: "{{ vault_address | default('0.0.0.0', true) }}"
+    allow_unauthenticated: true
+    create_from_role: ""
+    task_token_ttl: ""
+    ca_file: ""
+    ca_path: ""
+    cert_file: ""
+    key_file: ""
+    tls_server_name: ""
+    tls_skip_verify: false
+    token: ""
+
+  ### TLS
+  tls:
+    ca_file: ""
+    cert_file: ""
+    key_file: ""
+    verify_server_hostname: true
+    verify_https_client: true
+    rpc_upgrade_mode: false
