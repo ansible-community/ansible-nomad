@@ -26,6 +26,7 @@ consul {
     # The service name to register the server and client with Consul.
     server_service_name = "{{ nomad_consul_servers_service_name }}"
     client_service_name = "{{ nomad_consul_clients_service_name }}"
+    tags = {{ nomad_consul_tags | to_json }}
 
     # Enables automatically registering the services.
     auto_advertise = true
