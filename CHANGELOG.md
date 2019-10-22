@@ -1,6 +1,8 @@
-## NEXT
+## v1.9.1
 
+- Nomad v0.10.0
 - add nomad_consul_tags option (thanks @camskkz)
+- Update documentation
 
 ## v1.9.0
 
