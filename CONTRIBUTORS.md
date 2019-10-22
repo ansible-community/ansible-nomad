@@ -20,3 +20,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@bilke](https://github.com/bilke)
 - [@pxsloot](https://github.com/pxsloot)
 - [@rbjorklin](https://github.com/rbjorklin)
+- [@camskkz](https://github.com/camskkz)

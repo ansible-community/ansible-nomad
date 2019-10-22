@@ -1,3 +1,7 @@
+## NEXT
+
+- add nomad_consul_tags option (thanks @camskkz)
+
 ## v1.9.0
 
 - Nomad v0.9.6
