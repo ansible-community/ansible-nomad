@@ -10,6 +10,7 @@
 
 [Unit]
 Description=nomad agent
+Documentation=https://nomadproject.io/docs/
 Wants=basic.target
 After=basic.target network.target
 
@@ -20,8 +21,16 @@ ExecStart={{ nomad_bin_dir }}/nomad agent -config={{ nomad_config_dir }}
 
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
+KillSignal=SIGINT
+LimitNOFILE=infinity
+LimitNPROC=infinity
 Restart=on-failure
 RestartSec=42s
+StartLimitBurst=3
+StartLimitIntervalSec=10
+{% if systemd_version.stdout is version('226', '>=') %}
+TasksMax=infinity
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target
