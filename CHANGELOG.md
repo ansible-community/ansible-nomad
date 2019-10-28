@@ -1,3 +1,7 @@
+## NEXT
+
+- Production hardening of systemd unit (thanks @bdossantos)
+
 ## v1.9.1
 
 - Nomad v0.10.0
