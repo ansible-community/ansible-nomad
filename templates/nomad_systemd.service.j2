@@ -22,6 +22,8 @@ ExecStart={{ nomad_bin_dir }}/nomad agent -config={{ nomad_config_dir }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT
+LimitNOFILE=infinity
+LimitNPROC=infinity
 Restart=on-failure
 RestartSec=42s
 
