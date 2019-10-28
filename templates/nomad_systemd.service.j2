@@ -26,6 +26,8 @@ LimitNOFILE=infinity
 LimitNPROC=infinity
 Restart=on-failure
 RestartSec=42s
+StartLimitBurst=3
+StartLimitIntervalSec=10
 
 [Install]
 WantedBy=multi-user.target
