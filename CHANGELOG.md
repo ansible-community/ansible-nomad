@@ -1,6 +1,7 @@
 ## v1.9.2
 
 - Nomad v0.10.1
+- Production hardening of systemd unit (thanks @bdossantos)
 - Update documentation
 
 ## v1.9.1
