@@ -32,7 +32,11 @@ client {
     }
 
     {% if nomad_chroot_env != False -%}
-    chroot_env = {{ nomad_chroot_env | to_nice_json }}
+    chroot_env = {
+    {% for key, value in nomad_chroot_env.items() %}
+    "{{ key }}" = "{{ value }}"
+    {% endfor -%}
+    }
     {% endif %}
 
     {% if nomad_options -%}
