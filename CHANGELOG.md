@@ -1,3 +1,7 @@
+## NEXT
+
+- Remove root user from docker group (thanks @jadams)
+
 ## v1.9.2
 
 - Nomad v0.10.1
