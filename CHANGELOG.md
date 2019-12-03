@@ -1,6 +1,7 @@
 ## NEXT
 
 - Remove root user from docker group (thanks @jadams)
+- Use JSON for custom configuration/fix template (thanks @heri16)
 
 ## v1.9.2
 
