@@ -23,8 +23,9 @@
     - dmsetup_result
 
 - name: Add Nomad user to docker group
-  when: "{{ nomad_user }}" != "root"
   user:
     name: "{{ nomad_user }}"
     groups: docker
     append: true
+  when:
+    - nomad_user != 'root'
