@@ -18,7 +18,7 @@ This role requires an Arch Linux, Debian, RHEL, or Ubuntu distribution; the role
 with the following specific software versions:
 
 * Ansible: 2.7.10
-* nomad: 0.10.1
+* nomad: 0.10.2
 * Arch Linux
 * CentOS: 7
 * Debian: 8
@@ -36,7 +36,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.10.1**
+- Default value: **0.10.2**
 
 ### `nomad_architecture_map`
 

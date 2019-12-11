@@ -1,5 +1,6 @@
-## NEXT
+## v1.9.3
 
+- Nomad v0.10.2
 - Remove root user from docker group (thanks @jadams)
 - Use JSON for custom configuration/fix template (thanks @heri16)
 
