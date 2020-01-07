@@ -7,7 +7,7 @@
 - name: Install dmsetup for Ubuntu 16.04
   apt:
     pkg: dmsetup
-    state: installed
+    state: present
     update_cache: true
     cache_valid_time: 600
   register: dmsetup_result
