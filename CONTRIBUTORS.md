@@ -24,3 +24,4 @@ Thank you to all these fine folk for helping with ansible-nomad!
 - [@bdossantos](https://github.com/bdossantos)
 - [@jadams](https://github.com/jadams)
 - [@heri16](https://github.com/heri16)
+- [@cimermanGregor](https://github.com/cimermanGregor)

@@ -1,3 +1,8 @@
+## 1.9.4
+
+- Correct dmsetup issue (thanks @cimermanGregor)
+- Update CONTRIBUTORS
+
 ## v1.9.3
 
 - Nomad v0.10.2
