@@ -1,3 +1,11 @@
+## 1.9.5
+
+- Nomad v0.10.3
+- Fix Nomad Debian initscript issue (thanks @raposalorx)
+- Add Amazon Linux support to check (thanks @blade2005)
+- Update Contributors
+- Update documentation
+
 ## 1.9.4
 
 - Correct dmsetup issue (thanks @cimermanGregor)

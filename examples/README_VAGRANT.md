@@ -83,7 +83,7 @@ BOX_NAME="centos/7" vagrant up
 ## Notes
 
 1. This project functions with the following software versions:
-  * Nomad version 0.10.2
+  * Nomad version 0.10.3
   * Ansible version 2.8.0
   * VirtualBox version 5.2.30
   * Vagrant version 2.2.4
