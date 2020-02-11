@@ -285,6 +285,28 @@ The role defines most of its variables in `defaults/main.yml`:
 - Reserved client ports
 - Default value: **22**
 
+### `nomad_host_volumes`
+
+- List host_volume is used to make volumes available to jobs (Stateful Workloads).
+- Default value: **[]**
+- Example:
+
+```yaml
+nomad_host_volumes:
+  - name: data
+    path: /var/data
+    owner: root
+    group: bin
+    mode: 0755
+    read_only: false
+  - name: config
+    path: /etc/conf
+    owner: root
+    group: bin
+    mode: 0644
+    read_only: false
+```
+
 ### `nomad_options`
 
 - Driver options

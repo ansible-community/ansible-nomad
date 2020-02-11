@@ -101,6 +101,9 @@
   notify:
     - restart nomad
 
+- name: Host volume
+  include: host_volume.yml
+
 - name: SYSV init script
   template:
     src: nomad_sysvinit.j2
