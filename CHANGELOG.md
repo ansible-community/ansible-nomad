@@ -1,3 +1,9 @@
+## NEXT
+
+- Add host_volume for nomad client (thanks @ducminhle)
+- Update CONTRIBUTORS
+- Update documentation
+
 ## 1.9.5
 
 - Nomad v0.10.3
