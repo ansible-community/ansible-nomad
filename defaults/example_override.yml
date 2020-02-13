@@ -1,0 +1,42 @@
+---
+# vim: set softtabstop=2 tabstop=2 shiftwidth=2 expandtab autoindent smartindent syntax=yaml:
+
+consul_datacenter: example
+consul_acl_datacenter: example
+
+vault_datacenter: example
+vault_cluster_name: example
+
+nomad_datacenter: example
+nomad_use_consul: true
+nomad_advertise_address: "{{ ansible_default_ipv4.address }}"
+
+nomad_config_override:
+  datacenter: exmaple
+  plugin:
+    - raw_exec:
+      - config:
+        - enabled: true
+    - docker:
+      - config:
+        - allow_privileged: true
+        - allow_caps:
+          # defaults as per: https://www.nomadproject.io/docs/drivers/docker.html#plugin_caps
+          - CHOWNDAC_OVERRIDE
+          - FSETID
+          - FOWNER
+          - MKNOD
+          - NET_RAW
+          - SETGID
+          - SETUID
+          - SETFCAP
+          - SETPCAP
+          - NET_BIND_SERVICE
+          - SYS_CHROOT
+          - KILL
+          - AUDIT_WRITE
+          - SYS_PTRACE # netdata requirement
+          - DAC_OVERRIDE # netdata requirement due to seccomp=apparmor
+          - CHOWN # netdata requirement due to seccomp=apparmor
+
+nomad_config: "{{ nomad_config_defaults | combine(nomad_config_override, recursive=True) }}"

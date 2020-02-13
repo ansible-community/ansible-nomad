@@ -3,6 +3,7 @@
 - Add host_volume for nomad client (thanks @ducminhle)
 - Update CONTRIBUTORS
 - Update documentation
+- Breaking change: serialize configuration as json without template
 
 ## 1.9.5
 
