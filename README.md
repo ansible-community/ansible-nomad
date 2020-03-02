@@ -224,6 +224,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Encryption secret for gossip communication
 - Default value: **""**
 
+### `nomad_authoritative_region`
+
+- Specifies the authoritative region, which provides a single source of truth for global configurations such as ACL Policies and global ACL tokens.
+- Default value: **""**
+
 ### `nomad_node_class`
 
 - Nomad node class

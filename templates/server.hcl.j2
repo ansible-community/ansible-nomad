@@ -5,6 +5,10 @@ server {
         bootstrap_expect = {{ nomad_bootstrap_expect }}
     {%- endif %}
 
+    {% if nomad_use_consul != "" %}
+        authoritative_region = "{{ nomad_authoritative_region }}"
+    {% endif %}
+
 {% if nomad_use_consul == False %}
     {% if nomad_retry_join | bool -%}
         retry_join = [
