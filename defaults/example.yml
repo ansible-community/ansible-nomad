@@ -11,8 +11,8 @@ nomad_datacenter: example
 nomad_use_consul: true
 nomad_advertise_address: "{{ ansible_default_ipv4.address }}"
 
-nomad_config_override:
-  datacenter: exmaple
+nomad_config:
+  datacenter: example
   plugin:
     - raw_exec:
       - config:
@@ -38,5 +38,3 @@ nomad_config_override:
           - SYS_PTRACE # netdata requirement
           - DAC_OVERRIDE # netdata requirement due to seccomp=apparmor
           - CHOWN # netdata requirement due to seccomp=apparmor
-
-nomad_config: "{{ nomad_config_defaults | combine(nomad_config_override, recursive=True) }}"

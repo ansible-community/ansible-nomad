@@ -1,6 +1,10 @@
 ---
 # File: main.yml - Main tasks for Nomad
 
+- name: Merge default and custom config
+  set_fact:
+    nomad_config_merged: "{{ nomad_config_defaults | combine((nomad_config | default({})), recursive=True) }}"
+
 - name: Include checks/asserts
   include: asserts.yml
 
@@ -62,7 +66,7 @@
 
 - name: Nomad configuration
   copy:
-    content: "{{ nomad_config | to_nice_json }}"
+    content: "{{ nomad_config_merged | to_nice_json }}"
     dest: "{{ nomad_config_dir }}/config.json"
     owner: root
     group: root
