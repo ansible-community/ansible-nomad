@@ -4,5 +4,5 @@
     owner: "{{ item['owner'] | default(nomad_user) }}"
     group: "{{ item['group'] | default(nomad_group) }}"
     state: directory
-    mode: "{{ item['mode'] | default('0644') }}"
+    mode: "{{ item['mode'] | default('0755') }}"
   with_items: "{{ nomad_host_volumes }}"
