@@ -57,7 +57,6 @@ nomad_node_gc_threshold: "24h"
 nomad_job_gc_threshold: "4h"
 nomad_eval_gc_threshold: "1h"
 nomad_encrypt: ""
-nomad_authoritative_region: ""
 
 #### Client settings
 nomad_node_class: ""

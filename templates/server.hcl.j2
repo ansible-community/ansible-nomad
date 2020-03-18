@@ -5,8 +5,8 @@ server {
         bootstrap_expect = {{ nomad_bootstrap_expect }}
     {%- endif %}
 
-    {% if nomad_use_consul != "" %}
-        authoritative_region = "{{ nomad_authoritative_region }}"
+    {% if nomad_authoritative_region is defined %}
+authoritative_region = "{{ nomad_authoritative_region }}"
     {% endif %}
 
 {% if nomad_use_consul == False %}
