@@ -535,6 +535,21 @@ in many Ansible versions, so this feature might not always work.
 - Use a key for tls connection, nomad_cert_file and nomad_key_file are needed
 - Default value: **""**
 
+### `nomad_rpc_upgrade_mode`
+
+- Use a certificate for tls connection, nomad_ca_file and nomad_key_file are needed, used only when the cluster is being upgraded to TLS, and removed after the migration is complete. This allows the agent to accept both TLS and plaintext traffic.
+- Default value: **false**
+
+### `nomad_verify_server_hostname`
+
+- Use a key for tls connection, nomad_cert_file and nomad_key_file are needed. Specifies if outgoing TLS connections should verify the server's hostname.
+- Default value: **true**
+
+### `nomad_verify_https_client`
+
+- Use a key for tls connection, nomad_cert_file and nomad_key_file are needed. Specifies agents should require client certificates for all incoming HTTPS requests. The client certificates must be signed by the same CA as Nomad.
+- Default value: **true**
+
 #### Custom Configuration Section
 
 As Nomad loads the configuration from files and directories in lexical order,

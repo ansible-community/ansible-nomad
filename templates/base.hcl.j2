@@ -56,6 +56,7 @@ tls {
     ca_file = "{{ nomad_ca_file }}"
     cert_file = "{{ nomad_cert_file }}"
     key_file = "{{ nomad_key_file }}"
+    rpc_upgrade_mode = {{ nomad_rpc_upgrade_mode }}
     verify_server_hostname = "{{ nomad_verify_server_hostname }}"
     verify_https_client = "{{ nomad_verify_https_client }}"
 }
