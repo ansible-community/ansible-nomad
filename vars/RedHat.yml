@@ -4,7 +4,7 @@
 nomad_os_packages:
   - curl
   - git
-  - "{% if ( ansible_distribution  == 'Fedora' and ansible_distribution_version is version('28', '>') ) or \
+  - "{% if ( ansible_distribution  == 'Fedora' and ansible_distribution_version is version('28', '<') ) or \
       ( ansible_distribution  == 'CentOS' and ansible_distribution_version is version('8', '<') ) or \
       ( ansible_distribution  == 'OracleLinux' and ansible_distribution_version is version('8', '<') ) \
     %}\
