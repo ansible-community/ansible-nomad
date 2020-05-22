@@ -1,6 +1,25 @@
 ---
 # File: main.yml - Main default variables for nomad
 
+# assert supported os/versions
+os_supported_matrix:
+  Archlinux:
+    min_version: ''
+  # RHEL-based
+  RedHat:
+    min_version: '6'
+  CentOS:
+    min_version: '6'
+  Fedora:
+    min_version: ''
+  Amazon:
+    min_version: ''
+  # Debian based
+  Debian:
+    min_version: '8.2'
+  Ubuntu:
+    min_version: '13.04'
+
 ## Core
 nomad_debug: false
 
