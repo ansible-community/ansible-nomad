@@ -1,6 +1,15 @@
 ---
 # File: asserts.yml - Asserts for this playbook
 
+- name: ping hosts
+  ping:
+
+- name: ensure all hosts are reachable
+  run_once: yes
+  assert:
+    that:
+      - ansible_play_hosts == ansible_play_hosts_all
+
 - name: os_supported_matrix | check distribution
   assert:
     quiet: yes
