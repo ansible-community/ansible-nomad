@@ -139,6 +139,7 @@ nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', 
 nomad_docker_dmsetup: true
 
 ### Tls
+nomad_tls_enable: false
 nomad_ca_file: ""
 nomad_cert_file: ""
 nomad_key_file: ""
