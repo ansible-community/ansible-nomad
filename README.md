@@ -2,21 +2,18 @@
 
 ----
 
-This role was previously maintained by Brian Shumate and is now curated by [ansible-community](https://github.com/ansible-community)
+This role was previously maintained by Brian Shumate and is now curated by [@ansible-community/hashicorp-tools](https://github.com/ansible-community). 
 
 ----
 
-[![Build Status](https://travis-ci.org/brianshumate/ansible-nomad.svg?branch=master)](https://travis-ci.org/brianshumate/ansible-nomad)
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-brianshumate.nomad-blue.svg)](https://galaxy.ansible.com/brianshumate/nomad/)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/brianshumate/ansible-nomad.svg)](http://isitmaintained.com/project/brianshumate/ansible-nomad "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/brianshumate/ansible-nomad.svg)](http://isitmaintained.com/project/brianshumate/ansible-nomad "Percentage of issues still open")
+
 
 This Ansible role performs basic [Nomad](https://nomadproject.io/)
 installation, including filesystem structure, and example configuration.
 
 It will also bootstrap a minimal cluster of 3 server nodes, and can do this
 in a development environment based on Vagrant and VirtualBox. See
-[README_VAGRANT.md](https://github.com/brianshumate/ansible-nomad/blob/master/examples/README_VAGRANT.md) for more details about the Vagrant setup.
+[README_VAGRANT.md](https://github.com/ansible-community/ansible-nomad/blob/master/examples/README_VAGRANT.md) for more details about the Vagrant setup.
 
 ## Requirements
 
@@ -744,8 +741,8 @@ BSD
 
 ## Contributors
 
-Special thanks to the folks listed in [CONTRIBUTORS.md](https://github.com/brianshumate/ansible-nomad/blob/master/CONTRIBUTORS.md) for their
+Special thanks to the folks listed in [CONTRIBUTORS.md](https://github.com/ansible-community/ansible-nomad/blob/master/CONTRIBUTORS.md) for their
 contributions to this project.
 
 Contributions are welcome, provided that you can agree to the terms outlined
-in [CONTRIBUTING.md](https://github.com/brianshumate/ansible-nomad/blob/master/CONTRIBUTING.md)
+in [CONTRIBUTING.md](https://github.com/ansible-community/ansible-nomad/blob/master/CONTRIBUTING.md)
