@@ -1,16 +1,8 @@
-# Nomad
-
-## SEEKING ACTIVE MAINTAINERSHIP
+# Ansible-Nomad
 
 ----
 
-It is my sincere hope that you or your organization has found some use in this project over the years that we have all worked on it together. With that said, I have largely moved on in my personal life and career path in ways that have essentially removed Ansible from daily use for me.
-
-Rather than abandon the project, I'm calling for interested parties to fork it and take over active maintainership so that it can continue on and receive more timely attention.
-
-The maintenance essentially consists of code review, issues, and merging pull requests as there are quite a few active contributors.
-
-You do not necessarily need to be a developer on the project and write code, etc. to maintain it. If you are interested in taking over maintainership of this project, please reach out and let me know.
+This role was previously maintained by Brian Shumate and is now curated by [ansible-community](https://github.com/ansible-community)
 
 ----
 
