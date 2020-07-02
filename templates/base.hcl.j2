@@ -46,10 +46,8 @@ leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
 
 
-{% if ( nomad_ca_file ) and
-      ( nomad_cert_file ) and
-      ( nomad_key_file )
-%}
+
+{% if nomad_tls_enable | bool %}
 tls {
     http = true
     rpc = true

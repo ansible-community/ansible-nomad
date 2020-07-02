@@ -520,6 +520,11 @@ in many Ansible versions, so this feature might not always work.
 - Run dmsetup on ubuntu (only if docker is enabled)
 - Default value: **yes**
 
+### `nomad_tls_enable`
+
+- Enable TLS
+- Default value: false
+
 ### `nomad_ca_file`
 
 - Use a ca for tls connection, nomad_cert_file and nomad_key_file are needed
