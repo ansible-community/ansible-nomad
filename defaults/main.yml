@@ -1,6 +1,25 @@
 ---
 # File: main.yml - Main default variables for nomad
 
+# assert supported os/versions
+os_supported_matrix:
+  Archlinux:
+    min_version: ''
+  # RHEL-based
+  RedHat:
+    min_version: '6'
+  CentOS:
+    min_version: '6'
+  Fedora:
+    min_version: ''
+  Amazon:
+    min_version: ''
+  # Debian based
+  Debian:
+    min_version: '8.2'
+  Ubuntu:
+    min_version: '13.04'
+
 ## Core
 nomad_debug: false
 
@@ -139,6 +158,7 @@ nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', 
 nomad_docker_dmsetup: true
 
 ### Tls
+nomad_tls_enable: false
 nomad_ca_file: ""
 nomad_cert_file: ""
 nomad_key_file: ""

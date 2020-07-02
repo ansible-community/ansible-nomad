@@ -1,25 +1,39 @@
 ---
 # File: asserts.yml - Asserts for this playbook
 
-- name: Check distribution compatibility
-  fail:
-    msg: "{{ ansible_distribution }} is not supported by this role"
-  when: ansible_distribution not in ['RedHat', 'CentOS', 'Fedora', 'Debian', 'Ubuntu', 'Archlinux', 'Amazon']
+- name: ping hosts
+  ping:
 
-- name: Fail if not a new release of Red Hat / CentOS
-  fail:
-    msg: "{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role"
-  when: ansible_distribution in ['RedHat', 'CentOS'] and ansible_distribution_version is version_compare(6, '<')
+- name: ensure all hosts are reachable
+  run_once: yes
+  assert:
+    that:
+      - ansible_play_hosts == ansible_play_hosts_all
 
-- name: Fail if not a new release of Debian
-  fail:
-    msg: "{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role"
-  when: ansible_distribution == "Debian" and ansible_distribution_version is version_compare(8.2, '<')
+- name: os_supported_matrix | check distribution
+  assert:
+    quiet: yes
+    fail_msg: "{{ ansible_distribution }} is not supported for this role"
+    that:
+      - ansible_distribution in os_supported_matrix
 
-- name: Fail if not a new release of Ubuntu
-  fail:
-    msg: "{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role"
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version is version_compare(13.04, '<')
+- name: get os version to compare with
+  set_fact:
+    version_to_compare: "{{ item.value.min_version }}"
+  loop: "{{ lookup('dict', os_supported_matrix) }}"
+  no_log: yes
+  when:
+    - ansible_distribution in item.key
+
+- name: os_supported_matrix | check distribution version
+  assert:
+    quiet: yes
+    fail_msg: "{{ ansible_distribution_version }} is not supported for this role"
+    that:
+      - ansible_distribution_version is version('{{ version_to_compare }}', '>')
+  when:
+    - version_to_compare is defined
+    - version_to_compare | length > 0
 
 - name: Check nomad_group_name is included in groups
   fail:
