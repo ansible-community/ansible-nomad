@@ -82,7 +82,7 @@ vault {
     token = "{{ nomad_vault_token }}"
 }
 
-{% if nomad_telemetry | bool == True %}
+{% if nomad_telemetry | default(False) | bool == True %}
 telemetry {
     disable_hostname = "{{ nomad_telemetry_disable_hostname | default("false") }}"
     collection_interval = "{{ nomad_telemetry_collection_interval | default("1s") }}"

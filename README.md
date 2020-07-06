@@ -544,6 +544,11 @@ in many Ansible versions, so this feature might not always work.
 - Use a key for tls connection, nomad_cert_file and nomad_key_file are needed. Specifies agents should require client certificates for all incoming HTTPS requests. The client certificates must be signed by the same CA as Nomad.
 - Default value: **true**
 
+### `nomad_telemetry`
+
+- Specifies whether to enable Nomad's telemetry configuration.
+- Default value: **false**
+
 ### `nomad_telemetry_disable_hostname`
 
 - Specifies if gauge values should be prefixed with the local hostname.
