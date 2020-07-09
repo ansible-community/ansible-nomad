@@ -33,7 +33,8 @@ provisioner:
     group_vars:
       consul_instances:
         consul_node_role: bootstrap
-  lint: ansible-lint -x 301
+  lint:
+    name: ansible-lint
 verifier:
   name: testinfra
   directory: ../_shared/tests
