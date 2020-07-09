@@ -24,7 +24,7 @@ os_supported_matrix:
 nomad_debug: false
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.10.3', true) }}"
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.11.3', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64

@@ -2,7 +2,7 @@
 
 ----
 
-This role was previously maintained by Brian Shumate and is now curated by [@ansible-community/hashicorp-tools](https://github.com/ansible-community). 
+This role was previously maintained by Brian Shumate and is now curated by [@ansible-community/hashicorp-tools](https://github.com/ansible-community).
 
 ----
 
@@ -21,7 +21,7 @@ This role requires an Arch Linux, Debian, RHEL, or Ubuntu distribution; the role
 with the following specific software versions:
 
 * Ansible: 2.7.10
-* nomad: 0.10.3
+* nomad: 0.11.3
 * Arch Linux
 * CentOS: 7
 * Debian: 8
@@ -39,7 +39,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.10.3**
+- Default value: **0.11.3**
 
 ### `nomad_architecture_map`
 
@@ -336,12 +336,12 @@ nomad_host_volumes:
 ### `nomad_bind_address`
 
 - Bind interface address
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_advertise_address`
 
 - Network interface address to advertise to other nodes
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_ports`
 
