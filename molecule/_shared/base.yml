@@ -37,8 +37,6 @@ provisioner:
         consul_node_role: bootstrap
   lint:
     name: ansible-lint
-    options:
-      config-file: molecule/default/yaml-lint.yml
 verifier:
   name: testinfra
   directory: ../_shared/tests
