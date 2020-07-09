@@ -6,7 +6,7 @@ scenario:
     - create
     - prepare
     - converge
-    # - idempotence
+    - idempotence
     - verify
     - destroy
 dependency:
@@ -34,7 +34,7 @@ provisioner:
       consul_instances:
         consul_node_role: bootstrap
   lint:
-    name: ansible-lint
+    name: ansible-lint -x 301
 verifier:
   name: testinfra
   directory: ../_shared/tests
