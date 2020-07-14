@@ -116,8 +116,8 @@ telemetry {
 {% if nomad_autopilot | default(False) | bool == True %}
 autopilot {
     cleanup_dead_servers      = {{ nomad_autopilot_cleanup_dead_servers | bool | lower }}
-    last_contact_threshold    = "{{ nomad_autopilot_clast_contact_threshold }}"
-    max_trailing_logs         = {{ nomad_autopilot_cmax_trailing_logs }}
-    server_stabilization_time = "{{ nomad_autopilot_cserver_stabilization_time }}"
+    last_contact_threshold    = "{{ nomad_autopilot_last_contact_threshold }}"
+    max_trailing_logs         = {{ nomad_autopilot_max_trailing_logs }}
+    server_stabilization_time = "{{ nomad_autopilot_server_stabilization_time }}"
 }
 {% endif %}

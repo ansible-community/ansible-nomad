@@ -715,7 +715,7 @@ in many Ansible versions, so this feature might not always work.
 - Specifies the maximum number of log entries that a server can trail the leader by before being considered unhealthy.
 - Default value: **250**
 
-### `nomad_autopilot_cserver_stabilization_time`
+### `nomad_autopilot_server_stabilization_time`
 
 -  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
 - Default value: **10s**
