@@ -213,6 +213,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Encryption secret for gossip communication
 - Default value: **""**
 
+### `nomad_raft_protocol`
+
+- Specifies the version of raft protocal, which used by nomad servers for communication
+- Default value: **2**
+
 ### `nomad_authoritative_region`
 
 - Specifies the authoritative region, which provides a single source of truth for global configurations such as ACL Policies and global ACL tokens.
@@ -688,6 +693,32 @@ in many Ansible versions, so this feature might not always work.
 
 - Specifies a special tag which will be used to select a Circonus Broker when a Broker ID is not provided. The best use of this is to as a hint for which broker should be used based on where this particular instance is running (e.g. a specific geographic location or datacenter, dc:sfo).
 - Default value: ""
+
+### `nomad_autopilot`
+
+- Enable Nomad Autopilot
+- To enable Autopilot features (with the exception of dead server cleanup), the raft_protocol setting in the server stanza must be set to 3 on all servers, see parameter nomad_raft_protocol
+- Default value: **false**
+
+### `nomad_autopilot_cleanup_dead_servers`
+
+- Specifies automatic removal of dead server nodes periodically and whenever a new server is added to the cluster.
+- Default value: **true**
+
+### `nomad_autopilot_last_contact_threshold`
+
+- Specifies the maximum amount of time a server can go without contact from the leader before being considered unhealthy.
+- Default value: **200ms**
+
+### `nomad_autopilot_max_trailing_logs`
+
+- Specifies the maximum number of log entries that a server can trail the leader by before being considered unhealthy.
+- Default value: **250**
+
+### `nomad_autopilot_cserver_stabilization_time`
+
+-  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
+- Default value: **10s**
 
 #### Custom Configuration Section
 

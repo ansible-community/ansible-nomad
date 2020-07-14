@@ -76,6 +76,7 @@ nomad_node_gc_threshold: "24h"
 nomad_job_gc_threshold: "4h"
 nomad_eval_gc_threshold: "1h"
 nomad_encrypt: ""
+nomad_raft_protocol: 2
 
 #### Client settings
 nomad_node_class: ""
@@ -165,3 +166,9 @@ nomad_key_file: ""
 nomad_rpc_upgrade_mode: false
 nomad_verify_server_hostname: true
 nomad_verify_https_client: true
+
+### Autopilot
+nomad_autopilot_cleanup_dead_servers: true
+nomad_autopilot_last_contact_threshold: "200ms"
+nomad_autopilot_max_trailing_logs: 250
+nomad_autopilot_server_stabilization_time: "10s"
