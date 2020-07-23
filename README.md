@@ -21,7 +21,7 @@ This role requires an Arch Linux, Debian, RHEL, or Ubuntu distribution; the role
 with the following specific software versions:
 
 * Ansible: 2.7.10
-* nomad: 0.12.0
+* nomad: 0.12.1
 * Arch Linux
 * CentOS: 7
 * Debian: 8
