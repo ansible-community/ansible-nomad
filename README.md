@@ -496,7 +496,12 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_vault_token`
 
-- Vault token used by nomad
+- Vault token used by nomad. Will only be installed on servers.
+- Default value: **""**
+
+### `nomad_vault_namespace`
+
+- Vault namespace used by nomad
 - Default value: **""**
 
 ### `nomad_docker_enable`
