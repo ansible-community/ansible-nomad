@@ -77,7 +77,10 @@ vault {
     key_file = "{{ nomad_vault_key_file }}"
     tls_server_name = "{{ nomad_vault_tls_server_name }}"
     tls_skip_verify = {{ nomad_vault_tls_skip_verify | bool | lower }}
+{%if nomad_node_role != 'client' %}
     token = "{{ nomad_vault_token }}"
+{% endif %}
+    namespace = "{{ nomad_vault_namespace }}"
 }
 
 {% if nomad_telemetry | default(False) | bool == True %}
