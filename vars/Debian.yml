@@ -2,8 +2,14 @@
 # File: vars/Debian.yml - Debian OS variables for Nomad
 
 nomad_os_packages:
-  - cgroup-bin
   - curl
   - git
   - libcgroup1
   - unzip
+  - "{% if ( ansible_distribution  == 'Ubuntu' and ansible_distribution_version is version('19', '<') ) or \
+      ( ansible_distribution  == 'Debian' and ansible_distribution_version is version('11', '<') ) \
+    %}\
+      cgroup-bin\
+    {% else %}\
+      cgroup-tools\
+    {% endif %}"
