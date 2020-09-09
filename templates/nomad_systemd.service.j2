@@ -11,8 +11,8 @@
 [Unit]
 Description=nomad agent
 Documentation=https://nomadproject.io/docs/
-Wants=basic.target
-After=basic.target network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 User={{ nomad_user }}
