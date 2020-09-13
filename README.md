@@ -374,10 +374,19 @@ nomad_host_volumes:
 - Serf port
 - Default value: **4648**
 
+### `nomad_podman_enable`
+
+- Installs the podman plugin
+- Default value: **false**
+
 ### `nomad_docker_enable`
 
 - Install Docker subsystem on nodes?
 - Default value: **false**
+
+### `nomad_plugins`
+- Allow you configure nomad plugins.
+- Default value configures podman.  See defaults for example.
 
 ### `nomad_group_name`
 

@@ -62,3 +62,23 @@ client {
     }
     {% endif %}
 }
+
+{% macro plugin_config(config) %}
+{% for key, value in config.items() %}
+{% if value is mapping %}
+{{ key }} {
+{{ plugin_config(value) }}
+}
+{% else %}
+{{ key }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% for key, value in nomad_plugins.items() %}
+plugin "{{ key }}" {
+{{ plugin_config(value) }}
+}
+
+{% endfor %}
