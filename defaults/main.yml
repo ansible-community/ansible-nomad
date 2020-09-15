@@ -107,7 +107,6 @@ nomad_meta: {}
 nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 nomad_chroot_env: false
 nomad_plugins: {}
-nomad_host_volumes: {}
 
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"

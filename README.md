@@ -400,19 +400,6 @@ nomad_plugins:
       recover_stopped: true
 ```
 
-### `nomad_host_volumes`
-- Allow you configure nomad host_volume.
-- Default: {}
-
-Example:
-
-```yaml
-nomad_host_volumes:
-  mysql:
-    path: /opt/mysql/data
-    read_only: true
-```
-
 ### `nomad_group_name`
 
 - Ansible group that contains all cluster nodes

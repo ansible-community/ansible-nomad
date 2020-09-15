@@ -82,9 +82,3 @@ plugin "{{ key }}" {
 {{ plugin_config(value) }}
 }
 {% endfor %}
-
-{% for key, value in nomad_host_volumes.items() %}
-host_volume "{{ key }}" {
-{{ plugin_config(value) }}
-}
-{% endfor %}
