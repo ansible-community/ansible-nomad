@@ -63,14 +63,15 @@ client {
     {% endif %}
 }
 
-{% macro plugin_config(config) %}
+{% macro plugin_config(config, count=1, width=4) %}
+{% set next_count = count + 1 %}
 {% for key, value in config.items() %}
 {% if value is mapping %}
-{{ key }} {
-{{ plugin_config(value) }}
-}
+{{ key | indent(count*width, first=True) }} {
+{{ plugin_config(value, count=next_count, width=width) }}
+{{ '}' | indent(count*width, first=True) }}
 {% else %}
-{{ key }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+{{ key | indent(count*width, first=True) }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
 
 {% endif %}
 {% endfor %}
@@ -80,5 +81,10 @@ client {
 plugin "{{ key }}" {
 {{ plugin_config(value) }}
 }
+{% endfor %}
 
+{% for key, value in nomad_host_volumes.items() %}
+host_volume "{{ key }}" {
+{{ plugin_config(value) }}
+}
 {% endfor %}

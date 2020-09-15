@@ -386,7 +386,32 @@ nomad_host_volumes:
 
 ### `nomad_plugins`
 - Allow you configure nomad plugins.
-- Default value configures podman.  See defaults for example.
+- Default: {}
+
+Example:
+
+```yaml
+nomad_plugins:
+  nomad-driver-podman:
+    config:
+      volumes:
+        enabled: true
+        selinuxlabel: z
+      recover_stopped: true
+```
+
+### `nomad_host_volumes`
+- Allow you configure nomad host_volume.
+- Default: {}
+
+Example:
+
+```yaml
+nomad_host_volumes:
+  mysql:
+    path: /opt/mysql/data
+    read_only: true
+```
 
 ### `nomad_group_name`
 
