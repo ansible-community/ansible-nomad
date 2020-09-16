@@ -34,10 +34,6 @@
 - name: Install OS packages
   include: install.yml
 
-- name: Install Podman plugin
-  include: install_podman.yml
-  when: nomad_podman_enable | bool
-
 - name: Disable SELinux (RHEL)
   include: selinux.yml
   when: ansible_os_family == "RedHat"
@@ -51,6 +47,10 @@
   with_items:
     - "{{ nomad_data_dir }}"
     - "{{ nomad_plugin_dir }}"
+
+- name: Install Podman plugin
+  include: install_podman.yml
+  when: nomad_podman_enable | bool
 
 - name: Create config directory
   file:
