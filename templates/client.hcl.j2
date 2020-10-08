@@ -62,3 +62,23 @@ client {
     }
     {% endif %}
 }
+
+{% macro plugin_config(config, count=1, width=4) %}
+{% set next_count = count + 1 %}
+{% for key, value in config.items() %}
+{% if value is mapping %}
+{{ key | indent(count*width, first=True) }} {
+{{ plugin_config(value, count=next_count, width=width) }}
+{{ '}' | indent(count*width, first=True) }}
+{% else %}
+{{ key | indent(count*width, first=True) }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% for key, value in nomad_plugins.items() %}
+plugin "{{ key }}" {
+{{ plugin_config(value) }}
+}
+{% endfor %}

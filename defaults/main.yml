@@ -36,11 +36,18 @@ nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
 nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+nomad_podman_enable: false
+nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.1.0', true) }}"
+nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_architecture}}.zip"
+nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
+nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
+nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ nomad_podman_version }}_SHA256SUMS"
 
 ### Paths
 nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
+nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_run_dir: "/var/run/nomad"
 
@@ -99,6 +106,7 @@ nomad_options: {}
 nomad_meta: {}
 nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 nomad_chroot_env: false
+nomad_plugins: {}
 
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
