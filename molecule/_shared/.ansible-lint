@@ -1,4 +1,0 @@
-warn_list:  # or 'skip_list' to silence them completely
-  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern'
-  - '208'  # File permissions not mentioned'
-  - '301'  # Commands should not change things if nothing needs doing' 
