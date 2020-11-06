@@ -1,5 +1,5 @@
 ---
-# File: install.yml - package installation tasks for Nomad
+# File: install.yml - package installation tasks for Nomad  # noqa 106
 
 - name: OS packages
   package:
@@ -28,7 +28,7 @@
   when: not nomad_checksum.stat.exists
   delegate_to: 127.0.0.1
 
-- name: Get Nomad package checksum
+- name: Get Nomad package checksum  # noqa 301
   shell: |
     set -o pipefail
     grep "{{ nomad_pkg }}" "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"  | awk '{print $1}'
