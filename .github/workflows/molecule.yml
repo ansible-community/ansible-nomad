@@ -1,3 +1,4 @@
+---
 name: Molecule
 # yamllint disable-line rule:truthy
 on:
