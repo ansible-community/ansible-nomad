@@ -1,7 +1,7 @@
 ---
 scenario:
   test_sequence:
-    - lint
+    # - lint
     - syntax
     - create
     - prepare
