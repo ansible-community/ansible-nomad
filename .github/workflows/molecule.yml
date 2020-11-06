@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - ci-gh-actions # temporary
   pull_request:
 
 jobs:
