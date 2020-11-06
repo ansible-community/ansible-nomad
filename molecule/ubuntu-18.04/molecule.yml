@@ -6,10 +6,7 @@ platforms:
     groups:
       - nomad_instances
     image: dokken/ubuntu-18.04
-    command: /sbin/init
-    tmpfs:
-      - /run
-      - /tmp
+    command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
