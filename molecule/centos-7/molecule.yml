@@ -6,17 +6,11 @@ platforms:
     groups:
       - nomad_instances
     image: dokken/centos-7
-<<<<<<< HEAD
     command: /lib/systemd/systemd
-=======
->>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-<<<<<<< HEAD
     pre_build_image: yes
-=======
->>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22
