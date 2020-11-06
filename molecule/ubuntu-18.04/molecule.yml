@@ -6,7 +6,14 @@ platforms:
     groups:
       - nomad_instances
     image: dokken/ubuntu-18.04
+<<<<<<< HEAD
     command: /lib/systemd/systemd
+=======
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+>>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
@@ -14,7 +21,10 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: yes
+<<<<<<< HEAD
 provisioner:
   inventory:
     vars:
       ansible_python_interpreter: /usr/bin/python3
+=======
+>>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22

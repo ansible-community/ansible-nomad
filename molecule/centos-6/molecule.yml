@@ -12,4 +12,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
+<<<<<<< HEAD
     pre_build_image: yes
+=======
+>>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22

@@ -16,6 +16,7 @@ jobs:
       max-parallel: 4
       matrix:
         scenario:
+<<<<<<< HEAD
           # - centos-6 ## Nomad requires Glibc 2.14
           - centos-7
           - centos-8
@@ -32,6 +33,22 @@ jobs:
           # - ubuntu-16.04 ## OS packages TASK failing
           - ubuntu-18.04
           - ubuntu-20.04
+=======
+          # - centos-6
+          # - centos-7
+          # - centos-8
+          # - debian-8
+          # - debian-9
+          # - debian-10
+          # - fedora-30
+          # - fedora-31
+          # - oraclelinux-6
+          # - oraclelinux-7
+          # - oraclelinux-8
+          # - ubuntu-16.04
+          - ubuntu-18.04
+          # - ubuntu-20.04
+>>>>>>> 46ba890f4716dc8cc60cf995992868f258f4ec22
 
     steps:
       - uses: actions/checkout@v2
