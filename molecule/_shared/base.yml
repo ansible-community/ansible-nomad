@@ -14,9 +14,9 @@ dependency:
 driver:
   name: docker
 lint: |
+  set -e
   yamllint .
   ansible-lint
-  flake8
 provisioner:
   name: ansible
   config_options:
