@@ -13,25 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         scenario:
-          # - centos-6
+          - centos-6
           - centos-7
-          # - centos-8
-          # - debian-8
-          # - debian-9
-          # - debian-10
-          # - fedora-26
-          # - fedora-27
-          # - fedora-28
-          # - fedora-29
-          # - fedora-30
-          # - fedora-31
-          # - oraclelinux-6
-          # - oraclelinux-7
-          # - oraclelinux-8
-          # - ubuntu-16.04
+          - centos-8
+          - debian-8
+          - debian-9
+          - debian-10
+          - fedora-30
+          - fedora-31
+          - oraclelinux-6
+          - oraclelinux-7
+          - oraclelinux-8
+          - ubuntu-16.04
           - ubuntu-18.04
+          - ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2

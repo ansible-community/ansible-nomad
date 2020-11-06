@@ -4,7 +4,7 @@ scenario:
 platforms:
   - name: fedora-30
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/fedora-30
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:

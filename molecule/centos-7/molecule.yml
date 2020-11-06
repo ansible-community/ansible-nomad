@@ -1,31 +1,14 @@
 ---
-dependency:
-  name: galaxy
-  enabled: true
-  options:
-    role-file: requirements.yml
-driver:
-  name: docker
-lint: |
-  yamllint .
-  ansible-lint
-  flake8
+scenario:
+  name: centos-7
 platforms:
   - name: centos-7
     groups:
       - nomad_instances
     image: dokken/centos-7
-    command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-provisioner:
-  name: ansible
-  playbooks:
-    converge: ../_shared/converge.yml
-    prepare: ../_shared/prepare.yml
-verifier:
-  name: ansible

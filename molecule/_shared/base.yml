@@ -33,8 +33,8 @@ provisioner:
     converge: ../_shared/playbook.yml
   inventory:
     group_vars:
-      consul_instances:
-        consul_node_role: bootstrap
+      nomad_instances:
+        nomad_node_role: bootstrap
   lint:
     name: ansible-lint
 verifier:

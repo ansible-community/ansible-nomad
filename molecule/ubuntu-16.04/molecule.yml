@@ -1,15 +1,5 @@
----
-dependency:
-  name: galaxy
-  enabled: true
-  options:
-    role-file: requirements.yml
-driver:
-  name: docker
-lint: |
-  yamllint .
-  ansible-lint
-  flake8
+scenario:
+  name: ubuntu-16.04
 platforms:
   - name: ubuntu-16.04
     groups:
@@ -22,13 +12,3 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-provisioner:
-  name: ansible
-  playbooks:
-    converge: ../_shared/converge.yml
-    prepare: ../_shared/prepare.yml
-verifier:
-  name: ansible
-inventory:
-  host_vars:
-    ansible_python_interpreter: /usr/bin/python
