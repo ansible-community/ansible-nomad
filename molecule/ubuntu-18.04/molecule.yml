@@ -5,13 +5,15 @@ platforms:
   - name: ubuntu-18.04
     groups:
       - nomad_instances
-    image: monolithprojects/systemd-ubuntu18:latest
+    image: dokken/ubuntu-18.04
     command: /sbin/init
     tmpfs:
       - /run
       - /tmp
+    dockerfile: ../_shared/Dockerfile.j2
+    capabilities:
+      - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: yes
+    privileged: true
     pre_build_image: yes
-
