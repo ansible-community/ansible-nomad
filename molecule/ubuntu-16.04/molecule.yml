@@ -1,10 +1,19 @@
 ---
-scenario:
-  name: ubuntu-16.04
+dependency:
+  name: galaxy
+  enabled: true
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
   - name: ubuntu-16.04
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/ubuntu-16.04
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
@@ -13,3 +22,13 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../_shared/converge.yml
+    prepare: ../_shared/prepare.yml
+verifier:
+  name: ansible
+inventory:
+  host_vars:
+    ansible_python_interpreter: /usr/bin/python
