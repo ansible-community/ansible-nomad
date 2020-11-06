@@ -4,7 +4,7 @@ scenario:
 platforms:
   - name: debian-10
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/debian-10
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
