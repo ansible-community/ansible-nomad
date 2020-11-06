@@ -13,7 +13,6 @@
     path: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   become: false
   run_once: true
-  mode: "666"
   tags: installation
   register: nomad_checksum
   delegate_to: 127.0.0.1
