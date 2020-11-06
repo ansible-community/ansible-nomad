@@ -21,7 +21,7 @@
   get_url:
     url: "{{ nomad_checksum_file_url }}"
     dest: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
-  mode: 0644
+    mode: '0644'
   become: false
   run_once: true
   tags: installation
@@ -52,7 +52,7 @@
     dest: "{{ role_path }}/files/{{ nomad_pkg }}"
     checksum: "sha256:{{ nomad_sha256.stdout }}"
     timeout: "42"
-  mode: 0644
+    mode: '0644'
   become: false
   tags: installation
   delegate_to: 127.0.0.1
