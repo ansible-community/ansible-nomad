@@ -2,7 +2,7 @@
 
 ----
 
-This role was previously maintained by Brian Shumate and is now curated by [@ansible-community/hashicorp-tools](https://github.com/ansible-community). 
+This role was previously maintained by Brian Shumate and is now curated by [@ansible-community/hashicorp-tools](https://github.com/ansible-community).
 
 ----
 
@@ -21,12 +21,13 @@ This role requires an Arch Linux, Debian, RHEL, or Ubuntu distribution; the role
 with the following specific software versions:
 
 * Ansible: 2.7.10
-* nomad: 0.10.3
+* nomad: 0.12.1
 * Arch Linux
 * CentOS: 7
 * Debian: 8
 * RHEL: 7
 * Ubuntu: 16.04
+* unzip for [unarchive module](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html#notes)
 
 ## Role Variables
 
@@ -39,7 +40,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.10.3**
+- Default value: **0.12.0**
 
 ### `nomad_architecture_map`
 
@@ -208,10 +209,20 @@ The role defines most of its variables in `defaults/main.yml`:
 - Eval garbage collection threshold
 - Default value: **1h**
 
+### `nomad_deployment_gc_threshold`
+
+- Deployment garbage collection threshold
+- Default value: **1h**
+
 ### `nomad_encrypt`
 
 - Encryption secret for gossip communication
 - Default value: **""**
+
+### `nomad_raft_protocol`
+
+- Specifies the version of raft protocal, which used by nomad servers for communication
+- Default value: **2**
 
 ### `nomad_authoritative_region`
 
@@ -336,12 +347,12 @@ nomad_host_volumes:
 ### `nomad_bind_address`
 
 - Bind interface address
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_advertise_address`
 
 - Network interface address to advertise to other nodes
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_ports`
 
@@ -363,10 +374,31 @@ nomad_host_volumes:
 - Serf port
 - Default value: **4648**
 
+### `nomad_podman_enable`
+
+- Installs the podman plugin
+- Default value: **false**
+
 ### `nomad_docker_enable`
 
 - Install Docker subsystem on nodes?
 - Default value: **false**
+
+### `nomad_plugins`
+- Allow you configure nomad plugins.
+- Default: {}
+
+Example:
+
+```yaml
+nomad_plugins:
+  nomad-driver-podman:
+    config:
+      volumes:
+        enabled: true
+        selinuxlabel: z
+      recover_stopped: true
+```
 
 ### `nomad_group_name`
 
@@ -496,7 +528,12 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_vault_token`
 
-- Vault token used by nomad
+- Vault token used by nomad. Will only be installed on servers.
+- Default value: **""**
+
+### `nomad_vault_namespace`
+
+- Vault namespace used by nomad
 - Default value: **""**
 
 ### `nomad_docker_enable`
@@ -688,6 +725,32 @@ in many Ansible versions, so this feature might not always work.
 
 - Specifies a special tag which will be used to select a Circonus Broker when a Broker ID is not provided. The best use of this is to as a hint for which broker should be used based on where this particular instance is running (e.g. a specific geographic location or datacenter, dc:sfo).
 - Default value: ""
+
+### `nomad_autopilot`
+
+- Enable Nomad Autopilot
+- To enable Autopilot features (with the exception of dead server cleanup), the raft_protocol setting in the server stanza must be set to 3 on all servers, see parameter nomad_raft_protocol
+- Default value: **false**
+
+### `nomad_autopilot_cleanup_dead_servers`
+
+- Specifies automatic removal of dead server nodes periodically and whenever a new server is added to the cluster.
+- Default value: **true**
+
+### `nomad_autopilot_last_contact_threshold`
+
+- Specifies the maximum amount of time a server can go without contact from the leader before being considered unhealthy.
+- Default value: **200ms**
+
+### `nomad_autopilot_max_trailing_logs`
+
+- Specifies the maximum number of log entries that a server can trail the leader by before being considered unhealthy.
+- Default value: **250**
+
+### `nomad_autopilot_server_stabilization_time`
+
+-  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
+- Default value: **10s**
 
 #### Custom Configuration Section
 

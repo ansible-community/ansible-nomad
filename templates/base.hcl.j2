@@ -45,8 +45,6 @@ enable_syslog = {{ nomad_syslog_enable | bool | lower }}
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
 
-
-
 {% if nomad_tls_enable | bool %}
 tls {
     http = true
@@ -54,9 +52,9 @@ tls {
     ca_file = "{{ nomad_ca_file }}"
     cert_file = "{{ nomad_cert_file }}"
     key_file = "{{ nomad_key_file }}"
-    rpc_upgrade_mode = {{ nomad_rpc_upgrade_mode }}
-    verify_server_hostname = "{{ nomad_verify_server_hostname }}"
-    verify_https_client = "{{ nomad_verify_https_client }}"
+    rpc_upgrade_mode = {{ nomad_rpc_upgrade_mode | bool | lower }}
+    verify_server_hostname = "{{ nomad_verify_server_hostname | bool | lower }}"
+    verify_https_client = "{{ nomad_verify_https_client | bool | lower }}"
 }
 {% endif %}
 
@@ -79,38 +77,50 @@ vault {
     key_file = "{{ nomad_vault_key_file }}"
     tls_server_name = "{{ nomad_vault_tls_server_name }}"
     tls_skip_verify = {{ nomad_vault_tls_skip_verify | bool | lower }}
+{%if nomad_node_role != 'client' %}
     token = "{{ nomad_vault_token }}"
+{% endif %}
+    namespace = "{{ nomad_vault_namespace }}"
 }
 
 {% if nomad_telemetry | default(False) | bool == True %}
 telemetry {
-    disable_hostname = "{{ nomad_telemetry_disable_hostname | default("false") }}"
+    disable_hostname = "{{ nomad_telemetry_disable_hostname | default(false) | bool | lower }}"
     collection_interval = "{{ nomad_telemetry_collection_interval | default("1s") }}"
-    use_node_name = "{{ nomad_telemetry_use_node_name | default("false") }}"
-    publish_allocation_metrics = "{{ nomad_telemetry_publish_allocation_metrics | default("false") }}"
-    publish_node_metrics = "{{ nomad_telemetry_publish_node_metrics | default("false") }}"
-    backwards_compatible_metrics = "{{ nomad_telemetry_backwards_compatible_metrics | default("false") }}"
-    disable_tagged_metrics = "{{ nomad_telemetry_disable_tagged_metrics | default("false") }}"
+    use_node_name = "{{ nomad_telemetry_use_node_name | default(false) | bool | lower }}"
+    publish_allocation_metrics = "{{ nomad_telemetry_publish_allocation_metrics | default(false) | bool | lower }}"
+    publish_node_metrics = "{{ nomad_telemetry_publish_node_metrics | default(false) | bool | lower }}"
+    backwards_compatible_metrics = "{{ nomad_telemetry_backwards_compatible_metrics | default(false) | bool | lower }}"
+    disable_tagged_metrics = "{{ nomad_telemetry_disable_tagged_metrics | default(false) | bool | lower }}"
     filter_default = "{{ nomad_telemetry_filter_default | default("true") }}"
     prefix_filter = {{ nomad_telemetry_prefix_filter | default([]) }}
-    disable_dispatched_job_summary_metrics = "{{ nomad_telemetry_disable_dispatched_job_summary_metrics | default("false") }}"
+    disable_dispatched_job_summary_metrics = "{{ nomad_telemetry_disable_dispatched_job_summary_metrics | default(false) | bool | lower }}"
     statsite_address = "{{ nomad_telemetry_statsite_address | default("") }}"
     statsd_address = "{{ nomad_telemetry_statsd_address | default("") }}"
     datadog_address = "{{ nomad_telemetry_datadog_address | default("") }}"
     datadog_tags = {{ nomad_telemetry_datadog_tags | default([]) }}
-    prometheus_metrics = "{{ nomad_telemetry_prometheus_metrics | default("false") }}"
+    prometheus_metrics = "{{ nomad_telemetry_prometheus_metrics | default(false) | bool | lower }}"
     circonus_api_token = "{{ nomad_telemetry_circonus_api_token | default("") }}"
     circonus_api_app = "{{ nomad_telemetry_circonus_api_app | default("nomad") }}"
     circonus_api_url = "{{ nomad_telemetry_circonus_api_url | default("https://api.circonus.com/v2") }}"
     circonus_submission_interval = "{{ circonus_submission_interval | default("10s") }}"
     circonus_submission_url = "{{ circonus_submission_url | default("") }}"
     circonus_check_id = "{{ circonus_check_id | default("") }}"
-    circonus_check_force_metric_activation = "{{ circonus_check_force_metric_activation | default("false") }}"
+    circonus_check_force_metric_activation = "{{ circonus_check_force_metric_activation | default(false) | bool | lower }}"
     circonus_check_instance_id = "{{ circonus_check_instance_id | default("") }}"
     circonus_check_search_tag = "{{ circonus_check_search_tag | default("") }}"
     circonus_check_display_name = "{{ circonus_check_display_name | default("") }}"
     circonus_check_tags = "{{ circonus_check_tags | default("") }}"
     circonus_broker_id = "{{ circonus_broker_id | default("") }}"
     circonus_broker_select_tag = "{{ circonus_broker_select_tag | default("") }}"
+}
+{% endif %}
+
+{% if nomad_autopilot | default(False) | bool == True %}
+autopilot {
+    cleanup_dead_servers      = {{ nomad_autopilot_cleanup_dead_servers | bool | lower }}
+    last_contact_threshold    = "{{ nomad_autopilot_last_contact_threshold }}"
+    max_trailing_logs         = {{ nomad_autopilot_max_trailing_logs }}
+    server_stabilization_time = "{{ nomad_autopilot_server_stabilization_time }}"
 }
 {% endif %}

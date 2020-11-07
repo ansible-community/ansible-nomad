@@ -1,0 +1,86 @@
+---
+# File: install.yml - package installation tasks for Nomad Podman
+
+- name: Check Nomad Podman package checksum file
+  stat:
+    path: "{{ role_path }}/files/nomad_podman_{{ nomad_podman_version }}_SHA256SUMS"
+  become: false
+  run_once: true
+  tags: installation
+  register: nomad_podman_checksum
+  delegate_to: 127.0.0.1
+
+- name: Get Nomad Podman package checksum file
+  get_url:
+    url: "{{ nomad_podman_checksum_file_url }}"
+    dest: "{{ role_path }}/files/nomad_podman_{{ nomad_podman_version }}_SHA256SUMS"
+  become: false
+  run_once: true
+  tags: installation
+  when: not nomad_podman_checksum.stat.exists
+  delegate_to: 127.0.0.1
+
+- name: Get Nomad Podman package checksum  # noqa 301
+  shell: |
+    set -o pipefail
+    grep "{{ nomad_podman_pkg }}" "{{ role_path }}/files/nomad_podman_{{ nomad_podman_version }}_SHA256SUMS"  | awk '{print $1}'
+  args:
+    executable: /bin/bash
+  become: false
+  register: nomad_podman_sha256
+  tags: installation
+  delegate_to: 127.0.0.1
+
+- name: Check Nomad Podman package file
+  stat:
+    path: "{{ role_path }}/files/{{ nomad_podman_pkg }}"
+  become: false
+  register: nomad_podman_package
+  delegate_to: 127.0.0.1
+
+- name: Download Nomad Podman
+  get_url:
+    url: "{{ nomad_podman_zip_url }}"
+    dest: "{{ role_path }}/files/{{ nomad_podman_pkg }}"
+    checksum: "sha256:{{ nomad_podman_sha256.stdout }}"
+    timeout: "42"
+  become: false
+  tags: installation
+  delegate_to: 127.0.0.1
+  when: not nomad_podman_package.stat.exists
+
+- name: Create Temporary Directory for Extraction
+  tempfile:
+    state: directory
+    prefix: ansible-nomad.
+  become: false
+  register: install_temp
+  tags: installation
+  delegate_to: 127.0.0.1
+
+- name: Unarchive Nomad Podman
+  unarchive:
+    src: "{{ role_path }}/files/{{ nomad_podman_pkg }}"
+    dest: "{{ install_temp.path }}/"
+    creates: "{{ install_temp.path }}/nomad-driver-podman"
+  become: false
+  tags: installation
+  delegate_to: 127.0.0.1
+
+- name: Install Nomad Podman
+  copy:
+    src: "{{ install_temp.path }}/nomad-driver-podman"
+    dest: "{{ nomad_plugin_dir }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0755
+  tags: installation
+  notify: restart nomad
+
+- name: Cleanup
+  file:
+    path: "{{ install_temp.path }}"
+    state: "absent"
+  become: false
+  tags: installation
+  delegate_to: 127.0.0.1

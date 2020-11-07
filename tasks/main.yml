@@ -44,8 +44,14 @@
     state: directory
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
+    mode: 755
   with_items:
     - "{{ nomad_data_dir }}"
+    - "{{ nomad_plugin_dir }}"
+
+- name: Install Podman plugin
+  include: install_podman.yml
+  when: nomad_podman_enable | bool
 
 - name: Create config directory
   file:

@@ -4,7 +4,7 @@ scenario:
 platforms:
   - name: oraclelinux-6
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/oraclelinux-6
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:

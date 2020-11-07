@@ -4,10 +4,13 @@ scenario:
 platforms:
   - name: debian-8
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/debian-8
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
-    privileged: True
+    capabilities:
+      - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: yes

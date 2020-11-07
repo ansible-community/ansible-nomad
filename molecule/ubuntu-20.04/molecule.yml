@@ -1,11 +1,11 @@
 ---
 scenario:
-  name: fedora-31
+  name: ubuntu-20.04
 platforms:
-  - name: fedora-31
+  - name: ubuntu-20.04
     groups:
       - nomad_instances
-    image: dokken/fedora-31
+    image: dokken/ubuntu-20.04
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
@@ -14,3 +14,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: yes
+provisioner:
+  inventory:
+    vars:
+      ansible_python_interpreter: /usr/bin/python3

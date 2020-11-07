@@ -1,10 +1,9 @@
----
 scenario:
   name: ubuntu-16.04
 platforms:
   - name: ubuntu-16.04
     groups:
-      - consul_instances
+      - nomad_instances
     image: dokken/ubuntu-16.04
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
@@ -13,3 +12,4 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
+    pre_build_image: yes

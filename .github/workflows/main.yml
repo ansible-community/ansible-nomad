@@ -12,25 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         scenario:
-          # - centos-6
-          # - centos-7
-          # - centos-8
-          # - debian-8
-          # - debian-9
-          # - debian-10
-          # - fedora-26
-          # - fedora-27
-          # - fedora-28
-          # - fedora-29
-          # - fedora-30
-          # - fedora-31
-          # - oraclelinux-6
+          # - centos-6 ## Nomad requires Glibc 2.14
+          - centos-7
+          - centos-8
+          # - debian-8 ## OS packages TASK failing
+          # - debian-9 ## Debian 9 is failing the verify script when checking if service is enabled
+          - debian-10
+          - fedora-30
+          - fedora-31
+          - fedora-32
+          - fedora-33
+          # - oraclelinux-6 ## OracleLinux is not supported by the Role yet
           # - oraclelinux-7
           # - oraclelinux-8
-          # - ubuntu-16.04
+          # - ubuntu-16.04 ## OS packages TASK failing
           - ubuntu-18.04
+          # - ubuntu-20.04 ## Same as Debian 9 - failing the verify script when checking if service is enabled
 
     steps:
       - uses: actions/checkout@v2

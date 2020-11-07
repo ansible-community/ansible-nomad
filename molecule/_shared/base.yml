@@ -1,20 +1,22 @@
 ---
 scenario:
   test_sequence:
-    - lint
+    # - lint
     - syntax
     - create
     - prepare
     - converge
-    - idempotence
+    # - idempotence
     - verify
     - destroy
 dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 provisioner:
   name: ansible
   config_options:
@@ -31,12 +33,8 @@ provisioner:
     converge: ../_shared/playbook.yml
   inventory:
     group_vars:
-      consul_instances:
-        consul_node_role: bootstrap
-  lint:
-    name: ansible-lint
+      nomad_instances:
+        nomad_node_role: bootstrap
 verifier:
   name: testinfra
   directory: ../_shared/tests
-  lint:
-    name: flake8

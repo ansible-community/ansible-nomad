@@ -24,7 +24,7 @@ os_supported_matrix:
 nomad_debug: false
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.10.3', true) }}"
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.12.1', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
@@ -36,11 +36,18 @@ nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
 nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+nomad_podman_enable: false
+nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.1.0', true) }}"
+nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_architecture}}.zip"
+nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
+nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
+nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ nomad_podman_version }}_SHA256SUMS"
 
 ### Paths
 nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
+nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_run_dir: "/var/run/nomad"
 
@@ -75,7 +82,9 @@ nomad_num_schedulers: "{{ ansible_processor_vcpus }}"
 nomad_node_gc_threshold: "24h"
 nomad_job_gc_threshold: "4h"
 nomad_eval_gc_threshold: "1h"
+nomad_deployment_gc_threshold: "1h"
 nomad_encrypt: ""
+nomad_raft_protocol: 2
 
 #### Client settings
 nomad_node_class: ""
@@ -97,6 +106,7 @@ nomad_options: {}
 nomad_meta: {}
 nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 nomad_chroot_env: false
+nomad_plugins: {}
 
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
@@ -152,6 +162,7 @@ nomad_vault_key_file: ""
 nomad_vault_tls_server_name: ""
 nomad_vault_tls_skip_verify: false
 nomad_vault_token: ""
+nomad_vault_namespace: ""
 
 ### Docker
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
@@ -165,3 +176,9 @@ nomad_key_file: ""
 nomad_rpc_upgrade_mode: false
 nomad_verify_server_hostname: true
 nomad_verify_https_client: true
+
+### Autopilot
+nomad_autopilot_cleanup_dead_servers: true
+nomad_autopilot_last_contact_threshold: "200ms"
+nomad_autopilot_max_trailing_logs: 250
+nomad_autopilot_server_stabilization_time: "10s"

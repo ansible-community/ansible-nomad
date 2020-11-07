@@ -39,6 +39,9 @@ authoritative_region = "{{ nomad_authoritative_region }}"
     node_gc_threshold = "{{ nomad_node_gc_threshold }}"
     eval_gc_threshold = "{{ nomad_eval_gc_threshold }}"
     job_gc_threshold = "{{ nomad_job_gc_threshold }}"
+    deployment_gc_threshold = "{{ nomad_deployment_gc_threshold }}"
 
     encrypt = "{{ nomad_encrypt }}"
+
+    raft_protocol = {{ nomad_raft_protocol }}
 }

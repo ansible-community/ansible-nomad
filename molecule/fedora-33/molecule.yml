@@ -1,11 +1,11 @@
 ---
 scenario:
-  name: fedora-31
+  name: fedora-33
 platforms:
-  - name: fedora-31
+  - name: fedora-33
     groups:
       - nomad_instances
-    image: dokken/fedora-31
+    image: dokken/fedora-33
     command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
