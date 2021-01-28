@@ -37,6 +37,7 @@
   register: nomad_sha256
   tags: installation
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: Check Nomad package file
   stat:
@@ -44,6 +45,7 @@
   become: false
   register: nomad_package
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: Download Nomad
   get_url:
@@ -54,6 +56,7 @@
   become: false
   tags: installation
   delegate_to: 127.0.0.1
+  run_once: true
   when: not nomad_package.stat.exists
 
 - name: Create Temporary Directory for Extraction
@@ -64,6 +67,7 @@
   register: install_temp
   tags: installation
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: Unarchive Nomad
   unarchive:
@@ -73,6 +77,7 @@
   become: false
   tags: installation
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: Install Nomad
   copy:
@@ -90,3 +95,4 @@
   become: false
   tags: installation
   delegate_to: 127.0.0.1
+  run_once: true
