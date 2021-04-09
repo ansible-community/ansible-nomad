@@ -37,6 +37,10 @@ The role defines most of its variables in `defaults/main.yml`:
 - Nomad debug mode
 - Default value: **no**
 
+### `nomad_skip_ensure_all_hosts`
+- Allow running the role even if not all instances are connected
+- Default value: **no**
+
 ### `nomad_version`
 
 - Nomad version to install
