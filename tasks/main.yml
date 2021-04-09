@@ -149,18 +149,24 @@
     - not ansible_os_family == "Solaris"
   tags: skip_ansible_lint
 
-- name: systemd script
-  template:
-    src: nomad_systemd.service.j2
-    dest: /lib/systemd/system/nomad.service
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_service_mgr == "systemd"
-
-- name: reload systemd daemon
-  systemd:
-    daemon_reload: true
+- block:
+    - name: systemd script
+      template:
+        src: nomad_systemd.service.j2
+        dest: /lib/systemd/system/nomad.service
+        owner: root
+        group: root
+        mode: 0644
+      register: nomad_systemd_file
+    - block:
+      - name: reload systemd daemon
+        systemd:
+          daemon_reload: true
+      - name: Enable nomad at startup (systemd)
+        systemd:
+          name: nomad
+          enabled: yes
+      when: nomad_systemd_file.changed
   when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad
@@ -168,3 +174,4 @@
     name: nomad
     enabled: true
     state: started
+  when: not ansible_service_mgr == "systemd"
