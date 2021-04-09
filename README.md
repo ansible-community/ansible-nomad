@@ -214,9 +214,14 @@ The role defines most of its variables in `defaults/main.yml`:
 - Deployment garbage collection threshold
 - Default value: **1h**
 
+### `nomad_encrypt_enable`
+
+- Enable Gossip Encryption even if `nomad_encrypt` is not set
+- Default value: false
+
 ### `nomad_encrypt`
 
-- Encryption secret for gossip communication
+- Set the encryption key; should be the same across a cluster. If not present and `nomad_encrypt_enable` is true, the key will be generated & retrieved from the bootstrapped server.
 - Default value: **""**
 
 ### `nomad_raft_protocol`

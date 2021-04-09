@@ -70,6 +70,13 @@
   notify:
     - restart nomad
 
+- name: Get Gossip Key
+  include: get_gossip_key.yml
+  when:
+    - _nomad_node_server | bool
+    - nomad_encrypt_enable | bool
+    - nomad_encrypt is not defined
+
 - name: Server configuration
   template:
     src: server.hcl.j2
