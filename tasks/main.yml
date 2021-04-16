@@ -94,6 +94,7 @@
     dest: "{{ nomad_config_dir }}/server.hcl"
     state: absent
   when:
+    - nomad_allow_purge_config | bool
     - not _nomad_node_server | bool
   notify:
     - restart nomad
@@ -115,6 +116,7 @@
     dest: "{{ nomad_config_dir }}/client.hcl"
     state: absent
   when:
+    - nomad_allow_purge_config | bool
     - not _nomad_node_client | bool
   notify:
     - restart nomad
@@ -136,6 +138,7 @@
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent
   when:
+    - nomad_allow_purge_config | bool
     - nomad_config_custom is not defined
   notify:
     - restart nomad

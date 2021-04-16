@@ -26,6 +26,9 @@ nomad_debug: false
 ## Asserts
 nomad_skip_ensure_all_hosts: "{{ lookup('env','NOMAD_SKIP_ENSURE_ALL_HOSTS') | default('false', true) }}"
 
+## Config Purge
+nomad_allow_purge_config: "{{ lookup('env','NOMAD_ALLOW_PURGE_CONFIG') | default('false', true) }}"
+
 ### Package
 nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.12.1', true) }}"
 nomad_architecture_map:
