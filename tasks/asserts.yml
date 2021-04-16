@@ -9,6 +9,7 @@
   assert:
     that:
       - ansible_play_hosts == ansible_play_hosts_all
+  when: not nomad_skip_ensure_all_hosts | bool
 
 - name: os_supported_matrix | check distribution
   assert:
