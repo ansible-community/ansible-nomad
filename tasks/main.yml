@@ -89,6 +89,16 @@
   notify:
     - restart nomad
 
+- name: Remove Server configuration
+  file:
+    dest: "{{ nomad_config_dir }}/server.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - not _nomad_node_server | bool
+  notify:
+    - restart nomad
+
 - name: Client configuration
   template:
     src: client.hcl.j2
@@ -101,6 +111,16 @@
   notify:
     - restart nomad
 
+- name: Remove Client configuration
+  file:
+    dest: "{{ nomad_config_dir }}/client.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - not _nomad_node_client | bool
+  notify:
+    - restart nomad
+
 - name: Custom configuration
   template:
     src: custom.json.j2
@@ -110,6 +130,16 @@
     mode: 0644
   when:
     - nomad_config_custom is defined
+  notify:
+    - restart nomad
+
+- name: Remove custome configuration
+  file:
+    dest: "{{ nomad_config_dir }}/custom.json"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - nomad_config_custom is not defined
   notify:
     - restart nomad
 
