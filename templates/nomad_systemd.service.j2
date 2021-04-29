@@ -13,6 +13,8 @@ Description=nomad agent
 Documentation=https://nomadproject.io/docs/
 After=network-online.target
 Wants=network-online.target
+StartLimitBurst=3
+StartLimitIntervalSec=10
 
 [Service]
 User={{ nomad_user }}
@@ -26,8 +28,6 @@ LimitNOFILE=infinity
 LimitNPROC=infinity
 Restart=on-failure
 RestartSec=42s
-StartLimitBurst=3
-StartLimitIntervalSec=10
 {% if systemd_version.stdout is version('226', '>=') %}
 TasksMax=infinity
 {% endif %}
