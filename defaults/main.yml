@@ -108,6 +108,7 @@ nomad_reserved:
   disk: "{{ nomad_reserved_disk | default('0', true) }}"
   ports: "{{ nomad_reserved_ports | default('22', true) }}"
 nomad_host_volumes: []
+nomad_host_networks: []
 nomad_options: {}
 nomad_meta: {}
 nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
