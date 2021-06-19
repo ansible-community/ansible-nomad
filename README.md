@@ -48,7 +48,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.12.0**
+- Default value: **1.1.1**
 
 ### `nomad_architecture_map`
 
