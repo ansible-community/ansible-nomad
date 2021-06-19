@@ -341,7 +341,7 @@ nomad_host_volumes:
 
 ### `nomad_host_networks`
 
-- List host_volume is used to make volumes available to jobs (Stateful Workloads).
+- List host_network is used to make different networks available to jobs instead of selecting a default interface. This is very useful especially in case of multiple nics.
 - Default value: **[]**
 - Example:
 
