@@ -339,6 +339,22 @@ nomad_host_volumes:
     read_only: false
 ```
 
+### `nomad_host_networks`
+
+- List host_volume is used to make volumes available to jobs (Stateful Workloads).
+- Default value: **[]**
+- Example:
+
+```yaml
+nomad_host_networks:
+  - name: public
+    cidr: 100.101.102.103/24
+    reserved_ports: "22,80"
+  - name: private
+    interface: eth0
+    reserved_ports: "443"
+```
+
 ### `nomad_options`
 
 - Driver options
