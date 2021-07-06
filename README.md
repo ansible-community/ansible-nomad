@@ -408,6 +408,11 @@ nomad_host_networks:
 - Installs the podman plugin
 - Default value: **false**
 
+### `nomad_cni_enable`
+
+- Installs the cni plugins
+- Default value: **false**
+
 ### `nomad_docker_enable`
 
 - Install Docker subsystem on nodes?
