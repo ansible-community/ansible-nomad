@@ -52,6 +52,10 @@
   include: install_podman.yml
   when: nomad_podman_enable | bool
 
+- name: Install CNI plugin
+  include: cni.yml
+  when: nomad_cni_enable | bool
+
 - name: Create config directory
   file:
     dest: "{{ nomad_config_dir }}"
