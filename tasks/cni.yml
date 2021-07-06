@@ -1,6 +1,13 @@
 ---
 # File: cni_plugin.yml - package installation tasks for Nomad CNI Plugin
 
+- name: Create cni directory
+  file:
+    dest: "{{ nomad_cni_dir }}"
+    state: directory
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+
 - name: Check CNI package checksum file
   stat:
     path: "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"
