@@ -69,7 +69,7 @@
   unarchive:
     src: "{{ role_path }}/files/{{ nomad_cni_pkg }}"
     dest: "{{ install_temp.path }}/"
-    creates: "{{ install_temp.path }}/nomad-driver-cni"
+    creates: "{{ install_temp.path }}/bridge"
   become: false
   tags: installation
   delegate_to: 127.0.0.1
