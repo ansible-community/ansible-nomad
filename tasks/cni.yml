@@ -76,11 +76,13 @@
 
 - name: Install Nomad CNI
   copy:
-    src: "{{ install_temp.path }}/nomad-driver-cni"
+    src: "{{ item }}"
     dest: "{{ nomad_cni_dir }}"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
     mode: 0755
+  with_fileglob:
+    - "{{ install_temp.path }}/*"
   tags: installation
   notify: restart nomad
 
