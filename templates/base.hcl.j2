@@ -49,9 +49,9 @@ leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
 tls {
     http = true
     rpc = true
-    ca_file = "{{ nomad_ca_file }}"
-    cert_file = "{{ nomad_cert_file }}"
-    key_file = "{{ nomad_key_file }}"
+    ca_file = "{{ nomad_tls_dir }}/{{ nomad_ca_file }}"
+    cert_file = "{{ nomad_tls_dir }}/{{ nomad_cert_file }}"
+    key_file = "{{ nomad_tls_dir }}/{{ nomad_key_file }}"
     rpc_upgrade_mode = {{ nomad_rpc_upgrade_mode | bool | lower }}
     verify_server_hostname = "{{ nomad_verify_server_hostname | bool | lower }}"
     verify_https_client = "{{ nomad_verify_https_client | bool | lower }}"
