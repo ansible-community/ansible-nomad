@@ -180,9 +180,9 @@ nomad_tls_enable: false
 nomad_tls_copy_keys: false
 nomad_tls_files_remote_src: false
 nomad_tls_dir: "{{ lookup('env','NOMAD_TLS_DIR') | default('/etc/nomad/ssl', true) }}"
-nomad_ca_remote_dir: ""
-nomad_cert_remote_dir: ""
-nomad_key_remote_dir: ""
+nomad_ca_src_dir: ""
+nomad_cert_src_dir: ""
+nomad_key_src_dir: ""
 nomad_ca_file: ""
 nomad_cert_file: ""
 nomad_key_file: ""
