@@ -14,7 +14,7 @@
       copy:
         remote_src: "{{ nomad_tls_files_remote_src }}"
         src: "{{ nomad_ca_remote_dir }}/{{ nomad_ca_file | basename }}"
-        dest: "{{ nomad_tls_dir }}/{{ nomad_tls_ca_crt }}"
+        dest: "{{ nomad_tls_dir }}/{{ nomad_ca_file }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
         mode: 0644
@@ -24,7 +24,7 @@
       copy:
         remote_src: "{{ nomad_tls_files_remote_src }}"
         src: "{{ nomad_cert_remote_dir }}/{{ nomad_cert_file | basename }}"
-        dest: "{{ nomad_tls_dir }}/{{ nomad_tls_server_crt }}"
+        dest: "{{ nomad_tls_dir }}/{{ nomad_cert_file }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
         mode: 0644
