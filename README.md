@@ -585,20 +585,50 @@ in many Ansible versions, so this feature might not always work.
 - Enable TLS
 - Default value: false
 
+### `nomad_tls_copy_keys`: false
+
+- Whether to copy certs from local machine (controller). If true certs from `nomad_ca_src_dir`, `nomad_cert_src_dir`, `nomad_key_src_dir` are copied.
+- Default value: false
+
+### `nomad_tls_files_remote_src`
+
+- Whether to copy certs from remote machine itself.
+- Default value: false
+
+### `nomad_tls_dir`
+
+- The remote dir where the certs are stored.
+- Default value: "/etc/nomad/ssl"
+
+### `nomad_ca_src_dir`
+
+- The dir from which ca cert will be copied.
+- Default value: `{{ role_path }}/files`
+
+### `nomad_cert_src_dir`
+
+- The dir from which public cert will be copied.
+- Default value: `{{ role_path }}/files`
+
+### `nomad_key_src_dir`
+
+- The dir from which private key will be copied.
+- Default value: `{{ role_path }}/files`
+
 ### `nomad_ca_file`
 
 - Use a ca for tls connection, nomad_cert_file and nomad_key_file are needed
-- Default value: **""**
+- Default value: ca.cert
 
 ### `nomad_cert_file`
 
 - Use a certificate for tls connection, nomad_ca_file and nomad_key_file are needed
-- Default value: **""**
+- Default value: server.crt
 
 ### `nomad_key_file`
 
 - Use a key for tls connection, nomad_cert_file and nomad_key_file are needed
-- Default value: **""**
+- Default value: server.key
 
 ### `nomad_rpc_upgrade_mode`
 
