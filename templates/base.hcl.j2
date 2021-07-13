@@ -22,6 +22,7 @@ ports {
 consul {
     # The address to the Consul agent.
     address = "{{ nomad_consul_address }}"
+    ssl = {{ nomad_consul_ssl | bool | lower }}
     ca_file = "{{ nomad_consul_ca_file }}"
     cert_file = "{{ nomad_consul_cert_file }}"
     key_file = "{{ nomad_consul_key_file }}"

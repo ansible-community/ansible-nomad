@@ -467,8 +467,13 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_consul_address`
 
-- The address of your consul API, use it in combination with nomad_use_consul=True
+- The address of your consul API, use it in combination with nomad_use_consul=True. If you want to use https, use `nomad_consul_ssl`. Do NOT append https.
 - Default value: **localhost:8500**
+
+### `nomad_consul_ssl`
+
+- If `true` then uses https.
+- Default value: **false**
 
 ### `nomad_consul_ca_file`
 
