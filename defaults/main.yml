@@ -180,9 +180,9 @@ nomad_tls_enable: false
 nomad_tls_copy_keys: false
 nomad_tls_files_remote_src: false
 nomad_tls_dir: "{{ lookup('env','NOMAD_TLS_DIR') | default('/etc/nomad/ssl', true) }}"
-nomad_ca_src_dir: "{{ lookup('env','NOMAD_CA_SRC_DIR') | default(role_path+'/files', true) }}"
-nomad_cert_src_dir: "{{ lookup('env','NOMAD_CERT_SRC_DIR') | default(role_path+'/files', true) }}"
-nomad_key_src_dir: "{{ lookup('env','NOMAD_KEY_SRC_DIR') | default(role_path+'/files', true) }}"
+# nomad_ca_src_dir: "{{ lookup('env','NOMAD_CA_SRC_DIR') | default(role_path+'/files', true) }}"
+# nomad_cert_src_dir: "{{ lookup('env','NOMAD_CERT_SRC_DIR') | default(role_path+'/files', true) }}"
+# nomad_key_src_dir: "{{ lookup('env','NOMAD_KEY_SRC_DIR') | default(role_path+'/files', true) }}"
 nomad_ca_file: "{{ lookup('env','NOMAD_CA_FILE') | default('ca.crt', true) }}"
 nomad_cert_file: "{{ lookup('env','NOMAD_CERT_FILE') | default('server.crt', true) }}"
 nomad_key_file: "{{ lookup('env','NOMAD_KEY_FILE') | default('server.key', true) }}"

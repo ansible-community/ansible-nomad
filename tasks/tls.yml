@@ -13,7 +13,7 @@
     - name: Copy CA certificate
       copy:
         remote_src: "{{ nomad_tls_files_remote_src }}"
-        src: "{{ nomad_ca_src_dir }}/{{ nomad_ca_file | basename }}"
+        src: "{{ nomad_ca_file }}"
         dest: "{{ nomad_tls_dir }}/{{ nomad_ca_file | basename }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
@@ -23,7 +23,7 @@
     - name: Copy certificate
       copy:
         remote_src: "{{ nomad_tls_files_remote_src }}"
-        src: "{{ nomad_cert_src_dir }}/{{ nomad_cert_file | basename }}"
+        src: "{{ nomad_cert_file }}"
         dest: "{{ nomad_tls_dir }}/{{ nomad_cert_file | basename }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
@@ -33,7 +33,7 @@
     - name: Copy key
       copy:
         remote_src: "{{ nomad_tls_files_remote_src }}"
-        src: "{{ nomad_key_src_dir }}/{{ nomad_key_file | basename }}"
+        src: "{{ nomad_key_file }}"
         dest: "{{ nomad_tls_dir }}/{{ nomad_key_file | basename }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
