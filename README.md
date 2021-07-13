@@ -470,6 +470,21 @@ in many Ansible versions, so this feature might not always work.
 - The address of your consul API, use it in combination with nomad_use_consul=True
 - Default value: **localhost:8500**
 
+### `nomad_consul_ca_file`
+
+- Public key of consul CA, use in combination with `nomad_consul_cert_file` and `nomad_consul_key_file`.
+- Default value: ""
+
+### `nomad_consul_cert_file`
+
+- The public key which can be used to access consul.
+- Default value: ""
+
+### `nomad_consul_key_file`
+
+- The private key counterpart of `nomad_consul_cert_file`.
+- Default value: ""
+
 ### `nomad_consul_servers_service_name`
 
 - The name of the consul service for your nomad servers
