@@ -598,7 +598,7 @@ in many Ansible versions, so this feature might not always work.
 ### `nomad_tls_dir`
 
 - The remote dir where the certs are stored.
-- Default value: "/etc/nomad/ssl"
+- Default value: `/etc/nomad/ssl`
 
 ### `nomad_ca_src_dir`
 
