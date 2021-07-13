@@ -587,7 +587,7 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_tls_copy_keys`: false
 
-- Whether to copy certs from local machine (controller). If true certs from `nomad_ca_src_dir`, `nomad_cert_src_dir`, `nomad_key_src_dir` are copied.
+- Whether to copy certs from local machine (controller).
 - Default value: false
 
 ### `nomad_tls_files_remote_src`
@@ -599,21 +599,6 @@ in many Ansible versions, so this feature might not always work.
 
 - The remote dir where the certs are stored.
 - Default value: `/etc/nomad/ssl`
-
-### `nomad_ca_src_dir`
-
-- The dir from which ca cert will be copied.
-- Default value: `{{ role_path }}/files`
-
-### `nomad_cert_src_dir`
-
-- The dir from which public cert will be copied.
-- Default value: `{{ role_path }}/files`
-
-### `nomad_key_src_dir`
-
-- The dir from which private key will be copied.
-- Default value: `{{ role_path }}/files`
 
 ### `nomad_ca_file`
 
