@@ -43,7 +43,7 @@ nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
 nomad_podman_enable: false
-nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.2.0', true) }}"
+nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.3.0', true) }}"
 nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_architecture}}.zip"
 nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
 nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
