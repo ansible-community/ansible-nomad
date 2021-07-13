@@ -145,6 +145,9 @@ nomad_gather_server_facts: false
 ### Consul
 nomad_use_consul: false
 nomad_consul_address: "localhost:8500"
+nomad_consul_ca_file: ""
+nomad_consul_cert_file: ""
+nomad_consul_key_file: ""
 nomad_consul_token: ""
 nomad_consul_servers_service_name: "nomad-servers"
 nomad_consul_clients_service_name: "nomad-clients"
