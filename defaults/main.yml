@@ -5,6 +5,8 @@
 os_supported_matrix:
   Archlinux:
     min_version: ''
+  Flatcar:
+    min_version: ''
   # RHEL-based
   RedHat:
     min_version: '6'
@@ -56,6 +58,10 @@ nomad_data_dir: "/var/nomad"
 nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
 nomad_lockfile: "/var/lock/subsys/nomad"
 nomad_run_dir: "/var/run/nomad"
+
+### Initialization and startup script templates
+nomad_systemd_template: nomad_systemd.service.j2
+nomad_systemd_unit_path: /lib/systemd/system
 
 ### System user and group
 nomad_manage_user: true
