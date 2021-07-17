@@ -182,8 +182,8 @@
 - block:
     - name: systemd script
       template:
-        src: nomad_systemd.service.j2
-        dest: /lib/systemd/system/nomad.service
+        src: "{{ nomad_systemd_template }}"
+        dest: "{{ nomad_systemd_unit_path }}/nomad.service"
         owner: root
         group: root
         mode: 0644
