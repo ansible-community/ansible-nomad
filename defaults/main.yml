@@ -21,6 +21,8 @@ os_supported_matrix:
     min_version: '8.2'
   Ubuntu:
     min_version: '13.04'
+  VMware Photon OS:
+    min_version: '4'
 
 ## Core
 nomad_debug: false
