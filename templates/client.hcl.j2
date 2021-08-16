@@ -8,7 +8,7 @@ client {
     servers = [
         {%- set comma = joiner(",") -%}
         {%- for server in nomad_servers -%}
-            {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+            {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}:{{ nomad_ports.rpc }}"
         {%- endfor -%} ]
 {% endif %}
 
