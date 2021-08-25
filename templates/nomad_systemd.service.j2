@@ -26,8 +26,8 @@ KillMode=process
 KillSignal=SIGINT
 LimitNOFILE=infinity
 LimitNPROC=infinity
-Restart=on-failure
-RestartSec=42s
+Restart=always
+RestartSec=120
 {% if systemd_version.stdout is version('226', '>=') %}
 TasksMax=infinity
 {% endif %}
