@@ -68,8 +68,10 @@ nomad_systemd_unit_path: /lib/systemd/system
 ### System user and group
 nomad_manage_user: true
 nomad_user: "root"
+nomad_user_uid: "4646"
 nomad_manage_group: false
 nomad_group: "bin"
+nomad_group_gid: "4646"
 
 ### Nomad settings
 nomad_datacenter: "dc1"

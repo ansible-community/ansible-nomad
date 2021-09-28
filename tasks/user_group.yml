@@ -4,6 +4,7 @@
 - name: Add Nomad group
   group:
     name: "{{ nomad_group }}"
+    gid: "{{ nomad_group_gid }}"
     state: present
   when:
     - nomad_manage_group | bool
@@ -11,6 +12,7 @@
 - name: Add Nomad user
   user:
     name: "{{ nomad_user }}"
+    uid: "{{ nomad_user_uid }}"
     comment: "Nomad user"
     group: "{{ nomad_group }}"
     system: yes
