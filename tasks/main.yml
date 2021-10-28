@@ -71,7 +71,7 @@
     - restart nomad
 
 - name: Get Gossip Key
-  include: get_gossip_key.yml
+  include_tasks: get_gossip_key.yml
   when:
     - _nomad_node_server | bool
     - nomad_encrypt_enable | bool
