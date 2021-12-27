@@ -1,12 +1,19 @@
 ---
 # File: install.yml - package installation tasks for Nomad
 
-- name: OS packages
+- name: Install OS packages
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ nomad_os_packages }}"
   tags: installation
+  when: not ansible_facts['os_family'] == "VMware Photon OS"
+
+- name: Install OS packages
+  command: "tdnf install {{ item }}"
+  with_items: "{{ nomad_os_packages }}"
+  tags: installation
+  when: ansible_facts['os_family'] == "VMware Photon OS"
 
 - name: Check Nomad package checksum file
   stat:
