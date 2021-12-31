@@ -40,10 +40,10 @@ consul {
     client_auto_join = true
 
     # Nomad to Consul TLS configuration
-    ssl = {{ nomad_consul_ssl | bool | lower }}
-    ca_file = "{{ nomad_consul_ca_file }}"
-    cert_file = "{{ nomad_consul_cert_file }}"
-    key_file = "{{ nomad_consul_key_file }}"
+#    ssl = {{ nomad_consul_ssl | bool | lower }}
+#    ca_file = "{{ nomad_consul_ca_file }}"
+#    cert_file = "{{ nomad_consul_cert_file }}"
+#    key_file = "{{ nomad_consul_key_file }}"
 }
 {% endif %}
 
