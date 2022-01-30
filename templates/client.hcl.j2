@@ -90,6 +90,6 @@ client {
 
 {% for key, value in nomad_plugins.items() %}
 plugin "{{ key }}" {
-{{ plugin_config(value) }}
+{{ plugin_config(value) | replace('\'', '\"') }}
 }
 {% endfor %}
