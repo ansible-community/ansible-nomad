@@ -62,7 +62,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: 0700
 
 - name: Base configuration
   template:
@@ -70,7 +70,7 @@
     dest: "{{ nomad_config_dir }}/base.hcl"
     owner: root
     group: root
-    mode: 0644
+    mode: 0600
   notify:
     - restart nomad
 
@@ -91,7 +91,7 @@
     dest: "{{ nomad_config_dir }}/server.hcl"
     owner: root
     group: root
-    mode: 0644
+    mode: 0600
   when:
     - _nomad_node_server | bool
   notify:
@@ -113,7 +113,7 @@
     dest: "{{ nomad_config_dir }}/client.hcl"
     owner: root
     group: root
-    mode: 0644
+    mode: 0600
   when:
     - _nomad_node_client | bool
   notify:
@@ -135,7 +135,7 @@
     dest: "{{ nomad_config_dir }}/custom.json"
     owner: root
     group: root
-    mode: 0644
+    mode: 0600
   when:
     - nomad_config_custom is defined
   notify:
