@@ -8,7 +8,7 @@
         state: directory
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
-        mode: 0755
+        mode: 0700
 
     - name: Copy CA certificate
       copy:
@@ -17,7 +17,7 @@
         dest: "{{ nomad_tls_dir }}/{{ nomad_ca_file | basename }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
-        mode: 0644
+        mode: 0600
       notify: restart nomad
 
     - name: Copy certificate
@@ -27,7 +27,7 @@
         dest: "{{ nomad_tls_dir }}/{{ nomad_cert_file | basename }}"
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
-        mode: 0644
+        mode: 0600
       notify: restart nomad
 
     - name: Copy key
