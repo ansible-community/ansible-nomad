@@ -44,6 +44,7 @@
     state: directory
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
+    mode: "0700"
   with_items:
     - "{{ nomad_data_dir }}"
     - "{{ nomad_plugin_dir }}"
