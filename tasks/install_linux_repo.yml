@@ -1,0 +1,72 @@
+---
+# File: install_linux_repo.yml - package installation tasks for Nomad
+
+- name: Install OS packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nomad_os_packages }}"
+  tags: installation
+  when: not ansible_facts['os_family'] == "VMware Photon OS"
+
+- name: Populate service facts
+  service_facts:
+
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
+- name: Clean up previous nomad data
+  block:
+    - name: Stop service nomad, if running
+      service:
+        name: nomad
+        state: stopped
+      when: ansible_facts.services | join is match('.*nomad.*')
+
+    - name: Remove nomad service unit files from previous installation
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /usr/lib/systemd/system/nomad.service
+        - /etc/init.d/nomad
+
+    - name: Remove the user 'nomad'
+      user:
+        name: nomad
+        state: absent
+        remove: yes
+
+  when: "'nomad' not in ansible_facts.packages"
+  become: true
+
+- name: Install repository
+  block:
+    - name: Add Redhat/CentOS/Fedora/Amazon Linux repository
+      command: "yum-config-manager --add-repo {{ nomad_repo_url }}"
+      args:
+        creates: /etc/yum.repos.d/hashicorp.repo
+      when: "ansible_os_family|lower == 'redhat'"
+
+    - name: Add an Apt signing key, uses whichever key is at the URL
+      apt_key:
+        url: "{{ nomad_repo_url }}/gpg"
+        state: present
+      when: "ansible_os_family|lower == 'debian'"
+
+    - name: Add Debian/Ubuntu Linux repository
+      apt_repository:
+        repo: "deb {{ nomad_repo_url }} {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: true
+      when: "ansible_os_family|lower == 'debian'"
+
+  when: "ansible_os_family|lower in [ 'debian', 'redhat' ]"
+  become: true
+
+- name: Install nomad package
+  package:
+    name: "nomad{{ '=' if ansible_pkg_mgr == 'apt' else '-' }}{{ consul_version }}"
+    state: present
+  become: true
