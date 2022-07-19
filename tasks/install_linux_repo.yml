@@ -67,6 +67,6 @@
 
 - name: Install nomad package
   package:
-    name: "nomad{{ '=' if ansible_pkg_mgr == 'apt' else '-' }}{{ consul_version }}"
+    name: "nomad{{ '=' if ansible_pkg_mgr == 'apt' else '-' }}{{ nomad_version }}"
     state: present
   become: true
