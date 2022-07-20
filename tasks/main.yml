@@ -177,22 +177,20 @@
     mode: 0755
   when: not ansible_service_mgr == "systemd" and ansible_os_family == "Debian"
 
-- name: extract systemd version
-  shell: |
-    set -o pipefail
-    systemctl --version systemd | head -n 1 | cut -d' ' -f2
-  args:
-    executable: /bin/bash
-  changed_when: false
-  check_mode: false
-  register: systemd_version
-  when:
-    - ansible_service_mgr == "systemd"
-    - not ansible_os_family == "FreeBSD"
-    - not ansible_os_family == "Solaris"
-  tags: skip_ansible_lint
-
 - block:
+    - name: extract systemd version
+      shell: |
+        set -o pipefail
+        systemctl --version systemd | head -n 1 | cut -d' ' -f2
+      args:
+        executable: /bin/bash
+      changed_when: false
+      check_mode: false
+      register: systemd_version
+      when:
+        - not ansible_os_family == "FreeBSD"
+        - not ansible_os_family == "Solaris"
+      tags: skip_ansible_lint
     - name: systemd script
       template:
         src: "{{ nomad_systemd_template }}"
@@ -210,7 +208,11 @@
           name: nomad
           enabled: yes
       when: nomad_systemd_file.changed
-  when: ansible_service_mgr == "systemd"
+
+  when:
+    - ansible_service_mgr == "systemd"
+    # Repo install includes systemd files
+    - not nomad_install_from_repo
 
 - name: Start Nomad
   service:
