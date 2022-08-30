@@ -90,6 +90,16 @@
   include_tasks: tls.yml
   when: nomad_tls_enable | bool
 
+- name: Remove default configuration
+  file:
+    dest: "{{ nomad_config_dir }}/nomad.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - nomad_install_from_repo | bool
+  notify:
+    - restart nomad
+
 - name: Server configuration
   template:
     src: server.hcl.j2
@@ -146,7 +156,7 @@
   notify:
     - restart nomad
 
-- name: Remove custome configuration
+- name: Remove custom configuration
   file:
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent

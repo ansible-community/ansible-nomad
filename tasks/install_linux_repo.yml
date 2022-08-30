@@ -70,3 +70,12 @@
     name: "nomad{{ '=' if ansible_pkg_mgr == 'apt' else '-' }}{{ nomad_version }}"
     state: present
   become: true
+
+- name: Remove default configuration on first install
+  file:
+    dest: "{{ nomad_config_dir }}/nomad.hcl"
+    state: absent
+  when: "'nomad' not in ansible_facts.packages"
+  become: true
+  notify:
+    - restart nomad
