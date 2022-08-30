@@ -13,3 +13,5 @@ nomad_os_packages:
     {% else %}\
       cgroup-tools\
     {% endif %}"
+
+nomad_repo_url: "https://apt.releases.hashicorp.com"

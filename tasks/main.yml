@@ -33,6 +33,11 @@
 
 - name: Install OS packages
   include: install.yml
+  when: not nomad_install_from_repo | bool
+
+- name: Install from repo
+  include: install_linux_repo.yml
+  when: nomad_install_from_repo | bool
 
 - name: Disable SELinux (RHEL)
   include: selinux.yml
@@ -84,6 +89,16 @@
 - name: Create TLS configuration
   include_tasks: tls.yml
   when: nomad_tls_enable | bool
+
+- name: Remove default configuration
+  file:
+    dest: "{{ nomad_config_dir }}/nomad.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - nomad_install_from_repo | bool
+  notify:
+    - restart nomad
 
 - name: Server configuration
   template:
@@ -141,7 +156,7 @@
   notify:
     - restart nomad
 
-- name: Remove custome configuration
+- name: Remove custom configuration
   file:
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent
@@ -172,22 +187,20 @@
     mode: 0755
   when: not ansible_service_mgr == "systemd" and ansible_os_family == "Debian"
 
-- name: extract systemd version
-  shell: |
-    set -o pipefail
-    systemctl --version systemd | head -n 1 | cut -d' ' -f2
-  args:
-    executable: /bin/bash
-  changed_when: false
-  check_mode: false
-  register: systemd_version
-  when:
-    - ansible_service_mgr == "systemd"
-    - not ansible_os_family == "FreeBSD"
-    - not ansible_os_family == "Solaris"
-  tags: skip_ansible_lint
-
 - block:
+    - name: extract systemd version
+      shell: |
+        set -o pipefail
+        systemctl --version systemd | head -n 1 | cut -d' ' -f2
+      args:
+        executable: /bin/bash
+      changed_when: false
+      check_mode: false
+      register: systemd_version
+      when:
+        - not ansible_os_family == "FreeBSD"
+        - not ansible_os_family == "Solaris"
+      tags: skip_ansible_lint
     - name: systemd script
       template:
         src: "{{ nomad_systemd_template }}"
@@ -205,7 +218,11 @@
           name: nomad
           enabled: yes
       when: nomad_systemd_file.changed
-  when: ansible_service_mgr == "systemd"
+
+  when:
+    - ansible_service_mgr == "systemd"
+    # Repo install includes systemd files
+    - not nomad_install_from_repo
 
 - name: Start Nomad
   service:

@@ -14,3 +14,9 @@ nomad_os_packages:
       python3-libselinux\
     {% endif %}"
   - unzip
+
+nomad_repo_url: "{% if ( ansible_distribution  == 'Fedora') %}\
+      https://rpm.releases.hashicorp.com/fedora/hashicorp.repo\
+    {% else %}\
+      https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo\
+    {% endif %}"

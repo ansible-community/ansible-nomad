@@ -26,6 +26,7 @@ os_supported_matrix:
 
 ## Core
 nomad_debug: false
+nomad_install_from_repo: false
 
 ## Asserts
 nomad_skip_ensure_all_hosts: "{{ lookup('env','NOMAD_SKIP_ENSURE_ALL_HOSTS') | default('false', true) }}"
