@@ -234,8 +234,10 @@ The role defines most of its variables in `defaults/main.yml`:
 
 ### `nomad_raft_protocol`
 
-- Specifies the version of raft protocal, which used by nomad servers for communication
-- Default value: **2**
+- Specifies the version of raft protocol, which used by nomad servers for communication
+- Default value:
+  - Nomad versions < 1.3.0: 2
+  - Nomad versions => 1.3.0: 3
 
 ### `nomad_authoritative_region`
 
