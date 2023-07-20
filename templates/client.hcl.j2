@@ -4,6 +4,10 @@ client {
     node_class = "{{ nomad_node_class }}"
     no_host_uuid = {{ nomad_no_host_uuid | bool | lower }}
 
+{% if nomad_node_pool is defined and nomad_node_pool|length %}
+    node_pool = "{{ nomad_node_pool }}"
+{% endif %}
+
 {% if nomad_use_consul == False %}
     servers = [
         {%- set comma = joiner(",") -%}
