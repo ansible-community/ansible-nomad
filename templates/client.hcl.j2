@@ -72,6 +72,14 @@ client {
     {% endfor -%}
     }
     {% endif %}
+    
+    {% if nomad_artifact -%}
+    artifact {
+    {% for key, value in nomad_artifact.items() %}
+    "{{ key }}" = "{{ value }}"
+    {% endfor -%}
+    }
+    {% endif %}
 }
 
 {% macro plugin_config(config, count=1, width=4) %}
