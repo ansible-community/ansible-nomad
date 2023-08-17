@@ -3,3 +3,5 @@
 
 - name: restart nomad
   service: name=nomad state=restarted
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: nomad_service_manage | bool
