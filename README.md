@@ -277,6 +277,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Client garbage collection interval
 - Default value: **1m**
 
+### `nomad_gc_max_allocs`
+
+- Maximum number of allocations which a client will track before triggering a garbage collection
+- Default value: **50**
+
 ### `nomad_gc_disk_usage_threshold`
 
 - Disk usage threshold percentage for garbage collection
