@@ -41,27 +41,29 @@
           ansible.builtin.shell:
             cmd: nomad version | awk '{print $2}' | cut -c 2- | head -n 1
           register: nomad_version_result
-            - set_fact:
-                nomad_version: "{{ nomad_version_result.stdout }}"
-                nomad_old_version: "1.4.1"
+        - set_fact:
+            nomad_version: "{{ nomad_version_result.stdout }}"
+            nomad_old_version: "1.4.1"
 
-            - debug:
-                msg: "Current nomand version {{ nomad_version }} is newer than {{ nomad_old_version }}"
-              when: nomad_version is version(nomad_old_version, '>')
+        - debug:
+            msg: "Current nomand version {{ nomad_version }} is newer than {{ nomad_old_version }}"
+          when: nomad_version is version(nomad_old_version, '>')
 
-            - name: Determine is_new_version
-              set_fact:
-                is_new_version: "{{ nomad_version is version(nomad_old_version, '>') | bool }}"
+        - name: Determine is_new_version
+          set_fact:
+            is_new_version: "{{ nomad_version is version(nomad_old_version, '>') | bool }}"
 
-            - name: Set command based on is_new_version
-              set_fact:
-                command: "{{ 'nomad operator gossip keyring generate' if is_new_version else 'nomad operator keygen' }}"
+        - name: Set command based on is_new_version
+          set_fact:
+            command: "{{ 'nomad operator gossip keyring generate' if is_new_version else 'nomad operator keygen' }}"
 
-            - name: Debug is_new_version and command
-              debug:
-                msg:
-                  - "is_new_version: {{ is_new_version }}"
-                  - "command: {{ command }}"
+        - name: Debug is_new_version and command
+          debug:
+            msg:
+              - "is_new_version: {{ is_new_version }}"
+              - "command: {{ command }}"
+
+
         - name: Generate gossip encryption key
           shell: "{{command}}"
           register: nomad_keygen
