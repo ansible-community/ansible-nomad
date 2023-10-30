@@ -16,4 +16,4 @@ nomad_os_packages:
       libcgroup2
     {% else %}
       libcgroup1
-    {% endif %}
+    {% endif %}"
