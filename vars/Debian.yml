@@ -4,7 +4,6 @@
 nomad_os_packages:
   - curl
   - git
-  - libcgroup1
   - unzip
   - "{% if ( ansible_distribution  == 'Ubuntu' and ansible_distribution_version is version('19', '<') ) or \
       ( ansible_distribution  == 'Debian' and ansible_distribution_version is version('11', '<') ) \
@@ -13,3 +12,8 @@ nomad_os_packages:
     {% else %}\
       cgroup-tools\
     {% endif %}"
+  - "{% if ( ansible_distribution  == 'Ubuntu' and ansible_distribution_version is version('22', '>') ) %}
+      libcgroup2
+    {% else %}
+      libcgroup1
+    {% endif %}
