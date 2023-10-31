@@ -91,7 +91,7 @@ client {
     {%- endfor %}
     {%- endmacro %}
 
-    {%- if nomad_template_config %}
+    {%- if nomad_template_config is defined %}
     template {
     {{- template_config(nomad_template_config) | replace('\'', '\"') -}}
     }
