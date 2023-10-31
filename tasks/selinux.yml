@@ -1,5 +1,5 @@
 ---
-# File: selinux.yml - SELinux tasks for Nomad
+# ansible.builtin.file: selinux.yml - SELinux tasks for Nomad
 
 # SELinux disrupts LXC (shrug)
 

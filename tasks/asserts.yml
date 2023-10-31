@@ -1,5 +1,5 @@
 ---
-# File: asserts.yml - Asserts for this playbook
+# ansible.builtin.file: asserts.yml - Asserts for this playbook
 
 - name: ping hosts
   ping:

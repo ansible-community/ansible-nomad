@@ -1,5 +1,5 @@
 ---
-# File: Archlinux.yml - Archlinux variables for Nomad
+# ansible.builtin.file: Archlinux.yml - Archlinux variables for Nomad
 
 nomad_os_packages:
   - unzip

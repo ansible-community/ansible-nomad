@@ -71,6 +71,7 @@ acl {
 
 vault {
     enabled = {{ nomad_vault_enabled | bool | lower }}
+{%if nomad_vault_enabled | bool == True %}
     address = "{{ nomad_vault_address }}"
     allow_unauthenticated = {{ nomad_vault_allow_unauthenticated | bool | lower }}
     create_from_role = "{{ nomad_vault_create_from_role }}"
@@ -85,6 +86,7 @@ vault {
     token = "{{ nomad_vault_token }}"
 {% endif %}
     namespace = "{{ nomad_vault_namespace }}"
+{% endif %}
 }
 
 {% if nomad_telemetry | default(False) | bool == True %}

@@ -1,5 +1,5 @@
 ---
-# File: install.yml - package installation tasks for Nomad Podman
+# ansible.builtin.file: install.yml - package installation tasks for Nomad Podman
 
 - name: Check Nomad Podman package checksum file
   stat:
@@ -50,7 +50,7 @@
   when: not nomad_podman_package.stat.exists
 
 - name: Create Temporary Directory for Extraction
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
     prefix: ansible-nomad.
   become: false
@@ -68,7 +68,7 @@
   delegate_to: 127.0.0.1
 
 - name: Install Nomad Podman
-  copy:
+  ansible.builtin.copy:
     src: "{{ install_temp.path }}/nomad-driver-podman"
     dest: "{{ nomad_plugin_dir }}"
     owner: "{{ nomad_user }}"
@@ -78,7 +78,7 @@
   notify: restart nomad
 
 - name: Cleanup
-  file:
+  ansible.builtin.file:
     path: "{{ install_temp.path }}"
     state: "absent"
   become: false
