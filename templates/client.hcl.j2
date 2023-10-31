@@ -87,6 +87,7 @@ client {
     {{ '}' | indent(count*width, first=True) }}
     {% else %}
     {{ key | indent(count*width, first=True) }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+
     {% endif %}
     {% endfor %}
     {% endmacro %}
