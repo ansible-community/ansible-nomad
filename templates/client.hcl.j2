@@ -93,7 +93,7 @@ client {
 
     {% if nomad_template_config|length >0 %}
     template {
-    {{ template_config(nomad_template_config) | replace('\'', '\"') -}}
+    {{ template_config(nomad_template_config) | replace('\'', '\"') }}
     }
     {% endif %}
 }
