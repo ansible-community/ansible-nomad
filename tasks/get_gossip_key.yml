@@ -23,7 +23,7 @@
 
       # Key provided by extra vars or the above block
     - name: Write gossip encryption key locally for use with new servers
-      copy:
+      ansible.builtin.copy:
         content: "{{ nomad_encrypt }}"
         dest: '/tmp/nomad_raw.key'
         mode: 0600
@@ -42,7 +42,7 @@
           register: nomad_keygen
 
         - name: Write key locally to share with other nodes
-          copy:
+          ansible.builtin.copy:
             content: "{{ nomad_keygen.stdout }}"
             dest: '/tmp/nomad_raw.key'
             mode: 0600
@@ -64,7 +64,7 @@
       - nomad_encrypt is not defined
 
     - name: Delete gossip encryption key file
-      file:
+      ansible.builtin.file:
         path: '/tmp/nomad_raw.key'
         state: absent
       run_once: true

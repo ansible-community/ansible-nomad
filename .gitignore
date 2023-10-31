@@ -8,3 +8,4 @@ files/*.zip
 files/nomad
 nomad_*_SHA256SUMS
 *.swp
+files/cni-plugins-linux-amd64-v0.9.1.tgz

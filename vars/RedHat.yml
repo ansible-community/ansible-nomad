@@ -1,5 +1,5 @@
 ---
-# File: vars/RedHat.yml - Red Hat OS variables for Nomad
+# ansible.builtin.file: vars/RedHat.yml - Red Hat OS variables for Nomad
 
 nomad_os_packages:
   - curl

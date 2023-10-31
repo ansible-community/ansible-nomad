@@ -1,5 +1,5 @@
 ---
-# File: site.yml - Example nomad site playbook
+# ansible.builtin.file: site.yml - Example nomad site playbook
 
 - name: Installing Nomad
   hosts: nomad_instances

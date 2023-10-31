@@ -1,8 +1,8 @@
 ---
-# File: cni_plugin.yml - package installation tasks for Nomad CNI Plugin
+# ansible.builtin.file: cni_plugin.yml - package installation tasks for Nomad CNI Plugin
 
 - name: Create cni directory
-  file:
+  ansible.builtin.file:
     dest: "{{ nomad_cni_dir }}"
     state: directory
     owner: "{{ nomad_user }}"
@@ -57,7 +57,7 @@
   when: not nomad_cni_package.stat.exists
 
 - name: Create Temporary Directory for Extraction
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
     prefix: ansible-nomad.
   become: false
@@ -75,7 +75,7 @@
   delegate_to: 127.0.0.1
 
 - name: Install Nomad CNI
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ nomad_cni_dir }}"
     owner: "{{ nomad_user }}"
@@ -87,7 +87,7 @@
   notify: restart nomad
 
 - name: Cleanup
-  file:
+  ansible.builtin.file:
     path: "{{ install_temp.path }}"
     state: "absent"
   become: false

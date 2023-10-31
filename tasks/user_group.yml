@@ -1,5 +1,5 @@
 ---
-# File: user_group.yml - User and group settings
+# ansible.builtin.file: user_group.yml - User and group settings
 
 - name: Add Nomad group
   group:

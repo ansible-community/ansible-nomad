@@ -1,5 +1,5 @@
 ---
-# File: Flatcar.yml - Flatcar variables for Nomad
+# ansible.builtin.file: Flatcar.yml - Flatcar variables for Nomad
 
 nomad_os_packages: []
 

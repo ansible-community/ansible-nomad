@@ -65,7 +65,7 @@ steps to get up and running:
 
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Vagrant](http://downloads.vagrantup.com/), [vagrant-hosts](https://github.com/adrienthebo/vagrant-hosts), and [Ansible](http://www.ansibleworks.com/docs/intro_installation.html#latest-releases-via-pip).
 2. Edit `/etc/hosts` or use the included `bin/preinstall` script to add
-   the following entries to your development system's `/etc/hosts` file:
+   the following entries to your development system's `/etc/hosts` ansible.builtin.file:
  * 10.1.42.70 nomad1.local nomad1
  * 10.1.42.71 nomad2.local nomad2
  * 10.1.42.72 nomad3.local nomad3

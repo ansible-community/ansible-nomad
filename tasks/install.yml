@@ -1,5 +1,5 @@
 ---
-# File: install.yml - package installation tasks for Nomad
+# ansible.builtin.file: install.yml - package installation tasks for Nomad
 
 - name: Install OS packages
   package:
@@ -64,7 +64,7 @@
   when: not nomad_package.stat.exists
 
 - name: Create Temporary Directory for Extraction
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
     prefix: ansible-nomad.
   become: false
@@ -82,16 +82,16 @@
   delegate_to: 127.0.0.1
 
 - name: Install Nomad
-  copy:
-    src: "{{ install_temp.path }}/nomad"
-    dest: "{{ nomad_bin_dir }}"
+  ansible.builtin.copy:
+    src: "{{ install_temp.path }}"
+    dest: "{{ nomad_bin_dir }}/"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
     mode: 0755
   tags: installation
 
 - name: Cleanup
-  file:
+  ansible.builtin.file:
     path: "{{ install_temp.path }}"
     state: "absent"
   become: false

@@ -1,5 +1,5 @@
 ---
-# File: main.yml - Main tasks for Nomad
+# ansible.builtin.file: main.yml - Main tasks for Nomad
 
 - name: Include checks/asserts
   include: asserts.yml
@@ -39,7 +39,7 @@
   when: ansible_os_family == "RedHat"
 
 - name: Create directories
-  file:
+  ansible.builtin.file:
     dest: "{{ item }}"
     state: directory
     owner: "{{ nomad_user }}"
@@ -57,7 +57,7 @@
   when: nomad_cni_enable | bool
 
 - name: Create config directory
-  file:
+  ansible.builtin.file:
     dest: "{{ nomad_config_dir }}"
     state: directory
     owner: root
@@ -98,7 +98,7 @@
     - restart nomad
 
 - name: Remove Server configuration
-  file:
+  ansible.builtin.file:
     dest: "{{ nomad_config_dir }}/server.hcl"
     state: absent
   when:
@@ -120,7 +120,7 @@
     - restart nomad
 
 - name: Remove Client configuration
-  file:
+  ansible.builtin.file:
     dest: "{{ nomad_config_dir }}/client.hcl"
     state: absent
   when:
@@ -142,7 +142,7 @@
     - restart nomad
 
 - name: Remove custome configuration
-  file:
+  ansible.builtin.file:
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent
   when:

@@ -1,4 +1,4 @@
-# File: vagrant_hosts
+# ansible.builtin.file: vagrant_hosts
 # nomad cluster node hosts configuration for Vagrant
 #
 # NB: Replace the hosts below with your preferred node hostnames and continue

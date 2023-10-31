@@ -1,5 +1,5 @@
 ---
-# File: main.yml - Main default variables for nomad
+# ansible.builtin.file: main.yml - Main default variables for nomad
 
 # assert supported os/versions
 os_supported_matrix:
@@ -58,7 +58,7 @@ nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
 nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
-nomad_lockfile: "/var/lock/subsys/nomad"
+nomad_lockansible.builtin.file: "/var/lock/subsys/nomad"
 nomad_run_dir: "/var/run/nomad"
 
 ### Initialization and startup script templates
@@ -154,9 +154,9 @@ nomad_gather_server_facts: false
 nomad_use_consul: false
 nomad_consul_address: "localhost:8500"
 nomad_consul_ssl: false
-nomad_consul_ca_file: ""
-nomad_consul_cert_file: ""
-nomad_consul_key_file: ""
+nomad_consul_ca_ansible.builtin.file: ""
+nomad_consul_cert_ansible.builtin.file: ""
+nomad_consul_key_ansible.builtin.file: ""
 nomad_consul_token: ""
 nomad_consul_servers_service_name: "nomad-servers"
 nomad_consul_clients_service_name: "nomad-clients"
@@ -174,10 +174,10 @@ nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 nomad_vault_allow_unauthenticated: true
 nomad_vault_create_from_role: ""
 nomad_vault_task_token_ttl: ""
-nomad_vault_ca_file: ""
+nomad_vault_ca_ansible.builtin.file: ""
 nomad_vault_ca_path: ""
-nomad_vault_cert_file: ""
-nomad_vault_key_file: ""
+nomad_vault_cert_ansible.builtin.file: ""
+nomad_vault_key_ansible.builtin.file: ""
 nomad_vault_tls_server_name: ""
 nomad_vault_tls_skip_verify: false
 nomad_vault_token: ""
@@ -192,9 +192,9 @@ nomad_tls_enable: false
 nomad_tls_copy_keys: false
 nomad_tls_files_remote_src: false
 nomad_tls_dir: "{{ lookup('env','NOMAD_TLS_DIR') | default('/etc/nomad/ssl', true) }}"
-nomad_ca_file: "{{ lookup('env','NOMAD_CA_FILE') | default('ca.crt', true) }}"
-nomad_cert_file: "{{ lookup('env','NOMAD_CERT_FILE') | default('server.crt', true) }}"
-nomad_key_file: "{{ lookup('env','NOMAD_KEY_FILE') | default('server.key', true) }}"
+nomad_ca_ansible.builtin.file: "{{ lookup('env','NOMAD_CA_FILE') | default('ca.crt', true) }}"
+nomad_cert_ansible.builtin.file: "{{ lookup('env','NOMAD_CERT_FILE') | default('server.crt', true) }}"
+nomad_key_ansible.builtin.file: "{{ lookup('env','NOMAD_KEY_FILE') | default('server.key', true) }}"
 nomad_rpc_upgrade_mode: false
 nomad_verify_server_hostname: true
 nomad_verify_https_client: true
