@@ -77,6 +77,25 @@ client {
     {% endfor -%}
     }
     {% endif %}
+
+    {%- macro template_config(config, count=1, width=4) %}
+    {%- set next_count = count + 1 %}
+    {%- for key, value in config.items() %}
+    {% if value is mapping %}
+    {{- key | indent(count*width, first=True) }} {
+    {{- template_config(value, count=next_count, width=width) }}
+    {{ '}' | indent(count*width, first=True) }}
+    {% else %}
+    {{- key | indent(count*width, first=True) }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+    {%- endif %}
+    {%- endfor %}
+    {%- endmacro %}
+
+    {%- if nomad_template_config %}
+    template {
+    {{- template_config(nomad_template_config) | replace('\'', '\"') -}}
+    }
+    {% endif %}
 }
 
 {% macro plugin_config(config, count=1, width=4) %}
