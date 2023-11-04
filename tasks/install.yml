@@ -83,7 +83,7 @@
 
 - name: Install Nomad
   copy:
-    src: "{{ install_temp.path }}/nomad"
+    src: "{{ install_temp.path }}"
     dest: "{{ nomad_bin_dir }}"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
