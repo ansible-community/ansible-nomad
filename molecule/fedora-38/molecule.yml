@@ -1,16 +1,11 @@
 ---
-scenario:
-  name: fedora-31
 platforms:
-  - name: fedora-31
+  - name: fedora-38
     groups:
       - nomad_instances
-    image: dokken/fedora-31
-    command: /lib/systemd/systemd
+    image: dokken/fedora-38
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: yes

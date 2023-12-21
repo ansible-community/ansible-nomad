@@ -1,15 +1,11 @@
 ---
-scenario:
-  name: centos-6
 platforms:
-  - name: centos-6
+  - name: centos-stream-9
     groups:
       - nomad_instances
-    image: dokken/centos-6
+    image: dokken/centos-stream-9
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: yes

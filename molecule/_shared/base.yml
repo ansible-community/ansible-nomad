@@ -30,11 +30,12 @@ provisioner:
       pipelining: True
   playbooks:
     prepare: ../_shared/prepare.yml
-    converge: ../_shared/playbook.yml
+    converge: ../_shared/converge.yml
   inventory:
     group_vars:
       nomad_instances:
         nomad_node_role: bootstrap
 verifier:
-  name: testinfra
-  directory: ../_shared/tests
+  name: ansible
+  playbooks:
+    verify: ../_shared/verify.yml

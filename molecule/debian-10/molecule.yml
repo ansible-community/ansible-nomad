@@ -1,6 +1,4 @@
 ---
-scenario:
-  name: debian-10
 platforms:
   - name: debian-10
     groups:
@@ -10,7 +8,7 @@ platforms:
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: yes

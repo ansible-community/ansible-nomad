@@ -1,0 +1,17 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+
+    - name: Verify that /etc/hosts exists
+      ansible.builtin.file:
+        path: /etc/hosts
+        state: file
+      register: result_etc_hosts
+
+    - name: Validate that /etc/hosts exists
+      ansible.builtin.assert:
+        that:
+          - result_etc_hosts.state == 'file'
+          - result_etc_hosts.owner == 'root'
+          - result_etc_hosts.group == 'root'

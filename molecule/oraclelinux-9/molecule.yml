@@ -1,11 +1,11 @@
 ---
-scenario:
-  name: oraclelinux-6
 platforms:
-  - name: oraclelinux-6
+  - name: oraclelinux-9
     groups:
       - nomad_instances
-    image: dokken/oraclelinux-6
+    image: dokken/oraclelinux-9
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
