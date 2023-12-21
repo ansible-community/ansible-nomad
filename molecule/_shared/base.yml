@@ -33,5 +33,3 @@ provisioner:
         nomad_node_role: bootstrap
 verifier:
   name: ansible
-  playbooks:
-    verify: ../_shared/verify.yml
