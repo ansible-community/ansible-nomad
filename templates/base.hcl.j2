@@ -22,6 +22,10 @@ ports {
 consul {
     # The address to the Consul agent.
     address = "{{ nomad_consul_address }}"
+    ssl = {{ nomad_consul_ssl | bool | lower }}
+    ca_file = "{{ nomad_consul_ca_file }}"
+    cert_file = "{{ nomad_consul_cert_file }}"
+    key_file = "{{ nomad_consul_key_file }}"
     token = "{{ nomad_consul_token }}"
     # The service name to register the server and client with Consul.
     server_service_name = "{{ nomad_consul_servers_service_name }}"
@@ -49,9 +53,9 @@ leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
 tls {
     http = true
     rpc = true
-    ca_file = "{{ nomad_ca_file }}"
-    cert_file = "{{ nomad_cert_file }}"
-    key_file = "{{ nomad_key_file }}"
+    ca_file = "{{ nomad_tls_dir }}/{{ nomad_ca_file | basename }}"
+    cert_file = "{{ nomad_tls_dir }}/{{ nomad_cert_file | basename }}"
+    key_file = "{{ nomad_tls_dir }}/{{ nomad_key_file | basename }}"
     rpc_upgrade_mode = {{ nomad_rpc_upgrade_mode | bool | lower }}
     verify_server_hostname = "{{ nomad_verify_server_hostname | bool | lower }}"
     verify_https_client = "{{ nomad_verify_https_client | bool | lower }}"
@@ -90,8 +94,10 @@ telemetry {
     use_node_name = "{{ nomad_telemetry_use_node_name | default(false) | bool | lower }}"
     publish_allocation_metrics = "{{ nomad_telemetry_publish_allocation_metrics | default(false) | bool | lower }}"
     publish_node_metrics = "{{ nomad_telemetry_publish_node_metrics | default(false) | bool | lower }}"
+{% if nomad_version is version('1.0.0', '<') %}
     backwards_compatible_metrics = "{{ nomad_telemetry_backwards_compatible_metrics | default(false) | bool | lower }}"
     disable_tagged_metrics = "{{ nomad_telemetry_disable_tagged_metrics | default(false) | bool | lower }}"
+{% endif %}
     filter_default = "{{ nomad_telemetry_filter_default | default("true") }}"
     prefix_filter = {{ nomad_telemetry_prefix_filter | default([]) }}
     disable_dispatched_job_summary_metrics = "{{ nomad_telemetry_disable_dispatched_job_summary_metrics | default(false) | bool | lower }}"

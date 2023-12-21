@@ -1,0 +1,74 @@
+- block:
+    - block:
+        - name: Check for server configuration
+          stat:
+            path: "{{ nomad_config_dir }}/server.hcl"
+          register: server_config_state
+          ignore_errors: true
+
+        - block:
+            - name: Check for gossip encryption key on previously boostrapped server
+              shell: grep encrypt {{ nomad_config_dir }}/server.hcl | awk '{print $3}' | sed -e 's/^"//' -e 's/"$//'
+              register: nomad_raw_key_result
+              ignore_errors: true
+
+            - name: Save gossip encryption key from existing configuration
+              set_fact:
+                nomad_encrypt: "{{ nomad_raw_key_result.stdout }}"
+          no_log: true
+          when:
+            - server_config_state.stat.exists | bool
+      when:
+        - nomad_encrypt is not defined
+
+      # Key provided by extra vars or the above block
+    - name: Write gossip encryption key locally for use with new servers
+      copy:
+        content: "{{ nomad_encrypt }}"
+        dest: '/tmp/nomad_raw.key'
+        mode: 0600
+      become: false
+      vars:
+        ansible_become: false
+      no_log: true
+      delegate_to: localhost
+      changed_when: false
+      when: nomad_encrypt is defined
+
+      # Generate new key if none was found
+    - block:
+        - name: Generate gossip encryption key
+          shell: "nomad operator keygen"
+          register: nomad_keygen
+
+        - name: Write key locally to share with other nodes
+          copy:
+            content: "{{ nomad_keygen.stdout }}"
+            dest: '/tmp/nomad_raw.key'
+            mode: 0600
+          become: false
+          vars:
+            ansible_become: false
+          delegate_to: localhost
+      no_log: true
+      run_once: true
+      when:
+      - lookup('first_found', dict(files=['/tmp/nomad_raw.key'], skip=true)) | ternary(false, true)
+      - not server_config_state.stat.exists | bool
+
+    - name: Read gossip encryption key for servers that require it
+      set_fact:
+        nomad_encrypt: "{{ lookup('file', '/tmp/nomad_raw.key') }}"
+      no_log: true
+      when:
+      - nomad_encrypt is not defined
+
+    - name: Delete gossip encryption key file
+      file:
+        path: '/tmp/nomad_raw.key'
+        state: absent
+      run_once: true
+      delegate_to: localhost
+      changed_when: false
+      become: false
+  no_log: true

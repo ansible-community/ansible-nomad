@@ -20,7 +20,7 @@
   when: not nomad_podman_checksum.stat.exists
   delegate_to: 127.0.0.1
 
-- name: Get Nomad Podman package checksum  # noqa 301
+- name: Get Nomad Podman package checksum
   shell: |
     set -o pipefail
     grep "{{ nomad_podman_pkg }}" "{{ role_path }}/files/nomad_podman_{{ nomad_podman_version }}_SHA256SUMS"  | awk '{print $1}'

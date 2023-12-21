@@ -53,6 +53,10 @@
   include: install_podman.yml
   when: nomad_podman_enable | bool
 
+- name: Install CNI plugin
+  include: cni.yml
+  when: nomad_cni_enable | bool
+
 - name: Create config directory
   file:
     dest: "{{ nomad_config_dir }}"
@@ -71,6 +75,17 @@
   notify:
     - restart nomad
 
+- name: Get Gossip Key
+  include_tasks: get_gossip_key.yml
+  when:
+    - _nomad_node_server | bool
+    - nomad_encrypt_enable | bool
+    - nomad_encrypt is not defined
+
+- name: Create TLS configuration
+  include_tasks: tls.yml
+  when: nomad_tls_enable | bool
+
 - name: Server configuration
   template:
     src: server.hcl.j2
@@ -80,6 +95,16 @@
     mode: 0644
   when:
     - _nomad_node_server | bool
+  notify:
+    - restart nomad
+
+- name: Remove Server configuration
+  file:
+    dest: "{{ nomad_config_dir }}/server.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - not _nomad_node_server | bool
   notify:
     - restart nomad
 
@@ -95,6 +120,16 @@
   notify:
     - restart nomad
 
+- name: Remove Client configuration
+  file:
+    dest: "{{ nomad_config_dir }}/client.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - not _nomad_node_client | bool
+  notify:
+    - restart nomad
+
 - name: Custom configuration
   template:
     src: custom.json.j2
@@ -104,6 +139,16 @@
     mode: 0644
   when:
     - nomad_config_custom is defined
+  notify:
+    - restart nomad
+
+- name: Remove custome configuration
+  file:
+    dest: "{{ nomad_config_dir }}/custom.json"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - nomad_config_custom is not defined
   notify:
     - restart nomad
 
@@ -143,18 +188,24 @@
     - not ansible_os_family == "Solaris"
   tags: skip_ansible_lint
 
-- name: systemd script
-  template:
-    src: nomad_systemd.service.j2
-    dest: /lib/systemd/system/nomad.service
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_service_mgr == "systemd"
-
-- name: reload systemd daemon
-  systemd:
-    daemon_reload: true
+- block:
+    - name: systemd script
+      template:
+        src: "{{ nomad_systemd_template }}"
+        dest: "{{ nomad_systemd_unit_path }}/nomad.service"
+        owner: root
+        group: root
+        mode: 0644
+      register: nomad_systemd_file
+    - block:
+      - name: reload systemd daemon
+        systemd:
+          daemon_reload: true
+      - name: Enable nomad at startup (systemd)
+        systemd:
+          name: nomad
+          enabled: yes
+      when: nomad_systemd_file.changed
   when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad
@@ -162,3 +213,4 @@
     name: nomad
     enabled: true
     state: started
+  when: not ansible_service_mgr == "systemd"
