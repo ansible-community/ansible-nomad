@@ -5,7 +5,8 @@ galaxy_info:
   company: Brian Shumate
   license: BSD
   min_ansible_version: 2.5
-
+  role_name: ansible_nomad
+  namespace: brianshumate
   platforms:
     - name: Archlinux
       versions:

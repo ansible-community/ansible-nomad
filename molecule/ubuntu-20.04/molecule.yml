@@ -4,7 +4,7 @@ platforms:
     groups:
       - nomad_instances
     image: dokken/ubuntu-22.04
-    command: /lib/systemd/systemd
+    command: /bin/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
