@@ -2,7 +2,7 @@
 # File: main.yml - Main tasks for Nomad
 
 - name: Include checks/asserts
-  include: asserts.yml
+  ansible.builtin.include_tasks: asserts.yml
 
 - name: Include OS variables
   include_vars: "{{ ansible_os_family }}.yml"
@@ -25,17 +25,17 @@
     nomad_node_role: "{{ nomad_node_role }}"
 
 - name: Include user and group settings
-  include: user_group.yml
+  ansible.builtin.include_tasks: user_group.yml
 
 - name: Include Docker tasks
-  include: docker.yml
+  ansible.builtin.include_tasks: docker.yml
   when: nomad_docker_enable | bool
 
 - name: Install OS packages
-  include: install.yml
+  ansible.builtin.include_tasks: install.yml
 
 - name: Disable SELinux (RHEL)
-  include: selinux.yml
+  ansible.builtin.include_tasks: selinux.yml
   when: ansible_os_family == "RedHat"
 
 - name: Create directories
@@ -50,11 +50,11 @@
     - "{{ nomad_plugin_dir }}"
 
 - name: Install Podman plugin
-  include: install_podman.yml
+  ansible.builtin.include_tasks: install_podman.yml
   when: nomad_podman_enable | bool
 
 - name: Install CNI plugin
-  include: cni.yml
+  ansible.builtin.include_tasks: cni.yml
   when: nomad_cni_enable | bool
 
 - name: Create config directory
@@ -153,7 +153,7 @@
     - restart nomad
 
 - name: Host volume
-  include: host_volume.yml
+  ansible.builtin.include_tasks: host_volume.yml
 
 - name: SYSV init script
   template:
