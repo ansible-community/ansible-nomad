@@ -17,6 +17,8 @@ os_supported_matrix:
   Amazon:
     min_version: ''
   # Debian based
+  OracleLinux:
+    min_version: '7'
   Debian:
     min_version: '8.2'
   Ubuntu:
