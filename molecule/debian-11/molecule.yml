@@ -5,10 +5,10 @@ platforms:
       - nomad_instances
     image: dokken/debian-11
     dockerfile: ../_shared/Dockerfile.j2
-    command: /bin/systemd
     capabilities:
       - SYS_ADMIN
     cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
+    command: /bin/systemd

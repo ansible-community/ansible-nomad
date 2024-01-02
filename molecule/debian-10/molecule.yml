@@ -4,7 +4,6 @@ platforms:
     groups:
       - nomad_instances
     image: dokken/debian-10
-    command: /lib/systemd/systemd
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
@@ -12,3 +11,4 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
+    command: /bin/systemd

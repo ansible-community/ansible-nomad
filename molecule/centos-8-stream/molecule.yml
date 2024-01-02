@@ -7,6 +7,7 @@ platforms:
     dockerfile: ../_shared/Dockerfile.j2
     capabilities:
       - SYS_ADMIN
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
