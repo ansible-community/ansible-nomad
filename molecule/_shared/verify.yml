@@ -54,6 +54,6 @@
     - name: Validate that serivce nomad is running
       ansible.builtin.assert:
         that:
-          - result_nomad.state == 'started'
-          - result_nomad.changed == false
-          - result_nomad.name == 'nomad'
+          - result_nomad_service.state == 'started'
+          - result_nomad_service.changed == false
+          - result_nomad_service.name == 'nomad'
