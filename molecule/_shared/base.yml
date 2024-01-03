@@ -29,6 +29,6 @@ provisioner:
   inventory:
     group_vars:
       nomad_instances:
-        nomad_node_role: bootstrap
+        nomad_node_role: both
 verifier:
   name: ansible

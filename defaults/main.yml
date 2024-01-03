@@ -11,18 +11,18 @@ os_supported_matrix:
   RedHat:
     min_version: '6'
   CentOS:
-    min_version: '6'
+    min_version: '7'
   Fedora:
-    min_version: ''
+    min_version: '38'
   Amazon:
     min_version: ''
   # Debian based
   OracleLinux:
-    min_version: '7'
+    min_version: '8'
   Debian:
-    min_version: '8.2'
+    min_version: '10'
   Ubuntu:
-    min_version: '13.04'
+    min_version: '20.04'
   VMware Photon OS:
     min_version: '4'
 

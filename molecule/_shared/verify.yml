@@ -3,15 +3,57 @@
   hosts: all
   tasks:
 
-    - name: Verify that /etc/hosts exists
+    - name: Verify that /etc/nomad.d/base.hcl exists
       ansible.builtin.file:
-        path: /etc/hosts
+        path: /etc/nomad.d/base.hcl
         state: file
-      register: result_etc_hosts
+      register: result_nomad_base_hcl
 
-    - name: Validate that /etc/hosts exists
+    - name: Validate that /etc/nomad.d/base.hcl exists
       ansible.builtin.assert:
         that:
-          - result_etc_hosts.state == 'file'
-          - result_etc_hosts.owner == 'root'
-          - result_etc_hosts.group == 'root'
+          - result_nomad_base_hcl.state == 'file'
+          - result_nomad_base_hcl.owner == 'root'
+          - result_nomad_base_hcl.group == 'root'
+          - result_nomad_base_hcl.mode == '0644'
+
+    - name: Verify that /etc/nomad.d/client.hcl exists
+      ansible.builtin.file:
+        path: /etc/nomad.d/client.hcl
+        state: file
+      register: result_nomad_client_hcl
+
+    - name: Validate that /etc/nomad.d/client.hcl exists
+      ansible.builtin.assert:
+        that:
+          - result_nomad_client_hcl.state == 'file'
+          - result_nomad_client_hcl.owner == 'root'
+          - result_nomad_client_hcl.group == 'root'
+          - result_nomad_client_hcl.mode == '0644'
+
+    - name: Verify that /etc/nomad.d/server.hcl exists
+      ansible.builtin.file:
+        path: /etc/nomad.d/server.hcl
+        state: file
+      register: result_nomad_server_hcl
+
+    - name: Validate that /etc/nomad.d/server.hcl exists
+      ansible.builtin.assert:
+        that:
+          - result_nomad_server_hcl.state == 'file'
+          - result_nomad_server_hcl.owner == 'root'
+          - result_nomad_server_hcl.group == 'root'
+          - result_nomad_server_hcl.mode == '0644'
+
+    - name: Verify that serivce nomad is running
+      ansible.builtin.service:
+        name: nomad
+        state: started
+      register: result_nomad_service
+
+    - name: Validate that serivce nomad is running
+      ansible.builtin.assert:
+        that:
+          - result_nomad.state == 'started'
+          - result_nomad.changed == false
+          - result_nomad.name == 'nomad'

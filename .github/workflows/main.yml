@@ -23,11 +23,12 @@ jobs:
           - debian-12
           - fedora-38
           - fedora-39
-          - oraclelinux-7
+#          - oraclelinux-7
           - oraclelinux-8
           - oraclelinux-9
           - ubuntu-20.04
           - ubuntu-22.04
+          - ubuntu-23.04
 
     steps:
       - uses: actions/checkout@v2
