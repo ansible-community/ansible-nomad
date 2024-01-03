@@ -13,7 +13,7 @@ os_supported_matrix:
   CentOS:
     min_version: '7'
   Fedora:
-    min_version: '38'
+    min_version: ''
   Amazon:
     min_version: ''
   # Debian based
