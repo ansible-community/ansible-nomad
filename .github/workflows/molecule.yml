@@ -1,11 +1,8 @@
 ---
-name: Molecule
-# yamllint disable-line rule:truthy
+name: molecule
 on:
-  push:
-    branches:
-      - master
   pull_request:
+    branches: ["main", "master", "stable", "release/v*"]
 
 jobs:
   build:
@@ -23,7 +20,7 @@ jobs:
           - debian-12
           - fedora-38
           - fedora-39
-#          - oraclelinux-7
+          # - oraclelinux-7
           - oraclelinux-8
           - oraclelinux-9
           - ubuntu-20.04
