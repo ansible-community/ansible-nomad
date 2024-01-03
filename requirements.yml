@@ -1,4 +1,4 @@
 ---
 collections:
-  - name: ansible.netcommon
-    version: 'v6.0.0'
+  - name: ansible.utils
+    version: '2.9.0'
