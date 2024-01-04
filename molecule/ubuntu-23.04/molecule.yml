@@ -1,0 +1,14 @@
+---
+platforms:
+  - name: ubuntu-23.04
+    groups:
+      - nomad_instances
+    image: dokken/ubuntu-23.04
+    dockerfile: ../_shared/Dockerfile.j2
+    capabilities:
+      - SYS_ADMIN
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    command: /bin/systemd

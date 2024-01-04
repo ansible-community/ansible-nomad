@@ -282,7 +282,7 @@ The role defines most of its variables in `defaults/main.yml`:
 - Disk usage threshold percentage for garbage collection
 - Default value: **80**
 
-### `nomad_gc_inodes_usage_threshold`
+### `nomad_gc_inode_usage_threshold`
 
 - Inode usage threshold percentage for garbage collection
 - Default value: **70**
