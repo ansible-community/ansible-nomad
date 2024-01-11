@@ -429,6 +429,23 @@ nomad_host_networks:
 - Install Docker subsystem on nodes?
 - Default value: **false**
 
+### `nomad_template_config`
+- Allow you configure client's [template config](https://developer.hashicorp.com/nomad/docs/configuration/client#template-parameters).
+- Default: {}
+
+Example:
+
+```yaml
+nomad_template_config:
+  vault_retry:
+    attempts: 12
+    backoff: "750ms"
+    max_backoff: "2m"
+  wait:
+    min: "10s"
+    max: "4m"
+```
+
 ### `nomad_plugins`
 - Allow you configure nomad plugins.
 - Default: {}
