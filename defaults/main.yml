@@ -109,6 +109,7 @@ nomad_max_kill_timeout: "30s"
 nomad_network_speed: 0
 nomad_cpu_total_compute: 0
 nomad_gc_interval: "1m"
+nomad_gc_max_allocs: 50
 nomad_gc_disk_usage_threshold: 80
 nomad_gc_inode_usage_threshold: 70
 nomad_gc_parallel_destroys: 2
