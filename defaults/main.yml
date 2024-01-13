@@ -216,4 +216,5 @@ nomad_cni_version: "{{ lookup('env','NOMAD_CNI_VERSION') | default('0.9.1', true
 nomad_cni_pkg: "cni-plugins-linux-{{nomad_architecture}}-v{{ nomad_cni_version }}.tgz"
 nomad_cni_url: "https://github.com/containernetworking/plugins/releases/download/v{{ nomad_cni_version }}"
 nomad_cni_zip_url: "{{ nomad_cni_url }}/{{ nomad_cni_pkg }}"
-nomad_cni_checksum_file_url: "{{ nomad_cni_zip_url }}.sha256"
+nomad_cni_checksum_file: "{{ nomad_cni_pkg }}.sha256"
+nomad_cni_checksum_file_url: "{{ nomad_cni_url }}/{{ nomad_cni_checksum_file }}"

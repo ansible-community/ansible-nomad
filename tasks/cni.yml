@@ -10,7 +10,7 @@
 
 - name: Check CNI package checksum file
   stat:
-    path: "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"
+    path: "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"
   become: false
   run_once: true
   tags: installation
@@ -20,7 +20,7 @@
 - name: Get Nomad CNI package checksum file
   get_url:
     url: "{{ nomad_cni_checksum_file_url }}"
-    dest: "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"
+    dest: "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"
   become: false
   run_once: true
   tags: installation
@@ -30,7 +30,7 @@
 - name: Get Nomad CNI package checksum
   shell: |
     set -o pipefail
-    grep "{{ nomad_cni_pkg }}" "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"  | awk '{print $1}'
+    grep "{{ nomad_cni_pkg }}" "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"  | awk '{print $1}'
   args:
     executable: /bin/bash
   become: false
