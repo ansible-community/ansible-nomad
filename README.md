@@ -330,7 +330,7 @@ By default, tasks are opted-out of non-default node pools. This means job author
 
 ### `nomad_host_volumes`
 
-- List host_volume is used to make volumes available to jobs (Stateful Workloads).
+- List host_volume is used to make volumes available to jobs (Stateful Workloads). By default, a directory is created. Specify the `state` parameter to change it.
 - Default value: **[]**
 - Example:
 
@@ -348,6 +348,10 @@ nomad_host_volumes:
     group: bin
     mode: 0644
     read_only: false
+  - name: docker socket
+    path: /run/docker.sock
+    read_only: true
+    state: file
 ```
 
 ### `nomad_host_networks`
