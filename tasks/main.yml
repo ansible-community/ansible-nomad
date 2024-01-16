@@ -80,7 +80,7 @@
     group: root
     mode: "0644"
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Get Gossip Key
   ansible.builtin.include_tasks:
@@ -105,7 +105,7 @@
   when:
     - _nomad_node_server | bool
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Remove Server configuration
   ansible.builtin.file:
@@ -115,7 +115,7 @@
     - nomad_allow_purge_config | bool
     - not _nomad_node_server | bool
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Client configuration
   ansible.builtin.template:
@@ -127,7 +127,7 @@
   when:
     - _nomad_node_client | bool
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Remove Client configuration
   ansible.builtin.file:
@@ -137,7 +137,7 @@
     - nomad_allow_purge_config | bool
     - not _nomad_node_client | bool
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Custom configuration
   ansible.builtin.template:
@@ -149,7 +149,7 @@
   when:
     - nomad_config_custom is defined
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Remove custome configuration
   ansible.builtin.file:
@@ -159,7 +159,7 @@
     - nomad_allow_purge_config | bool
     - nomad_config_custom is not defined
   notify:
-    - restart nomad
+    - Restart nomad
 
 - name: Host volume
   ansible.builtin.include_tasks:

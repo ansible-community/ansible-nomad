@@ -81,7 +81,7 @@
     group: "{{ nomad_group }}"
     mode: "0755"
   tags: installation
-  notify: restart nomad
+  notify: Restart nomad
 
 - name: Cleanup
   ansible.builtin.file:

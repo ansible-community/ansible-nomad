@@ -20,7 +20,7 @@
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
         mode: "0644"
-      notify: restart nomad
+      notify: Restart nomad
 
     - name: Copy certificate
       ansible.builtin.copy:
@@ -30,7 +30,7 @@
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
         mode: "0644"
-      notify: restart nomad
+      notify: Restart nomad
 
     - name: Copy key
       ansible.builtin.copy:
@@ -40,4 +40,4 @@
         owner: "{{ nomad_user }}"
         group: "{{ nomad_group }}"
         mode: "0600"
-      notify: restart nomad
+      notify: Restart nomad
