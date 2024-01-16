@@ -8,7 +8,7 @@ galaxy_info:
   role_name: ansible_nomad
   namespace: brianshumate
   platforms:
-    - name: Archlinux
+    - name: ArchLinux
       versions:
         - all
     - name: EL
