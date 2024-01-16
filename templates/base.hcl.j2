@@ -45,6 +45,8 @@ data_dir = "{{ nomad_data_dir }}"
 
 log_level = "{{ nomad_log_level }}"
 enable_syslog = {{ nomad_syslog_enable | bool | lower }}
+log_file = {{ nomad_log_file }}
+log_json = {{ nomad_log_json | bool | lower }}
 
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
