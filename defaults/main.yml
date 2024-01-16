@@ -4,39 +4,39 @@
 # assert supported os/versions
 os_supported_matrix:
   Archlinux:
-    min_version: ''
+    min_version: ""
   Flatcar:
-    min_version: ''
+    min_version: ""
   # RHEL-based
   RedHat:
-    min_version: '6'
+    min_version: "6"
   CentOS:
-    min_version: '7'
+    min_version: "7"
   Fedora:
-    min_version: ''
+    min_version: ""
   Amazon:
-    min_version: ''
+    min_version: ""
   # Debian based
   OracleLinux:
-    min_version: '8'
+    min_version: "8"
   Debian:
-    min_version: '10'
+    min_version: "10"
   Ubuntu:
-    min_version: '20.04'
+    min_version: "20.04"
   VMware Photon OS:
-    min_version: '4'
+    min_version: "4"
 
 ## Core
 nomad_debug: false
 
 ## Asserts
-nomad_skip_ensure_all_hosts: "{{ lookup('env','NOMAD_SKIP_ENSURE_ALL_HOSTS') | default('false', true) }}"
+nomad_skip_ensure_all_hosts: "{{ lookup('env', 'NOMAD_SKIP_ENSURE_ALL_HOSTS') | default('false', true) }}"
 
 ## Config Purge
-nomad_allow_purge_config: "{{ lookup('env','NOMAD_ALLOW_PURGE_CONFIG') | default('false', true) }}"
+nomad_allow_purge_config: "{{ lookup('env', 'NOMAD_ALLOW_PURGE_CONFIG') | default('false', true) }}"
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('1.1.1', true) }}"
+nomad_version: "{{ lookup('env', 'NOMAD_VERSION') | default('1.1.1', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
@@ -45,23 +45,23 @@ nomad_architecture_map:
   32-bit: "386"
   64-bit: amd64
 nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
-nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
-nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
-nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
+nomad_pkg: nomad_{{ nomad_version }}_linux_{{ nomad_architecture }}.zip
+nomad_zip_url: https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{ nomad_architecture }}.zip
+nomad_checksum_file_url: https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_SHA256SUMS
 nomad_podman_enable: false
-nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.3.0', true) }}"
-nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_architecture}}.zip"
-nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
+nomad_podman_version: "{{ lookup('env', 'NOMAD_PODMAN_VERSION') | default('0.3.0', true) }}"
+nomad_podman_pkg: nomad-driver-podman_{{ nomad_podman_version }}_linux_{{ nomad_architecture }}.zip
+nomad_podman_url: https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}
 nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
 nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ nomad_podman_version }}_SHA256SUMS"
 
 ### Paths
-nomad_bin_dir: "/usr/local/bin"
-nomad_config_dir: "/etc/nomad.d"
-nomad_data_dir: "/var/nomad"
+nomad_bin_dir: /usr/local/bin
+nomad_config_dir: /etc/nomad.d
+nomad_data_dir: /var/nomad
 nomad_plugin_dir: "{{ nomad_data_dir }}/plugins"
-nomad_lockfile: "/var/lock/subsys/nomad"
-nomad_run_dir: "/var/run/nomad"
+nomad_lockfile: /var/lock/subsys/nomad
+nomad_run_dir: /var/run/nomad
 
 ### Initialization and startup script templates
 nomad_systemd_template: nomad_systemd.service.j2
@@ -69,18 +69,18 @@ nomad_systemd_unit_path: /lib/systemd/system
 
 ### System user and group
 nomad_manage_user: true
-nomad_user: "root"
+nomad_user: root
 nomad_manage_group: false
-nomad_group: "bin"
+nomad_group: bin
 
 ### Nomad settings
-nomad_datacenter: "dc1"
-nomad_region: "global"
-nomad_log_level: "INFO"
+nomad_datacenter: dc1
+nomad_region: global
+nomad_log_level: INFO
 nomad_syslog_enable: true
-nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_iface: "{{ lookup('env', 'NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
-nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
+nomad_node_role: "{{ lookup('env', 'NOMAD_NODE_ROLE') | default('client', true) }}"
 nomad_leave_on_terminate: true
 nomad_leave_on_interrupt: false
 nomad_disable_update_check: false
@@ -88,27 +88,27 @@ nomad_disable_update_check: false
 #### Server settings
 nomad_retry_max: 0
 nomad_retry_join: false
-nomad_retry_interval: "30s"
+nomad_retry_interval: 30s
 nomad_rejoin_after_leave: false
 nomad_enabled_schedulers:
   - service
   - batch
   - system
 nomad_num_schedulers: "{{ ansible_processor_vcpus }}"
-nomad_node_gc_threshold: "24h"
-nomad_job_gc_threshold: "4h"
-nomad_eval_gc_threshold: "1h"
-nomad_deployment_gc_threshold: "1h"
-nomad_encrypt_enable: "{{ lookup('env','NOMAD_ENCRYPT_ENABLE') | default('false', true) }}"
+nomad_node_gc_threshold: 24h
+nomad_job_gc_threshold: 4h
+nomad_eval_gc_threshold: 1h
+nomad_deployment_gc_threshold: 1h
+nomad_encrypt_enable: "{{ lookup('env', 'NOMAD_ENCRYPT_ENABLE') | default('false', true) }}"
 nomad_raft_protocol: 2
 
 #### Client settings
 nomad_node_class: ""
 nomad_no_host_uuid: false
-nomad_max_kill_timeout: "30s"
+nomad_max_kill_timeout: 30s
 nomad_network_speed: 0
 nomad_cpu_total_compute: 0
-nomad_gc_interval: "1m"
+nomad_gc_interval: 1m
 nomad_gc_max_allocs: 50
 nomad_gc_disk_usage_threshold: 80
 nomad_gc_inode_usage_threshold: 70
@@ -126,9 +126,8 @@ nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 nomad_chroot_env: false
 nomad_plugins: {}
 nomad_template_config: {}
-
 ### Addresses
-nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}"
+nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
 nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
 
 ### Ports
@@ -138,38 +137,27 @@ nomad_ports:
   serf: "{{ nomad_ports_serf | default('4648', true) }}"
 
 ### Servers
-nomad_group_name: "nomad_instances"
-nomad_servers: "\
-  {% if nomad_use_consul==false %}\
-    {% set _nomad_servers = [] %}\
-    {% for host in groups[nomad_group_name] %}\
-      {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
-      {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
-        {% if _nomad_servers.append(host) %}{% endif %}\
-      {% endif %}\
-    {% endfor %}\
-    {{ _nomad_servers }}\
-    {% else %}\
-    []\
-  {% endif %}"
+nomad_group_name: nomad_instances
+nomad_servers: "{% if nomad_use_consul == false %}{% set _nomad_servers = [] %}{% for host in groups[nomad_group_name] %}{% set _nomad_node_role = hostvars[host]['nomad_node_role']
+  | default('client', true) %}{% if (_nomad_node_role == 'server' or _nomad_node_role == 'both') %}{% if _nomad_servers.append(host) %}{% endif %}{% endif %}{% endfor
+  %}{{ _nomad_servers }}{% else %}[]{% endif %}"
 nomad_gather_server_facts: false
 
 ### Consul
 nomad_use_consul: false
-nomad_consul_address: "localhost:8500"
+nomad_consul_address: localhost:8500
 nomad_consul_ssl: false
 nomad_consul_ca_file: ""
 nomad_consul_cert_file: ""
 nomad_consul_key_file: ""
 nomad_consul_token: ""
-nomad_consul_servers_service_name: "nomad-servers"
-nomad_consul_clients_service_name: "nomad-clients"
+nomad_consul_servers_service_name: nomad-servers
+nomad_consul_clients_service_name: nomad-clients
 nomad_consul_tags: {}
-
 ### ACLs
 nomad_acl_enabled: "{{ lookup('env', 'NOMAD_ACL_ENABLED') | default('no', true) }}"
-nomad_acl_token_ttl: "30s"
-nomad_acl_policy_ttl: "30s"
+nomad_acl_token_ttl: 30s
+nomad_acl_policy_ttl: 30s
 nomad_acl_replication_token: ""
 
 ### Vault
@@ -188,32 +176,32 @@ nomad_vault_token: ""
 nomad_vault_namespace: ""
 
 ### Docker
-nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
+nomad_docker_enable: "{{ lookup('env', 'NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_docker_dmsetup: true
 
 ### TlS
 nomad_tls_enable: false
 nomad_tls_copy_keys: false
 nomad_tls_files_remote_src: false
-nomad_tls_dir: "{{ lookup('env','NOMAD_TLS_DIR') | default('/etc/nomad/ssl', true) }}"
-nomad_ca_file: "{{ lookup('env','NOMAD_CA_FILE') | default('ca.crt', true) }}"
-nomad_cert_file: "{{ lookup('env','NOMAD_CERT_FILE') | default('server.crt', true) }}"
-nomad_key_file: "{{ lookup('env','NOMAD_KEY_FILE') | default('server.key', true) }}"
+nomad_tls_dir: "{{ lookup('env', 'NOMAD_TLS_DIR') | default('/etc/nomad/ssl', true) }}"
+nomad_ca_file: "{{ lookup('env', 'NOMAD_CA_FILE') | default('ca.crt', true) }}"
+nomad_cert_file: "{{ lookup('env', 'NOMAD_CERT_FILE') | default('server.crt', true) }}"
+nomad_key_file: "{{ lookup('env', 'NOMAD_KEY_FILE') | default('server.key', true) }}"
 nomad_rpc_upgrade_mode: false
 nomad_verify_server_hostname: true
 nomad_verify_https_client: true
 
 ### Autopilot
 nomad_autopilot_cleanup_dead_servers: true
-nomad_autopilot_last_contact_threshold: "200ms"
+nomad_autopilot_last_contact_threshold: 200ms
 nomad_autopilot_max_trailing_logs: 250
-nomad_autopilot_server_stabilization_time: "10s"
+nomad_autopilot_server_stabilization_time: 10s
 
 ### CNI
 nomad_cni_enable: false
-nomad_cni_dir: "/opt/cni/bin"
-nomad_cni_version: "{{ lookup('env','NOMAD_CNI_VERSION') | default('0.9.1', true) }}"
-nomad_cni_pkg: "cni-plugins-linux-{{nomad_architecture}}-v{{ nomad_cni_version }}.tgz"
-nomad_cni_url: "https://github.com/containernetworking/plugins/releases/download/v{{ nomad_cni_version }}"
+nomad_cni_dir: /opt/cni/bin
+nomad_cni_version: "{{ lookup('env', 'NOMAD_CNI_VERSION') | default('0.9.1', true) }}"
+nomad_cni_pkg: cni-plugins-linux-{{ nomad_architecture }}-v{{ nomad_cni_version }}.tgz
+nomad_cni_url: https://github.com/containernetworking/plugins/releases/download/v{{ nomad_cni_version }}
 nomad_cni_zip_url: "{{ nomad_cni_url }}/{{ nomad_cni_pkg }}"
 nomad_cni_checksum_file_url: "{{ nomad_cni_zip_url }}.sha256"

@@ -1,5 +1,16 @@
 ---
 # File: main.yml handlers file for nomad
 
-- name: restart nomad
-  service: name=nomad state=restarted
+- name: Restart nomad
+  ansible.builtin.service:
+    name: nomad
+    state: restarted
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable nomad at startup (systemd)
+  ansible.builtin.systemd:
+    name: nomad
+    enabled: true

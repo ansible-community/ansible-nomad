@@ -5,7 +5,7 @@
 
 # Fix for https://github.com/docker/docker/issues/23347
 - name: Install dmsetup for Ubuntu 16.04
-  apt:
+  ansible.builtin.apt:
     pkg: dmsetup
     state: present
     update_cache: true
@@ -16,14 +16,15 @@
     - ansible_distribution_version is version_compare(16.04, '=')
     - nomad_docker_dmsetup | bool
 
-- name: Run dmsetup for Ubuntu 16.04
-  command: dmsetup mknodes
+- name: Run dmsetup for Ubuntu 16.04 # noqa no-changed-when
+  ansible.builtin.command:
+    cmd: dmsetup mknodes
   when:
     - nomad_docker_dmsetup | bool
     - dmsetup_result
 
 - name: Add Nomad user to docker group
-  user:
+  ansible.builtin.user:
     name: "{{ nomad_user }}"
     groups: docker
     append: true

@@ -1,3 +1,4 @@
+---
 extends: default
 
 rules:
@@ -8,5 +9,8 @@ rules:
     max-spaces-inside: 1
     level: error
   line-length: disable
-  truthy: disable
-  document-start: disable
+  truthy:
+    allowed-values: ["true", "false"]
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1 # same as ansible-lint

@@ -2,5 +2,4 @@
 # File: Flatcar.yml - Flatcar variables for Nomad
 
 nomad_os_packages: []
-
 nomad_systemd_unit_path: /etc/systemd/system
