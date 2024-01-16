@@ -3,7 +3,7 @@
     path: "{{ item['path'] }}"
     owner: "{{ item['owner'] | default(nomad_user) }}"
     group: "{{ item['group'] | default(nomad_group) }}"
-    state: directory
+    state: "{{ item['state'] | default('directory') }}"
     mode: "{{ item['mode'] | default('0755') }}"
   with_items: "{{ nomad_host_volumes }}"
   ignore_errors: nomad_host_volumes_skip_ignore | bool
