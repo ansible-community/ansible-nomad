@@ -48,7 +48,7 @@
       run_once: true
       block:
         - name: Generate gossip encryption key # noqa no-changed-when
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: nomad operator keygen
           register: nomad_keygen
 
