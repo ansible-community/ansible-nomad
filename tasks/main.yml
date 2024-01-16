@@ -183,9 +183,9 @@
     mode: "0755"
   when: not ansible_service_mgr == "systemd" and ansible_os_family == "Debian"
 
-- name: extract systemd version
+- name: Extract systemd version
   ansible.builtin.shell:
-    cmd: set -o pipefail systemctl --version systemd | head -n 1 | cut -d  -f2
+    cmd: set -o pipefail systemctl --version systemd | head -n 1 | cut -d ' ' -f2
   args:
     executable: /bin/bash
   changed_when: false
