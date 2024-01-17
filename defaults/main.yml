@@ -78,6 +78,8 @@ nomad_datacenter: "dc1"
 nomad_region: "global"
 nomad_log_level: "INFO"
 nomad_syslog_enable: true
+nomad_log_file: ""
+nomad_log_json: false
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
@@ -119,9 +121,11 @@ nomad_reserved:
   disk: "{{ nomad_reserved_disk | default('0', true) }}"
   ports: "{{ nomad_reserved_ports | default('22', true) }}"
 nomad_host_volumes: []
+nomad_host_volumes_skip_ignore: false
 nomad_host_networks: []
 nomad_options: {}
 nomad_meta: {}
+nomad_artifact: {}
 nomad_bootstrap_expect: "{{ nomad_servers | count or 3 }}"
 nomad_chroot_env: false
 nomad_plugins: {}

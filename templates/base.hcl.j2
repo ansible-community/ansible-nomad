@@ -45,6 +45,8 @@ data_dir = "{{ nomad_data_dir }}"
 
 log_level = "{{ nomad_log_level }}"
 enable_syslog = {{ nomad_syslog_enable | bool | lower }}
+log_file = "{{ nomad_log_file }}"
+log_json = {{ nomad_log_json | bool | lower }}
 
 leave_on_terminate = {{ nomad_leave_on_terminate | bool | lower }}
 leave_on_interrupt = {{ nomad_leave_on_interrupt | bool | lower }}
@@ -128,5 +130,16 @@ autopilot {
     last_contact_threshold    = "{{ nomad_autopilot_last_contact_threshold }}"
     max_trailing_logs         = {{ nomad_autopilot_max_trailing_logs }}
     server_stabilization_time = "{{ nomad_autopilot_server_stabilization_time }}"
+}
+{% endif %}
+
+{% if nomad_ui | default(False) | bool == True %}
+ui {
+    enabled =  true
+	label {
+		text             = "{{ nomad_ui_label_test }}"
+		background_color = "{{ nomad_ui_label_background_color }}"
+		text_color       = "{{ nomad_ui_label_text_color }}"
+	}
 }
 {% endif %}

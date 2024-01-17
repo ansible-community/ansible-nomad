@@ -78,6 +78,14 @@ client {
     }
     {% endif %}
 
+    {% if nomad_artifact -%}
+    artifact {
+    {% for key, value in nomad_artifact.items() %}
+    "{{ key }}" = "{{ value }}"
+    {% endfor -%}
+    }
+    {% endif %}
+
     {% macro template_config(config, count=1, width=4) %}
     {% set next_count = count + 1 %}
     {% for key, value in config.items() %}

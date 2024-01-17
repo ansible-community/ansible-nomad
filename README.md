@@ -141,6 +141,16 @@ The role defines most of its variables in `defaults/main.yml`:
 - Log to syslog
 - Default value: **true**
 
+### `nomad_log_file`
+
+- Path for logging
+- Default value: **""**
+
+### `nomad_log_json`
+
+- JSON logs
+- Default value: **false**
+
 ### `nomad_iface`
 
 - Nomad network interface
