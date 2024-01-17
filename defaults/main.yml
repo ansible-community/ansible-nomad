@@ -78,6 +78,8 @@ nomad_datacenter: "dc1"
 nomad_region: "global"
 nomad_log_level: "INFO"
 nomad_syslog_enable: true
+nomad_log_file: ""
+nomad_log_json: false
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"
