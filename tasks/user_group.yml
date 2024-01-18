@@ -2,17 +2,17 @@
 # File: user_group.yml - User and group settings
 
 - name: Add Nomad group
-  group:
+  ansible.builtin.group:
     name: "{{ nomad_group }}"
     state: present
   when:
     - nomad_manage_group | bool
 
 - name: Add Nomad user
-  user:
+  ansible.builtin.user:
     name: "{{ nomad_user }}"
-    comment: "Nomad user"
+    comment: Nomad user
     group: "{{ nomad_group }}"
-    system: yes
+    system: true
   when:
     - nomad_manage_user | bool

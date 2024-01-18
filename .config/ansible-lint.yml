@@ -9,7 +9,3 @@ exclude_paths:
 
 # install collection dependencies
 offline: false
-
-# skip these linting stuff
-skip_list:
-  - '106'

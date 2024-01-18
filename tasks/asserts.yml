@@ -1,34 +1,34 @@
 ---
 # File: asserts.yml - Asserts for this playbook
 
-- name: ping hosts
-  ping:
+- name: Ping hosts
+  ansible.builtin.ping:
 
-- name: ensure all hosts are reachable
-  run_once: yes
-  assert:
+- name: Ensure all hosts are reachable
+  run_once: true
+  ansible.builtin.assert:
     that:
       - ansible_play_hosts == ansible_play_hosts_all
   when: not nomad_skip_ensure_all_hosts | bool
 
-- name: os_supported_matrix | check distribution
-  assert:
-    quiet: yes
+- name: Os_supported_matrix | check distribution
+  ansible.builtin.assert:
+    quiet: true
     fail_msg: "{{ ansible_distribution }} is not supported for this role"
     that:
       - ansible_distribution in os_supported_matrix
 
-- name: get os version to compare with
-  set_fact:
+- name: Get os version to compare with
+  ansible.builtin.set_fact:
     version_to_compare: "{{ item.value.min_version }}"
   loop: "{{ lookup('dict', os_supported_matrix) }}"
-  no_log: yes
+  no_log: true
   when:
     - ansible_distribution in item.key
 
-- name: os_supported_matrix | check distribution version
-  assert:
-    quiet: yes
+- name: Os_supported_matrix | check distribution version
+  ansible.builtin.assert:
+    quiet: true
     fail_msg: "{{ ansible_distribution_version }} is not supported for this role"
     that:
       - ansible_distribution_version is version(version_to_compare, '>')
@@ -37,6 +37,6 @@
     - version_to_compare | length > 0
 
 - name: Check nomad_group_name is included in groups
-  fail:
-    msg: "nomad_group_name must be included in groups."
+  ansible.builtin.fail:
+    msg: nomad_group_name must be included in groups.
   when: nomad_group_name not in groups

@@ -1,5 +1,6 @@
-- name: create volume {{ item['name'] }}
-  file:
+---
+- name: Create volume {{ item['name'] }}
+  ansible.builtin.file:
     path: "{{ item['path'] }}"
     owner: "{{ item['owner'] | default(nomad_user) }}"
     group: "{{ item['group'] | default(nomad_group) }}"
