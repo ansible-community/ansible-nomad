@@ -5,8 +5,8 @@ galaxy_info:
   company: Brian Shumate
   license: BSD
   min_ansible_version: "2.9"
-  role_name: ansible_nomad
-  namespace: brianshumate
+  role_name: nomad
+  namespace: community
   platforms:
     - name: ArchLinux
       versions:

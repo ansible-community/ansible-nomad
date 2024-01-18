@@ -15,4 +15,4 @@
       ansible.builtin.service:
         name: nomad
         state: started
-        enabled: "yes"
+        enabled: true
