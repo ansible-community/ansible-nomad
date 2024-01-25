@@ -148,6 +148,7 @@ nomad_use_consul: false
 nomad_consul_address: localhost:8500
 nomad_consul_ssl: false
 nomad_consul_ca_file: ""
+nomad_consul_grpc_ca_file: "{{ nomad_consul_ca_file }}"
 nomad_consul_cert_file: ""
 nomad_consul_key_file: ""
 nomad_consul_token: ""
