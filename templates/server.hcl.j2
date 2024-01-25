@@ -43,5 +43,6 @@ authoritative_region = "{{ nomad_authoritative_region }}"
 
     encrypt = "{{ nomad_encrypt | default('') }}"
 
+    raft_multiplier = {{ nomad_raft_multiplier }}
     raft_protocol = {{ nomad_raft_protocol }}
 }

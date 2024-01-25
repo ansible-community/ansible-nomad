@@ -232,6 +232,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Set the encryption key; should be the same across a cluster. If not present and `nomad_encrypt_enable` is true, the key will be generated & retrieved from the bootstrapped server.
 - Default value: **""**
 
+### `nomad_raft_multiplier`
+
+- Specifies the raft multiplier to use
+- Default value: **1**
+
 ### `nomad_raft_protocol`
 
 - Specifies the version of raft protocal, which used by nomad servers for communication
