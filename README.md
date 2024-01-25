@@ -512,6 +512,11 @@ in many Ansible versions, so this feature might not always work.
 - Public key of consul CA, use in combination with `nomad_consul_cert_file` and `nomad_consul_key_file`.
 - Default value: ""
 
+### `nomad_consul_grpc_ca_file`
+
+- Public key of consul CA to validate the gRPC TLS, use in combination with `nomad_consul_cert_file` and `nomad_consul_key_file`.
+- Default value: **nomad_consul_ca_file**
+
 ### `nomad_consul_cert_file`
 
 - The public key which can be used to access consul.
