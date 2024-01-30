@@ -31,7 +31,7 @@
     quiet: true
     fail_msg: "{{ ansible_distribution_version }} is not supported for this role"
     that:
-      - ansible_distribution_version is version(version_to_compare, '>')
+      - ansible_distribution_version is version(version_to_compare, '>=')
   when:
     - version_to_compare is defined
     - version_to_compare | length > 0
