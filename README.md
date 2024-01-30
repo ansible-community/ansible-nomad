@@ -26,7 +26,7 @@ with the following specific software versions:
 * CentOS: 7
 * Debian: 8
 * RHEL: 7
-* Ubuntu: 16.04
+* Ubuntu: >= 20.04
 * unzip for [unarchive module](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html#notes)
 
 ## Role Variables
