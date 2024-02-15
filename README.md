@@ -850,8 +850,16 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_autopilot_server_stabilization_time`
 
--  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
+- Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
 - Default value: **10s**
+
+
+### `nomad_ui`
+
+- Specifies if you want to add specific label in the UI, later with `nomad_ui_label_text`, `nomad_ui_label_background_color` and `nomad_ui_label_text_color` .
+- Default value: false
+
+
 
 #### Custom Configuration Section
 
