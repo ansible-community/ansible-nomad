@@ -859,7 +859,43 @@ in many Ansible versions, so this feature might not always work.
 - Specifies if you want to add specific label in the UI, later with `nomad_ui_label_text`, `nomad_ui_label_background_color` and `nomad_ui_label_text_color` .
 - Default value: false
 
+e.g
 
+```yaml
+nomad_ui: true
+nomad_ui_label_text: "UAT Cluster"
+nomad_ui_label_background_color: "yellow"
+nomad_ui_label_text_color: "#000000"
+```
+
+### `nomad_ui_label_text`
+
+- Specifies a label to display on the UI (e.g. "UAT Cluster").
+- Default value: ""
+
+### `nomad_ui_label_background_color`
+
+- Specifies the background color of the label on the UI (e.g. "yellow").
+- Default value: ""
+
+### `nomad_ui_label_text_color`
+
+- Specifies the color of the label on the UI (e.g. "#000000").
+- Default value: ""
+
+### `nomad_artifact`
+
+- Specifies environment variables for artifact (e.g. "UAT Cluster").
+- Default value: ""
+
+e.g
+
+```yaml
+nomad_artifact:
+  {
+    set_environment_variables: "GITLAB_READONLY_TOKEN,GITLAB_KEYCLOAK_THEMES_READONLY_TOKEN",
+  }
+```
 
 #### Custom Configuration Section
 
