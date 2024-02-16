@@ -868,29 +868,29 @@ e.g
 
 ```yaml
 nomad_ui: true
-nomad_ui_label_text: "UAT Cluster"
+nomad_ui_label_text: "Staging Cluster"
 nomad_ui_label_background_color: "yellow"
 nomad_ui_label_text_color: "#000000"
 ```
 
 ### `nomad_ui_label_text`
 
-- Specifies a label to display on the UI (e.g. "UAT Cluster").
-- Default value: ""
+- Specifies a label to display on the UI (e.g. "Staging Cluster").
+- Default value: "Staging Cluster"
 
 ### `nomad_ui_label_background_color`
 
 - Specifies the background color of the label on the UI (e.g. "yellow").
-- Default value: ""
+- Default value: "yellow"
 
 ### `nomad_ui_label_text_color`
 
 - Specifies the color of the label on the UI (e.g. "#000000").
-- Default value: ""
+- Default value: "#000000"
 
 ### `nomad_artifact`
 
-- Specifies environment variables for artifact (e.g. "UAT Cluster").
+- Specifies environment variables for artifact (e.g. "GITLAB_READONLY_TOKEN").
 - Default value: ""
 
 e.g
