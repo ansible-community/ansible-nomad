@@ -855,8 +855,52 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_autopilot_server_stabilization_time`
 
--  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
+- Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
 - Default value: **10s**
+
+
+### `nomad_ui`
+
+- Specifies if you want to add specific label in the UI, later with `nomad_ui_label_text`, `nomad_ui_label_background_color` and `nomad_ui_label_text_color` .
+- Default value: false
+
+e.g
+
+```yaml
+nomad_ui: true
+nomad_ui_label_text: "Staging Cluster"
+nomad_ui_label_background_color: "yellow"
+nomad_ui_label_text_color: "#000000"
+```
+
+### `nomad_ui_label_text`
+
+- Specifies a label to display on the UI (e.g. "Staging Cluster").
+- Default value: "Staging Cluster"
+
+### `nomad_ui_label_background_color`
+
+- Specifies the background color of the label on the UI (e.g. "yellow").
+- Default value: "yellow"
+
+### `nomad_ui_label_text_color`
+
+- Specifies the color of the label on the UI (e.g. "#000000").
+- Default value: "#000000"
+
+### `nomad_artifact`
+
+- Specifies environment variables for artifact (e.g. "GITLAB_READONLY_TOKEN").
+- Default value: ""
+
+e.g
+
+```yaml
+nomad_artifact:
+  {
+    set_environment_variables: "GITLAB_READONLY_TOKEN,GITLAB_KEYCLOAK_THEMES_READONLY_TOKEN",
+  }
+```
 
 #### Custom Configuration Section
 
