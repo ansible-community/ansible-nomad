@@ -102,6 +102,7 @@ client {
     {% for key, value in nomad_artifact.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
+    {% endif %}
     }
     {% endif %}
 }
