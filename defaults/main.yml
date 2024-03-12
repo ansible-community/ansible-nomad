@@ -101,6 +101,7 @@ nomad_eval_gc_threshold: 1h
 nomad_deployment_gc_threshold: 1h
 nomad_encrypt_enable: "{{ lookup('env', 'NOMAD_ENCRYPT_ENABLE') | default('false', true) }}"
 nomad_raft_protocol: 2
+nomad_raft_multiplier: 1
 
 #### Client settings
 nomad_node_class: ""
