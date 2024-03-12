@@ -3,6 +3,8 @@
 
 # assert supported os/versions
 os_supported_matrix:
+  AlmaLinux:
+    min_version: ""
   Archlinux:
     min_version: ""
   Flatcar:
