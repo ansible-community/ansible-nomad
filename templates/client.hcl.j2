@@ -96,13 +96,13 @@ client {
     template {
     {{ template_config(nomad_template_config) | replace('\'', '\"') }}
     }
+    {% endif %}
 
     {% if nomad_artifact -%}
     artifact {
     {% for key, value in nomad_artifact.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
-    {% endif %}
     }
     {% endif %}
 }
