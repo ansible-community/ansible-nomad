@@ -19,6 +19,8 @@
   ansible.builtin.stat:
     path: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
   become: false
+  vars:
+    ansible_become: false
   run_once: true
   tags: installation
   register: nomad_checksum
@@ -30,6 +32,8 @@
     dest: "{{ role_path }}/files/nomad_{{ nomad_version }}_SHA256SUMS"
     mode: "0644"
   become: false
+  vars:
+    ansible_become: false
   run_once: true
   tags: installation
   when: not nomad_checksum.stat.exists
@@ -42,6 +46,8 @@
   args:
     executable: /bin/bash
   become: false
+  vars:
+    ansible_become: false
   register: nomad_sha256
   tags: installation
   delegate_to: 127.0.0.1
@@ -50,6 +56,8 @@
   ansible.builtin.stat:
     path: "{{ role_path }}/files/{{ nomad_pkg }}"
   become: false
+  vars:
+    ansible_become: false
   register: nomad_package
   delegate_to: 127.0.0.1
 
@@ -61,6 +69,8 @@
     timeout: "42"
     mode: "0644"
   become: false
+  vars:
+    ansible_become: false
   tags: installation
   delegate_to: 127.0.0.1
   when: not nomad_package.stat.exists
@@ -70,6 +80,8 @@
     state: directory
     prefix: ansible-nomad.
   become: false
+  vars:
+    ansible_become: false
   register: install_temp
   tags: installation
   delegate_to: 127.0.0.1
@@ -80,6 +92,8 @@
     dest: "{{ install_temp.path }}/"
     creates: "{{ install_temp.path }}/nomad"
   become: false
+  vars:
+    ansible_become: false
   tags: installation
   delegate_to: 127.0.0.1
 
@@ -97,5 +111,7 @@
     path: "{{ install_temp.path }}"
     state: absent
   become: false
+  vars:
+    ansible_become: false
   tags: installation
   delegate_to: 127.0.0.1
