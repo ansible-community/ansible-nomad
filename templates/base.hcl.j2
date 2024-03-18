@@ -74,7 +74,9 @@ vault {
     enabled = {{ nomad_vault_enabled | bool | lower }}
     address = "{{ nomad_vault_address }}"
     allow_unauthenticated = {{ nomad_vault_allow_unauthenticated | bool | lower }}
+{%if nomad_vault_create_from_role != "" %}
     create_from_role = "{{ nomad_vault_create_from_role }}"
+{% endif %}
     task_token_ttl = "{{ nomad_vault_task_token_ttl }}"
     ca_file = "{{ nomad_vault_ca_file }}"
     ca_path = "{{ nomad_vault_ca_path }}"
@@ -82,7 +84,13 @@ vault {
     key_file = "{{ nomad_vault_key_file }}"
     tls_server_name = "{{ nomad_vault_tls_server_name }}"
     tls_skip_verify = {{ nomad_vault_tls_skip_verify | bool | lower }}
-{%if nomad_node_role != 'client' %}
+{%if nomad_vault_default_identity != "" %}
+    default_identity {
+      aud = ["{{ nomad_vault_default_identity }}"]
+      ttl = "{{ nomad_vault_default_identity_ttl }}"
+    }
+{% endif %}
+{%if nomad_node_role != 'client' and nomad_vault_token != ""  %}
     token = "{{ nomad_vault_token }}"
 {% endif %}
     namespace = "{{ nomad_vault_namespace }}"
