@@ -1,17 +1,36 @@
 ---
 # File: install.yml - package installation tasks for Nomad  # noqa 106
 
+- name: Gather the OS packages
+  ansible.builtin.package_facts:
+    manager: auto
+  tags: installation
+
+- name: Initialize a fact with the OS packages to install
+  ansible.builtin.set_fact:
+    nomad_os_packages_fact: []
+  tags: installation
+
+- name: Set a fact with the OS packages to really install
+  ansible.builtin.set_fact:
+    nomad_os_packages_fact: "{{ nomad_os_packages_fact + [item] }}"
+  with_items: "{{ nomad_os_packages }}"
+  tags: installation
+  when:
+    - item.handle is not defined or item.handle != 'skip'
+    - item.conflicts is not defined or item.conflicts not in ansible_facts.packages
+
 - name: Install OS packages
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     state: present
-  with_items: "{{ nomad_os_packages }}"
+  with_items: "{{ nomad_os_packages_fact }}"
   tags: installation
   when: not ansible_facts['os_family'] == "VMware Photon OS"
 
 - name: Install OS packages # noqa no-changed-when
-  ansible.builtin.command: tdnf install {{ item }}
-  with_items: "{{ nomad_os_packages }}"
+  ansible.builtin.command: tdnf install {{ item.name }}
+  with_items: "{{ nomad_os_packages_fact }}"
   tags: installation
   when: ansible_facts['os_family'] == "VMware Photon OS"
 
