@@ -1,0 +1,42 @@
+---
+name: molecule
+on:
+  pull_request:
+    branches: ["main", "master", "stable", "release/v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        scenario:
+          - almalinux-8
+          - almalinux-9
+          - centos-7
+          - centos-8-stream
+          - centos-9-stream
+          - debian-10
+          - debian-11
+          - debian-12
+          - fedora-38
+          - fedora-39
+          # - oraclelinux-7
+          - oraclelinux-8
+          - oraclelinux-9
+          - ubuntu-20.04
+          - ubuntu-22.04
+          - ubuntu-23.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+
+      - name: Molecule
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_working_dir: "${{ github.repository }}"
+          molecule_options: --base-config molecule/_shared/base.yml
+          molecule_args: --scenario-name ${{ matrix.scenario }}

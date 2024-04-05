@@ -2,15 +2,9 @@
 # File: vars/RedHat.yml - Red Hat OS variables for Nomad
 
 nomad_os_packages:
-  - curl
+  - "{% if (ansible_distribution == 'AlmaLinux' and ansible_distribution_version is version('9', '>=')) %}curl-minimal{% else %}curl{% endif %}"
   - git
-  - "{% if ( ansible_distribution  == 'Fedora' and ansible_distribution_version is version('28', '<') ) or \
-      ( ansible_distribution  == 'CentOS' and ansible_distribution_version is version('8', '<') ) or \
-      ( ansible_distribution  == 'Amazon' and ansible_distribution_version is version('3', '<') ) or \
-      ( ansible_distribution  == 'OracleLinux' and ansible_distribution_version is version('8', '<') ) \
-    %}\
-      libselinux-python\
-    {% else %}\
-      python3-libselinux\
-    {% endif %}"
+  - "{% if (ansible_distribution == 'Fedora' and ansible_distribution_version is version('28', '<')) or (ansible_distribution == 'CentOS' and ansible_distribution_version
+    is version('8', '<')) or (ansible_distribution == 'Amazon' and ansible_distribution_version is version('3', '<')) or (ansible_distribution == 'OracleLinux' and
+    ansible_distribution_version is version('8', '<')) %}libselinux-python{% else %}python3-libselinux{% endif %}"
   - unzip

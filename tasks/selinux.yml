@@ -4,6 +4,6 @@
 # SELinux disrupts LXC (shrug)
 
 - name: Disable SELinux for Docker Driver
-  selinux:
+  ansible.posix.selinux:
     state: disabled
   when: nomad_docker_enable == "true"

@@ -1,0 +1,11 @@
+---
+# .ansible-lint
+exclude_paths:
+  - .cache/ # implicit unless exclude_paths is defined in config
+  - .yamllint
+  - molecule/
+  - tests/
+  - .github/
+
+# install collection dependencies
+offline: false

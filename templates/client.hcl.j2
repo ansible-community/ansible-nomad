@@ -4,11 +4,15 @@ client {
     node_class = "{{ nomad_node_class }}"
     no_host_uuid = {{ nomad_no_host_uuid | bool | lower }}
 
+{% if nomad_node_pool is defined and nomad_node_pool|length %}
+    node_pool = "{{ nomad_node_pool }}"
+{% endif %}
+
 {% if nomad_use_consul == False %}
     servers = [
         {%- set comma = joiner(",") -%}
         {%- for server in nomad_servers -%}
-            {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}:{{ nomad_ports.rpc }}"
+            {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ansible.utils.ipwrap }}:{{ nomad_ports.rpc }}"
         {%- endfor -%} ]
 {% endif %}
 
@@ -21,6 +25,7 @@ client {
     cpu_total_compute = {{ nomad_cpu_total_compute }}
 
     gc_interval = "{{ nomad_gc_interval }}"
+    gc_max_allocs = "{{ nomad_gc_max_allocs }}"
     gc_disk_usage_threshold = {{ nomad_gc_disk_usage_threshold }}
     gc_inode_usage_threshold = {{ nomad_gc_inode_usage_threshold }}
     gc_parallel_destroys = {{ nomad_gc_parallel_destroys }}
@@ -68,6 +73,34 @@ client {
     {% if nomad_meta -%}
     meta = {
     {% for key, value in nomad_meta.items() %}
+    "{{ key }}" = "{{ value }}"
+    {% endfor -%}
+    }
+    {% endif %}
+
+    {% macro template_config(config, count=1, width=4) %}
+    {% set next_count = count + 1 %}
+    {% for key, value in config.items() %}
+    {% if value is mapping %}
+    {{ key | indent(count*width, first=True) }} {
+    {{ template_config(value, count=next_count, width=width) }}
+    {{ '}' | indent(count*width, first=True) }}
+    {% else %}
+    {{ key | indent(count*width, first=True) }} = {% if value is string %}"{{ value }}"{% else %}{{ value | string | lower }}{% endif %}
+
+    {% endif %}
+    {% endfor %}
+    {% endmacro %}
+
+    {% if nomad_template_config|length >0 %}
+    template {
+    {{ template_config(nomad_template_config) | replace('\'', '\"') }}
+    }
+    {% endif %}
+
+    {% if nomad_artifact -%}
+    artifact {
+    {% for key, value in nomad_artifact.items() %}
     "{{ key }}" = "{{ value }}"
     {% endfor -%}
     }

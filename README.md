@@ -26,7 +26,7 @@ with the following specific software versions:
 * CentOS: 7
 * Debian: 8
 * RHEL: 7
-* Ubuntu: 16.04
+* Ubuntu: >= 20.04
 * unzip for [unarchive module](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html#notes)
 
 ## Role Variables
@@ -232,6 +232,11 @@ The role defines most of its variables in `defaults/main.yml`:
 - Set the encryption key; should be the same across a cluster. If not present and `nomad_encrypt_enable` is true, the key will be generated & retrieved from the bootstrapped server.
 - Default value: **""**
 
+### `nomad_raft_multiplier`
+
+- Specifies the raft multiplier to use
+- Default value: **1**
+
 ### `nomad_raft_protocol`
 
 - Specifies the version of raft protocal, which used by nomad servers for communication
@@ -245,6 +250,12 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_node_class`
 
 - Nomad node class
+- Default value: **""**
+
+### `nomad_node_pool`
+
+- Used for restricting which client nodes are eligible to receive which workloads.
+By default, tasks are opted-out of non-default node pools. This means job authors don’t have to repeatedly add the same constraints to every job just to avoid certain nodes.
 - Default value: **""**
 
 ### `nomad_no_host_uuid`
@@ -277,12 +288,17 @@ The role defines most of its variables in `defaults/main.yml`:
 - Client garbage collection interval
 - Default value: **1m**
 
+### `nomad_gc_max_allocs`
+
+- Maximum number of allocations which a client will track before triggering a garbage collection
+- Default value: **50**
+
 ### `nomad_gc_disk_usage_threshold`
 
 - Disk usage threshold percentage for garbage collection
 - Default value: **80**
 
-### `nomad_gc_inodes_usage_threshold`
+### `nomad_gc_inode_usage_threshold`
 
 - Inode usage threshold percentage for garbage collection
 - Default value: **70**
@@ -319,7 +335,7 @@ The role defines most of its variables in `defaults/main.yml`:
 
 ### `nomad_host_volumes`
 
-- List host_volume is used to make volumes available to jobs (Stateful Workloads).
+- List host_volume is used to make volumes available to jobs (Stateful Workloads). By default, a directory is created. Specify the `state` parameter to change it.
 - Default value: **[]**
 - Example:
 
@@ -337,6 +353,10 @@ nomad_host_volumes:
     group: bin
     mode: 0644
     read_only: false
+  - name: docker socket
+    path: /run/docker.sock
+    read_only: true
+    state: file
 ```
 
 ### `nomad_host_networks`
@@ -418,6 +438,23 @@ nomad_host_networks:
 - Install Docker subsystem on nodes?
 - Default value: **false**
 
+### `nomad_template_config`
+- Allow you configure client's [template config](https://developer.hashicorp.com/nomad/docs/configuration/client#template-parameters).
+- Default: {}
+
+Example:
+
+```yaml
+nomad_template_config:
+  vault_retry:
+    attempts: 12
+    backoff: "750ms"
+    max_backoff: "2m"
+  wait:
+    min: "10s"
+    max: "4m"
+```
+
 ### `nomad_plugins`
 - Allow you configure nomad plugins.
 - Default: {}
@@ -479,6 +516,11 @@ in many Ansible versions, so this feature might not always work.
 
 - Public key of consul CA, use in combination with `nomad_consul_cert_file` and `nomad_consul_key_file`.
 - Default value: ""
+
+### `nomad_consul_grpc_ca_file`
+
+- Public key of consul CA to validate the gRPC TLS, use in combination with `nomad_consul_cert_file` and `nomad_consul_key_file`.
+- Default value: **nomad_consul_ca_file**
 
 ### `nomad_consul_cert_file`
 
@@ -818,8 +860,52 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_autopilot_server_stabilization_time`
 
--  Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
+- Specifies the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher.
 - Default value: **10s**
+
+
+### `nomad_ui`
+
+- Specifies if you want to add specific label in the UI, later with `nomad_ui_label_text`, `nomad_ui_label_background_color` and `nomad_ui_label_text_color` .
+- Default value: false
+
+e.g
+
+```yaml
+nomad_ui: true
+nomad_ui_label_text: "Staging Cluster"
+nomad_ui_label_background_color: "yellow"
+nomad_ui_label_text_color: "#000000"
+```
+
+### `nomad_ui_label_text`
+
+- Specifies a label to display on the UI (e.g. "Staging Cluster").
+- Default value: "Staging Cluster"
+
+### `nomad_ui_label_background_color`
+
+- Specifies the background color of the label on the UI (e.g. "yellow").
+- Default value: "yellow"
+
+### `nomad_ui_label_text_color`
+
+- Specifies the color of the label on the UI (e.g. "#000000").
+- Default value: "#000000"
+
+### `nomad_artifact`
+
+- Specifies environment variables for artifact (e.g. "GITLAB_READONLY_TOKEN").
+- Default value: ""
+
+e.g
+
+```yaml
+nomad_artifact:
+  {
+    set_environment_variables: "GITLAB_READONLY_TOKEN,GITLAB_KEYCLOAK_THEMES_READONLY_TOKEN",
+  }
+```
 
 #### Custom Configuration Section
 

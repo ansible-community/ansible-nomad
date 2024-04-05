@@ -14,7 +14,7 @@ authoritative_region = "{{ nomad_authoritative_region }}"
         retry_join = [
             {%- set comma = joiner(",") -%}
             {% for server in nomad_servers -%}
-                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ansible.utils.ipwrap }}"
             {%- endfor -%} ]
         retry_max = {{ nomad_retry_max }}
         retry_interval = "{{ nomad_retry_interval }}"
@@ -22,7 +22,7 @@ authoritative_region = "{{ nomad_authoritative_region }}"
         start_join = [
             {%- set comma = joiner(",") -%}
             {% for server in nomad_servers -%}
-                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ipwrap }}"
+                {{ comma() }}"{{ hostvars[server]['nomad_advertise_address'] | ansible.utils.ipwrap }}"
             {%- endfor -%} ]
     {%- endif %}
 {% endif %}
@@ -43,5 +43,6 @@ authoritative_region = "{{ nomad_authoritative_region }}"
 
     encrypt = "{{ nomad_encrypt | default('') }}"
 
+    raft_multiplier = {{ nomad_raft_multiplier }}
     raft_protocol = {{ nomad_raft_protocol }}
 }

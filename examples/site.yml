@@ -3,11 +3,16 @@
 
 - name: Installing Nomad
   hosts: nomad_instances
-  become: yes
+  become: true
   become_user: root
-  roles:
-    - { role: brianshumate.nomad }
 
   tasks:
+    - name: Nomad role
+      ansible.builtin.include_role:
+        name: ansible-community.nomad
+
     - name: Start nomad
-      service: name=nomad state=started enabled=yes
+      ansible.builtin.service:
+        name: nomad
+        state: started
+        enabled: true

@@ -1,32 +1,37 @@
-- block:
-    - block:
+---
+- name: Configure encryption
+  no_log: true
+  block:
+    - name: Check for gossip encryption key
+      when:
+        - nomad_encrypt is not defined
+      block:
         - name: Check for server configuration
-          stat:
+          ansible.builtin.stat:
             path: "{{ nomad_config_dir }}/server.hcl"
           register: server_config_state
           ignore_errors: true
 
-        - block:
-            - name: Check for gossip encryption key on previously boostrapped server
-              shell: grep encrypt {{ nomad_config_dir }}/server.hcl | awk '{print $3}' | sed -e 's/^"//' -e 's/"$//'
+        - name: Get encryption key
+          when:
+            - server_config_state.stat.exists | bool
+          no_log: true
+          block:
+            - name: Check for gossip encryption key on previously boostrapped server # noqa no-changed-when
+              ansible.builtin.shell: grep encrypt {{ nomad_config_dir }}/server.hcl | awk '{print $3}' | sed -e 's/^"//' -e 's/"$//'
               register: nomad_raw_key_result
               ignore_errors: true
 
             - name: Save gossip encryption key from existing configuration
-              set_fact:
+              ansible.builtin.set_fact:
                 nomad_encrypt: "{{ nomad_raw_key_result.stdout }}"
-          no_log: true
-          when:
-            - server_config_state.stat.exists | bool
-      when:
-        - nomad_encrypt is not defined
 
-      # Key provided by extra vars or the above block
+    # Key provided by extra vars or the above block
     - name: Write gossip encryption key locally for use with new servers
-      copy:
+      ansible.builtin.copy:
         content: "{{ nomad_encrypt }}"
-        dest: '/tmp/nomad_raw.key'
-        mode: 0600
+        dest: /tmp/nomad_raw.key
+        mode: "0600"
       become: false
       vars:
         ansible_become: false
@@ -35,40 +40,46 @@
       changed_when: false
       when: nomad_encrypt is defined
 
-      # Generate new key if none was found
-    - block:
-        - name: Generate gossip encryption key
-          shell: "nomad operator keygen"
+    - name: Generate new key if none was found
+      when:
+        - lookup('first_found', dict(files=['/tmp/nomad_raw.key'], skip=true)) | ternary(false, true)
+        - not server_config_state.stat.exists | bool
+      no_log: true
+      run_once: true
+      block:
+        - name: Generate gossip encryption key # noqa no-changed-when
+          ansible.builtin.command:
+            cmd: nomad operator keygen
+          when: nomad_version is version('1.4.0', '<')
+          register: nomad_keygen
+        - name: Generate gossip encryption key # noqa no-changed-when
+          ansible.builtin.command:
+            cmd: nomad operator gossip keyring generate
+          when: nomad_version is version('1.4.0', '>=')
           register: nomad_keygen
 
         - name: Write key locally to share with other nodes
-          copy:
+          ansible.builtin.copy:
             content: "{{ nomad_keygen.stdout }}"
-            dest: '/tmp/nomad_raw.key'
-            mode: 0600
+            dest: /tmp/nomad_raw.key
+            mode: "0600"
           become: false
           vars:
             ansible_become: false
           delegate_to: localhost
-      no_log: true
-      run_once: true
-      when:
-      - lookup('first_found', dict(files=['/tmp/nomad_raw.key'], skip=true)) | ternary(false, true)
-      - not server_config_state.stat.exists | bool
 
     - name: Read gossip encryption key for servers that require it
-      set_fact:
+      ansible.builtin.set_fact:
         nomad_encrypt: "{{ lookup('file', '/tmp/nomad_raw.key') }}"
       no_log: true
       when:
-      - nomad_encrypt is not defined
+        - nomad_encrypt is not defined
 
     - name: Delete gossip encryption key file
-      file:
-        path: '/tmp/nomad_raw.key'
+      ansible.builtin.file:
+        path: /tmp/nomad_raw.key
         state: absent
       run_once: true
       delegate_to: localhost
       changed_when: false
       become: false
-  no_log: true

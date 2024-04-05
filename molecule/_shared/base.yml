@@ -1,0 +1,34 @@
+---
+scenario:
+  test_sequence:
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - verify
+    - destroy
+dependency:
+  name: galaxy
+driver:
+  name: docker
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      deprecation_warnings: false
+      callback_whitelist: timer,profile_tasks
+      fact_caching: jsonfile
+      fact_caching_connection: ./cache
+      forks: 100
+    connection:
+      pipelining: true
+  playbooks:
+    prepare: ../_shared/prepare.yml
+    converge: ../_shared/converge.yml
+  inventory:
+    group_vars:
+      nomad_instances:
+        nomad_node_role: both
+verifier:
+  name: ansible
