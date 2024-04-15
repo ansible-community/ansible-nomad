@@ -15,7 +15,7 @@
   ansible.builtin.setup:
   delegate_to: "{{ item }}"
   delegate_facts: true
-  with_items: "{{ nomad_servers | difference(play_hosts) }}"
+  with_items: "{{ nomad_servers | difference(ansible_play_hosts) }}"
   ignore_errors: true
   when: nomad_gather_server_facts | bool
 
