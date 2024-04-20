@@ -589,8 +589,19 @@ in many Ansible versions, so this feature might not always work.
 
 ### `nomad_vault_create_from_role`
 
-- Role to create tokens from
+- Role to create tokens from, is is a legacy setting since the prefered way to configuring it is using workload identity.
 - Default value: **""**
+
+### `nomad_vault_default_identity`
+
+- Authenticate using a JWT aud bound policy, this is the prefered way of linking nomad to vault, see the [docs](https://developer.hashicorp.com/nomad/tutorials/integrate-vault/vault-acl)
+  To use this config set it to `vault.io` for example, default is it disabled.
+- Default value: **""**
+
+### `nomad_vault_default_identity_ttl`
+
+- Optional value for the TTL of the default identity
+- Default value: **1h**
 
 ### `nomad_vault_ca_file`
 

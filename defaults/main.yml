@@ -169,6 +169,8 @@ nomad_vault_enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default('no', tr
 nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 nomad_vault_allow_unauthenticated: true
 nomad_vault_create_from_role: ""
+nomad_vault_default_identity: ""
+nomad_vault_default_identity_ttl: "1h"
 nomad_vault_task_token_ttl: ""
 nomad_vault_ca_file: ""
 nomad_vault_ca_path: ""
