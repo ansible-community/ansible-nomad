@@ -7,10 +7,15 @@ disable_update_check = {{ nomad_disable_update_check | bool | lower }}
 
 
 bind_addr = "{{ nomad_bind_address }}"
+addresses {
+    http = "{{ nomad_bind_address_http }}"
+    rpc = "{{ nomad_bind_address_rpc }}"
+    serf = "{{ nomad_bind_address_serf }}"
+}
 advertise {
-    http = "{{ nomad_advertise_address }}:{{ nomad_ports.http }}"
-    rpc = "{{ nomad_advertise_address }}:{{ nomad_ports.rpc }}"
-    serf = "{{ nomad_advertise_address }}:{{ nomad_ports.serf }}"
+    http = "{{ nomad_advertise_address_http }}:{{ nomad_ports.http }}"
+    rpc = "{{ nomad_advertise_address_rpc }}:{{ nomad_ports.rpc }}"
+    serf = "{{ nomad_advertise_address_serf }}:{{ nomad_ports.serf }}"
 }
 ports {
     http = {{ nomad_ports['http'] }}

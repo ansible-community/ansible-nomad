@@ -81,6 +81,9 @@ nomad_region: global
 nomad_log_level: INFO
 nomad_syslog_enable: true
 nomad_iface: "{{ lookup('env', 'NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_iface_http: "{{ lookup('env', 'NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_iface_rpc: "{{ lookup('env', 'NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_iface_serf: "{{ lookup('env', 'NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env', 'NOMAD_NODE_ROLE') | default('client', true) }}"
 nomad_leave_on_terminate: true
@@ -131,7 +134,16 @@ nomad_plugins: {}
 nomad_template_config: {}
 ### Addresses
 nomad_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
+
+nomad_bind_address_http: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_http]['ipv4']['address'] }}"
+nomad_bind_address_rpc: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_rpc]['ipv4']['address'] }}"
+nomad_bind_address_serf: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_serf]['ipv4']['address'] }}"
+
 nomad_advertise_address: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface]['ipv4']['address'] }}"
+
+nomad_advertise_address_http: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_http]['ipv4']['address'] }}"
+nomad_advertise_address_rpc: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_rpc]['ipv4']['address'] }}"
+nomad_advertise_address_serf: "{{ hostvars[inventory_hostname]['ansible_' + nomad_iface_serf]['ipv4']['address'] }}"
 
 ### Ports
 nomad_ports:
