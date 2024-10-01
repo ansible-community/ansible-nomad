@@ -11,9 +11,8 @@
 
 - name: Check CNI package checksum file
   ansible.builtin.stat:
-    path: "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"
+    path: "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"
   become: false
-  run_once: true
   tags: installation
   register: nomad_cni_checksum
   delegate_to: 127.0.0.1
@@ -21,10 +20,9 @@
 - name: Get Nomad CNI package checksum file
   ansible.builtin.get_url:
     url: "{{ nomad_cni_checksum_file_url }}"
-    dest: "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"
+    dest: "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"
     mode: "0640"
   become: false
-  run_once: true
   tags: installation
   when: not nomad_cni_checksum.stat.exists
   delegate_to: 127.0.0.1
@@ -32,7 +30,7 @@
 - name: Get Nomad CNI package checksum # noqa no-changed-when
   ansible.builtin.shell: |
     set -o pipefail
-    grep "{{ nomad_cni_pkg }}" "{{ role_path }}/files/nomad_cni_{{ nomad_cni_version }}_SHA256SUMS"  | awk '{print $1}'
+    grep "{{ nomad_cni_pkg }}" "{{ role_path }}/files/{{ nomad_cni_checksum_file }}"  | awk '{print $1}'
   args:
     executable: /bin/bash
   become: false

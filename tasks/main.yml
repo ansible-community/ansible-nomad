@@ -151,7 +151,7 @@
   notify:
     - Restart nomad
 
-- name: Remove custome configuration
+- name: Remove custom configuration
   ansible.builtin.file:
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent
