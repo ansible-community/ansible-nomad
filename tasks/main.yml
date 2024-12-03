@@ -37,6 +37,12 @@
 - name: Install OS packages
   ansible.builtin.include_tasks:
     file: install.yml
+  when: not nomad_install_from_repo | bool
+
+- name: Install from repo
+  ansible.builtin.include_tasks:
+    file: install_linux_repo.yml
+  when: nomad_install_from_repo | bool
 
 - name: Disable SELinux (RHEL)
   ansible.builtin.include_tasks:
@@ -95,6 +101,16 @@
     file: tls.yml
   when: nomad_tls_enable | bool
 
+- name: Remove default configuration
+  file:
+    dest: "{{ nomad_config_dir }}/nomad.hcl"
+    state: absent
+  when:
+    - nomad_allow_purge_config | bool
+    - nomad_install_from_repo | bool
+  notify:
+    - restart nomad
+
 - name: Server configuration
   ansible.builtin.template:
     src: server.hcl.j2
@@ -151,7 +167,7 @@
   notify:
     - Restart nomad
 
-- name: Remove custome configuration
+- name: Remove custom configuration
   ansible.builtin.file:
     dest: "{{ nomad_config_dir }}/custom.json"
     state: absent
@@ -183,31 +199,37 @@
     mode: "0755"
   when: not ansible_service_mgr == "systemd" and ansible_os_family == "Debian"
 
-- name: Extract systemd version
-  ansible.builtin.shell:
-    cmd: set -o pipefail && systemctl --version systemd | head -n 1 | cut -d ' ' -f2
-  args:
-    executable: /bin/bash
-  changed_when: false
-  check_mode: false
-  register: systemd_version
+- block:
+  - name: Extract systemd version
+    ansible.builtin.shell:
+      cmd: set -o pipefail && systemctl --version systemd | head -n 1 | cut -d ' ' -f2
+    args:
+      executable: /bin/bash
+    changed_when: false
+    check_mode: false
+    register: systemd_version
+    when:
+      - ansible_service_mgr == "systemd"
+      - not ansible_os_family == "FreeBSD"
+      - not ansible_os_family == "Solaris"
+    tags: skip_ansible_lint
+
+  - name: Create systemd unit
+    ansible.builtin.template:
+      src: "{{ nomad_systemd_template }}"
+      dest: "{{ nomad_systemd_unit_path }}/nomad.service"
+      owner: root
+      group: root
+      mode: "0644"
+    notify:
+      - Reload systemd daemon
+      - Enable nomad at startup (systemd)
+    when: ansible_service_mgr == "systemd"
+
   when:
     - ansible_service_mgr == "systemd"
-    - not ansible_os_family == "FreeBSD"
-    - not ansible_os_family == "Solaris"
-  tags: skip_ansible_lint
-
-- name: Create systemd unit
-  ansible.builtin.template:
-    src: "{{ nomad_systemd_template }}"
-    dest: "{{ nomad_systemd_unit_path }}/nomad.service"
-    owner: root
-    group: root
-    mode: "0644"
-  notify:
-    - Reload systemd daemon
-    - Enable nomad at startup (systemd)
-  when: ansible_service_mgr == "systemd"
+    # Repo install includes systemd files
+    - not nomad_install_from_repo
 
 - name: Start Nomad
   ansible.builtin.service:
