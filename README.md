@@ -637,6 +637,41 @@ in many Ansible versions, so this feature might not always work.
 - Vault namespace used by nomad
 - Default value: **""**
 
+### `nomad_vault_identity_enabled`
+
+- Vault identity enabled will be used by nomad. Mandatory since 1.10. Will only be installed on servers.
+- Default value: **true**
+
+### `nomad_vault_identity_auth_method`
+
+- Vault identity auth method used by nomad. Will only be installed on servers.
+- Default value: **jwt**
+
+### `nomad_vault_identity_auth_path`
+
+- Vault identity auth path used by nomad. Will only be installed on servers.
+- Default value: **jwt-auth**
+
+### `nomad_vault_identity_auth_default_aud`
+
+- Vault identity auth aud used by nomad. Will only be installed on servers.
+- Default value: **nomad.staging.4flow-software.com**
+
+### `nomad_vault_identity_auth_default_ttl`
+
+- Vault identity auth default ttl used by nomad. Will only be installed on servers.
+- Default value: **1h**
+
+### `nomad_vault_identity_auth_default_env`
+
+- Specify whether the identity JWT may be include in job environment. Will only be installed on servers.
+- Default value: **false**
+
+### `nomad_vault_identity_auth_default_file`
+
+- Specify whether the identity JWT may be include in job as file. Will only be installed on servers.
+- Default value: **false**
+
 ### `nomad_docker_enable`
 
 - Enable docker

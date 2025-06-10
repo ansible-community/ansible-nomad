@@ -180,6 +180,14 @@ nomad_vault_tls_skip_verify: false
 nomad_vault_token: ""
 nomad_vault_namespace: ""
 
+nomad_vault_identity_enabled: true
+nomad_vault_identity_auth_method: "jwt"
+nomad_vault_identity_auth_path: "jwt"
+nomad_vault_identity_auth_default_aud: ""
+nomad_vault_identity_auth_default_ttl: "1h"
+nomad_vault_identity_auth_default_env: false
+nomad_vault_identity_auth_default_file: false
+
 ### Docker
 nomad_docker_enable: "{{ lookup('env', 'NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_docker_dmsetup: true
