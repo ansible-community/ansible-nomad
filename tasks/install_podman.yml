@@ -18,6 +18,10 @@
   become: false
   run_once: true
   tags: installation
+  register: download_result
+  retries: 6
+  delay: 10
+  until: download_result is succeeded
   when: not nomad_podman_checksum.stat.exists
   delegate_to: 127.0.0.1
 
@@ -48,6 +52,10 @@
     timeout: "42"
   become: false
   tags: installation
+  register: download_result
+  retries: 6
+  delay: 10
+  until: download_result is succeeded
   delegate_to: 127.0.0.1
   when: not nomad_podman_package.stat.exists
 

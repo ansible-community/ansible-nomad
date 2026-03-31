@@ -32,6 +32,10 @@
   become: false
   run_once: true
   tags: installation
+  register: download_result
+  retries: 6
+  delay: 10
+  until: download_result is succeeded
   when: not nomad_checksum.stat.exists
   delegate_to: 127.0.0.1
 
@@ -63,6 +67,10 @@
   become: false
   tags: installation
   delegate_to: 127.0.0.1
+  register: download_result
+  retries: 6
+  delay: 10
+  until: download_result is succeeded
   when: not nomad_package.stat.exists
 
 - name: Create Temporary Directory for Extraction
