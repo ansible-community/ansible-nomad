@@ -1,9 +1,12 @@
 ---
-- name: Create volume {{ item['name'] }}
+
+- name: Create volume directories
   ansible.builtin.file:
-    path: "{{ item['path'] }}"
-    owner: "{{ item['owner'] | default(nomad_user) }}"
-    group: "{{ item['group'] | default(nomad_group) }}"
-    state: "{{ item['state'] | default('directory') }}"
-    mode: "{{ item['mode'] | default('0755') }}"
-  with_items: "{{ nomad_host_volumes }}"
+    path: "{{ item.path }}"
+    owner: "{{ item.owner | default(nomad_user) }}"
+    group: "{{ item.group | default(nomad_group) }}"
+    state: "{{ item.state | default('directory') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  loop: "{{ nomad_host_volumes | default([]) }}"
+  loop_control:
+    label: "{{ item.name | default(item.path) }}"

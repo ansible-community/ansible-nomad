@@ -54,7 +54,7 @@ client {
     }
 {% endfor %}
 
-    {% if nomad_chroot_env != False -%}
+    {% if nomad_chroot_env is mapping and nomad_chroot_env | length > 0 -%}
     chroot_env = {
     {% for key, value in nomad_chroot_env.items() %}
     "{{ key }}" = "{{ value }}"
