@@ -3,6 +3,7 @@
 - Add host_volume for nomad client (thanks @ducminhle)
 - Update CONTRIBUTORS
 - Update documentation
+- Add support for vault identity instead of using a vault_token
 
 ## 1.9.5
 
