@@ -50,6 +50,12 @@
         - name: Generate gossip encryption key # noqa no-changed-when
           ansible.builtin.command:
             cmd: nomad operator keygen
+          when: nomad_version is version('1.4.0', '<')
+          register: nomad_keygen
+        - name: Generate gossip encryption key # noqa no-changed-when
+          ansible.builtin.command:
+            cmd: nomad operator gossip keyring generate
+          when: nomad_version is version('1.4.0', '>=')
           register: nomad_keygen
 
         - name: Write key locally to share with other nodes

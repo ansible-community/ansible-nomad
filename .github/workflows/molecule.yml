@@ -12,6 +12,8 @@ jobs:
       max-parallel: 4
       matrix:
         scenario:
+          - almalinux-8
+          - almalinux-9
           - centos-7
           - centos-8-stream
           - centos-9-stream
